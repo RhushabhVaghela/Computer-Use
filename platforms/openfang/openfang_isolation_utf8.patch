@@ -1,0 +1,194 @@
+﻿diff --git a/crates/openfang-api/static/index_body.html b/crates/openfang-api/static/index_body.html
+index 190657d..b4a399f 100644
+--- a/crates/openfang-api/static/index_body.html
++++ b/crates/openfang-api/static/index_body.html
+@@ -2823,10 +2823,9 @@ args = ["-y", "@modelcontextprotocol/server-filesystem", "/path"]</pre>
+             </div>
+           </template>
+ 
+-          <!-- Activation result toast -->
+           <div x-show="activateResult" x-transition class="info-card" style="position:fixed;bottom:24px;right:24px;z-index:200;max-width:360px" @click="activateResult = null">
+             <div class="flex items-center gap-2">
+-              <span style="color:var(--success);font-size:1.2rem">\u2713</span>
++              <span style="color:var(--success);font-size:1.2rem">&check;</span>
+               <span x-text="activateResult"></span>
+             </div>
+           </div>
+diff --git a/crates/openfang-hands/src/registry.rs b/crates/openfang-hands/src/registry.rs
+index 265e48c..90e6531 100644
+--- a/crates/openfang-hands/src/registry.rs
++++ b/crates/openfang-hands/src/registry.rs
+@@ -9,6 +9,7 @@ use dashmap::DashMap;
+ use openfang_types::agent::AgentId;
+ use serde::Serialize;
+ use std::collections::HashMap;
++use std::path::Path;
+ use tracing::{info, warn};
+ use uuid::Uuid;
+ 
+@@ -71,6 +72,56 @@ impl HandRegistry {
+         count
+     }
+ 
++    /// Load hands from an external directory.
++    /// Scans the directory for subfolders, each containing a HAND.toml and optionally a SKILL.md.
++    pub fn load_external_hands(&mut self, path: &Path) -> HandResult<usize> {
++        if !path.is_dir() {
++            return Ok(0);
++        }
++
++        let mut count = 0;
++        for entry in std::fs::read_dir(path)? {
++            let entry = entry?;
++            let path = entry.path();
++            if path.is_dir() {
++                let id = path
++                    .file_name()
++                    .and_then(|n| n.to_str())
++                    .unwrap_or("unknown")
++                    .to_string();
++                let toml_path = path.join("HAND.toml");
++                let skill_path = path.join("SKILL.md");
++
++                if toml_path.exists() {
++                    let toml_content = std::fs::read_to_string(&toml_path)?;
++                    let skill_content = if skill_path.exists() {
++                        std::fs::read_to_string(&skill_path)?
++                    } else {
++                        String::new()
++                    };
++
++                    match bundled::parse_bundled(&id, &toml_content, &skill_content) {
++                        Ok(mut def) => {
++                            // Ensure ID matches folder name if missing/different?
++                            // Actually parse_bundled uses the ID from TOML if present.
++                            // We trust the TOML but the folder name is a good fallback.
++                            if def.id.is_empty() {
++                                def.id = id.clone();
++                            }
++                            info!(hand = %def.id, name = %def.name, path = ?toml_path, "Loaded external hand");
++                            self.definitions.insert(def.id.clone(), def);
++                            count += 1;
++                        }
++                        Err(e) => {
++                            warn!(hand = %id, path = ?toml_path, error = %e, "Failed to parse external hand");
++                        }
++                    }
++                }
++            }
++        }
++        Ok(count)
++    }
++
+     /// List all known hand definitions.
+     pub fn list_definitions(&self) -> Vec<&HandDefinition> {
+         let mut defs: Vec<&HandDefinition> = self.definitions.values().collect();
+diff --git a/crates/openfang-kernel/src/kernel.rs b/crates/openfang-kernel/src/kernel.rs
+index e93105d..30bdf38 100644
+--- a/crates/openfang-kernel/src/kernel.rs
++++ b/crates/openfang-kernel/src/kernel.rs
+@@ -130,7 +130,8 @@ pub struct OpenFangKernel {
+     /// WhatsApp Web gateway child process PID (for shutdown cleanup).
+     pub whatsapp_gateway_pid: Arc<std::sync::Mutex<Option<u32>>>,
+     /// Channel adapters registered at bridge startup (for proactive `channel_send` tool).
+-    pub channel_adapters: dashmap::DashMap<String, Arc<dyn openfang_channels::types::ChannelAdapter>>,
++    pub channel_adapters:
++        dashmap::DashMap<String, Arc<dyn openfang_channels::types::ChannelAdapter>>,
+     /// Weak self-reference for trigger dispatch (set after Arc wrapping).
+     self_handle: OnceLock<Weak<OpenFangKernel>>,
+ }
+@@ -652,6 +653,21 @@ impl OpenFangKernel {
+             info!("Loaded {hand_count} bundled hand(s)");
+         }
+ 
++        // Load external hands from environment variable if set
++        if let Ok(external_path) = std::env::var("OPENFANG_HANDS_PATH") {
++            let path = std::path::Path::new(&external_path);
++            match hand_registry.load_external_hands(path) {
++                Ok(count) => {
++                    if count > 0 {
++                        info!("Loaded {count} external hand(s) from {external_path}");
++                    }
++                }
++                Err(e) => {
++                    warn!("Failed to load external hands from {external_path}: {e}");
++                }
++            }
++        }
++
+         // Initialize extension/integration registry
+         let mut extension_registry =
+             openfang_extensions::registry::IntegrationRegistry::new(&config.home_dir);
+@@ -2252,15 +2268,11 @@ impl OpenFangKernel {
+     /// Switch an agent's model.
+     pub fn set_agent_model(&self, agent_id: AgentId, model: &str) -> KernelResult<()> {
+         // Resolve provider from model catalog so switching models also switches provider
+-        let resolved_provider = self
+-            .model_catalog
+-            .read()
+-            .ok()
+-            .and_then(|catalog| {
+-                catalog
+-                    .find_model(model)
+-                    .map(|entry| entry.provider.clone())
+-            });
++        let resolved_provider = self.model_catalog.read().ok().and_then(|catalog| {
++            catalog
++                .find_model(model)
++                .map(|entry| entry.provider.clone())
++        });
+ 
+         // If catalog lookup failed, try to infer provider from model name prefix
+         let provider = resolved_provider.or_else(|| infer_provider_from_model(model));
+@@ -4113,7 +4125,8 @@ impl OpenFangKernel {
+                 tool_names.join(", ")
+             ));
+         }
+-        summary.push_str("MCP tools are prefixed with mcp_{server}_ and work like regular tools.\n");
++        summary
++            .push_str("MCP tools are prefixed with mcp_{server}_ and work like regular tools.\n");
+         // Add filesystem-specific guidance when a filesystem MCP server is connected
+         let has_filesystem = servers.keys().any(|s| s.contains("filesystem"));
+         if has_filesystem {
+@@ -4279,16 +4292,26 @@ fn infer_provider_from_model(model: &str) -> Option<String> {
+         Some("gemini".to_string())
+     } else if lower.starts_with("claude") {
+         Some("anthropic".to_string())
+-    } else if lower.starts_with("gpt") || lower.starts_with("o1") || lower.starts_with("o3") || lower.starts_with("o4") {
++    } else if lower.starts_with("gpt")
++        || lower.starts_with("o1")
++        || lower.starts_with("o3")
++        || lower.starts_with("o4")
++    {
+         Some("openai".to_string())
+-    } else if lower.starts_with("llama") || lower.starts_with("mixtral") || lower.starts_with("qwen") {
++    } else if lower.starts_with("llama")
++        || lower.starts_with("mixtral")
++        || lower.starts_with("qwen")
++    {
+         // These could be on multiple providers; don't infer
+         None
+     } else if lower.starts_with("grok") {
+         Some("xai".to_string())
+     } else if lower.starts_with("deepseek") {
+         Some("deepseek".to_string())
+-    } else if lower.starts_with("mistral") || lower.starts_with("codestral") || lower.starts_with("pixtral") {
++    } else if lower.starts_with("mistral")
++        || lower.starts_with("codestral")
++        || lower.starts_with("pixtral")
++    {
+         Some("mistral".to_string())
+     } else if lower.starts_with("command") || lower.starts_with("embed-") {
+         Some("cohere".to_string())
+@@ -4838,7 +4861,10 @@ impl KernelHandle for OpenFangKernel {
+         };
+ 
+         adapter
+-            .send(&user, openfang_channels::types::ChannelContent::Text(message.to_string()))
++            .send(
++                &user,
++                openfang_channels::types::ChannelContent::Text(message.to_string()),
++            )
+             .await
+             .map_err(|e| format!("Channel send failed: {e}"))?;
+ 

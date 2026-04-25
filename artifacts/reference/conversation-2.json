@@ -1,0 +1,1491 @@
+{
+  "version": "2.0",
+  "title": "open D: drive, then ",
+  "messages": [
+    {
+      "content": "open D: drive, then search for folder whose name has \"movies\", then go in that folder and take a screenshot and save it in my desktop with the name \"task1\"\n\nOnly use Computer-Use MCP to perform this task, no other tools or MCPs are allowed",
+      "createdAt": "2026-03-09T15:39:26.504Z",
+      "id": "msg_YgnfaUKkZakG0I",
+      "role": "user",
+      "updatedAt": "2026-03-09T15:39:26.504Z"
+    },
+    {
+      "createdAt": "2026-03-09T15:39:26.576Z",
+      "id": "msg_TwpcptVNf676Hp",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_YgnfaUKkZakG0I",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:39:37.009Z",
+      "tools": [
+        {
+          "id": "511975180",
+          "type": "mcp",
+          "apiName": "bash",
+          "arguments": "{\"command\":\"cd /run/media/root/D && ls -la\"}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 84.36213991769547,
+        "ttft": 9287,
+        "latency": 9773,
+        "duration": 486,
+        "totalTokens": 16283,
+        "inputTextTokens": 16242,
+        "outputTextTokens": 41,
+        "totalInputTokens": 16242,
+        "totalOutputTokens": 41
+      }
+    },
+    {
+      "content": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd /run/media/root/D && ls -la\nThe system cannot find the path specified.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+      "createdAt": "2026-03-09T15:39:37.453Z",
+      "id": "msg_A8aj4oJUJL8k0l",
+      "parentId": "msg_TwpcptVNf676Hp",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:39:43.732Z",
+      "plugin": {
+        "apiName": "bash",
+        "arguments": "{\"command\":\"cd /run/media/root/D && ls -la\"}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd /run/media/root/D && ls -la\nThe system cannot find the path specified.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd /run/media/root/D && ls -la\nThe system cannot find the path specified.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\""
+        }
+      },
+      "tool_call_id": "511975180"
+    },
+    {
+      "createdAt": "2026-03-09T15:39:44.296Z",
+      "id": "msg_9C4MtbwdNqgSNv",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_A8aj4oJUJL8k0l",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:39:46.027Z",
+      "tools": [
+        {
+          "id": "482212364",
+          "type": "mcp",
+          "apiName": "bash",
+          "arguments": "{\"command\":\"echo \\\"\\\"\"}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 104.10094637223975,
+        "ttft": 864,
+        "latency": 1181,
+        "duration": 317,
+        "totalTokens": 16444,
+        "inputTextTokens": 16411,
+        "outputTextTokens": 33,
+        "totalInputTokens": 16411,
+        "totalOutputTokens": 33
+      }
+    },
+    {
+      "content": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+      "createdAt": "2026-03-09T15:39:46.451Z",
+      "id": "msg_IEmr7UOODBXpSj",
+      "parentId": "msg_9C4MtbwdNqgSNv",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:39:52.770Z",
+      "plugin": {
+        "apiName": "bash",
+        "arguments": "{\"command\":\"echo \\\"\\\"\"}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\""
+        }
+      },
+      "tool_call_id": "482212364"
+    },
+    {
+      "createdAt": "2026-03-09T15:39:53.224Z",
+      "id": "msg_qv3LrLGxa1yUfI",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_IEmr7UOODBXpSj",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:39:54.486Z",
+      "tools": [
+        {
+          "id": "358417757",
+          "type": "mcp",
+          "apiName": "read_screen_ui",
+          "arguments": "{}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 617.6470588235294,
+        "ttft": 725,
+        "latency": 759,
+        "duration": 34,
+        "totalTokens": 16578,
+        "inputTextTokens": 16557,
+        "outputTextTokens": 21,
+        "totalInputTokens": 16557,
+        "totalOutputTokens": 21
+      }
+    },
+    {
+      "content": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:09:58 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶09∶58 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+      "createdAt": "2026-03-09T15:39:54.908Z",
+      "id": "msg_2qigvArKvRZ9VJ",
+      "parentId": "msg_qv3LrLGxa1yUfI",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:40:01.776Z",
+      "plugin": {
+        "apiName": "read_screen_ui",
+        "arguments": "{}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:09:58 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶09∶58 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:09:58 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶09∶58 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements"
+        }
+      },
+      "tool_call_id": "358417757"
+    },
+    {
+      "createdAt": "2026-03-09T15:40:02.231Z",
+      "id": "msg_WLwDrLXt9xpTFt",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_2qigvArKvRZ9VJ",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:40:05.198Z",
+      "tools": [
+        {
+          "id": "331861034",
+          "type": "mcp",
+          "apiName": "bash",
+          "arguments": "{\"command\":\"Start-Explorer 'D:\\\\'\"}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 85.77878103837472,
+        "ttft": 2005,
+        "latency": 2448,
+        "duration": 443,
+        "totalTokens": 19151,
+        "inputTextTokens": 19113,
+        "outputTextTokens": 38,
+        "totalInputTokens": 19113,
+        "totalOutputTokens": 38
+      }
+    },
+    {
+      "content": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>Start-Explorer 'D:\\'\n'Start-Explorer' is not recognized as an internal or external command,\noperable program or batch file.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+      "createdAt": "2026-03-09T15:40:05.658Z",
+      "id": "msg_4Vn4Oh2zzUWEFf",
+      "parentId": "msg_WLwDrLXt9xpTFt",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:40:12.677Z",
+      "plugin": {
+        "apiName": "bash",
+        "arguments": "{\"command\":\"Start-Explorer 'D:\\\\'\"}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>Start-Explorer 'D:\\'\n'Start-Explorer' is not recognized as an internal or external command,\noperable program or batch file.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>Start-Explorer 'D:\\'\n'Start-Explorer' is not recognized as an internal or external command,\noperable program or batch file.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\""
+        }
+      },
+      "tool_call_id": "331861034"
+    },
+    {
+      "createdAt": "2026-03-09T15:40:13.111Z",
+      "id": "msg_hDUTVgsAx7tIaS",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_4Vn4Oh2zzUWEFf",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:40:14.970Z",
+      "tools": [
+        {
+          "id": "104715409",
+          "type": "mcp",
+          "apiName": "mouse_click",
+          "arguments": "{\"coordinate\":[683,510]}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 81.34920634920636,
+        "ttft": 836,
+        "latency": 1340,
+        "duration": 504,
+        "totalTokens": 19332,
+        "inputTextTokens": 19291,
+        "outputTextTokens": 41,
+        "totalInputTokens": 19291,
+        "totalOutputTokens": 41
+      }
+    },
+    {
+      "content": "Action completed.\n[Screenshot successfully captured]",
+      "createdAt": "2026-03-09T15:40:15.431Z",
+      "id": "msg_ZgDSiTJ3SsyL17",
+      "parentId": "msg_hDUTVgsAx7tIaS",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:40:22.899Z",
+      "plugin": {
+        "apiName": "mouse_click",
+        "arguments": "{\"coordinate\":[683,510]}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Action completed.\n[Screenshot successfully captured]",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Action completed.\n[Screenshot successfully captured]"
+        }
+      },
+      "tool_call_id": "104715409"
+    },
+    {
+      "createdAt": "2026-03-09T15:40:23.311Z",
+      "id": "msg_Q8309wxHPHowyB",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_ZgDSiTJ3SsyL17",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:40:24.938Z",
+      "tools": [
+        {
+          "id": "961862198",
+          "type": "mcp",
+          "apiName": "bash",
+          "arguments": "{\"command\":\"Start-SnippingTool\"}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 96.2566844919786,
+        "ttft": 762,
+        "latency": 1136,
+        "duration": 374,
+        "totalTokens": 19394,
+        "inputTextTokens": 19358,
+        "outputTextTokens": 36,
+        "totalInputTokens": 19358,
+        "totalOutputTokens": 36
+      }
+    },
+    {
+      "content": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>Start-SnippingTool\n'Start-SnippingTool' is not recognized as an internal or external command,\noperable program or batch file.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+      "createdAt": "2026-03-09T15:40:25.537Z",
+      "id": "msg_DlOdjH7KfAMPxL",
+      "parentId": "msg_Q8309wxHPHowyB",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:40:32.711Z",
+      "plugin": {
+        "apiName": "bash",
+        "arguments": "{\"command\":\"Start-SnippingTool\"}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>Start-SnippingTool\n'Start-SnippingTool' is not recognized as an internal or external command,\noperable program or batch file.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>Start-SnippingTool\n'Start-SnippingTool' is not recognized as an internal or external command,\noperable program or batch file.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\""
+        }
+      },
+      "tool_call_id": "961862198"
+    },
+    {
+      "createdAt": "2026-03-09T15:40:33.394Z",
+      "id": "msg_pnqeR6pRoYzUI0",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_DlOdjH7KfAMPxL",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:40:35.291Z",
+      "tools": [
+        {
+          "id": "799802186",
+          "type": "mcp",
+          "apiName": "bash",
+          "arguments": "{\"command\":\"cd D:\\\\ && dir | findstr /i \\\"movies\\\"\"}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 72.01309328968904,
+        "ttft": 764,
+        "latency": 1375,
+        "duration": 611,
+        "totalTokens": 19578,
+        "inputTextTokens": 19534,
+        "outputTextTokens": 44,
+        "totalInputTokens": 19534,
+        "totalOutputTokens": 44
+      }
+    },
+    {
+      "content": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd D:\\ && dir | findstr /i \"movies\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+      "createdAt": "2026-03-09T15:40:35.738Z",
+      "id": "msg_sX3JWl0DPqJVSu",
+      "parentId": "msg_pnqeR6pRoYzUI0",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:40:42.667Z",
+      "plugin": {
+        "apiName": "bash",
+        "arguments": "{\"command\":\"cd D:\\\\ && dir | findstr /i \\\"movies\\\"\"}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd D:\\ && dir | findstr /i \"movies\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd D:\\ && dir | findstr /i \"movies\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\""
+        }
+      },
+      "tool_call_id": "799802186"
+    },
+    {
+      "createdAt": "2026-03-09T15:40:43.112Z",
+      "id": "msg_WRLKkGx5TEmPvn",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_sX3JWl0DPqJVSu",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:40:44.908Z",
+      "tools": [
+        {
+          "id": "874099571",
+          "type": "mcp",
+          "apiName": "bash",
+          "arguments": "{\"command\":\"cd /home/rhushabh && ls\"}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 79.20792079207921,
+        "ttft": 808,
+        "latency": 1313,
+        "duration": 505,
+        "totalTokens": 19740,
+        "inputTextTokens": 19700,
+        "outputTextTokens": 40,
+        "totalInputTokens": 19700,
+        "totalOutputTokens": 40
+      }
+    },
+    {
+      "content": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd /home/rhushabh && ls\nThe system cannot find the path specified.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+      "createdAt": "2026-03-09T15:40:45.350Z",
+      "id": "msg_qUSbzRM6f7Sw8M",
+      "parentId": "msg_WRLKkGx5TEmPvn",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:40:51.755Z",
+      "plugin": {
+        "apiName": "bash",
+        "arguments": "{\"command\":\"cd /home/rhushabh && ls\"}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd /home/rhushabh && ls\nThe system cannot find the path specified.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd /home/rhushabh && ls\nThe system cannot find the path specified.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\""
+        }
+      },
+      "tool_call_id": "874099571"
+    },
+    {
+      "createdAt": "2026-03-09T15:40:52.210Z",
+      "id": "msg_eWEPxU9p8eA4UH",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_qUSbzRM6f7Sw8M",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:40:54.508Z",
+      "tools": [
+        {
+          "id": "427444496",
+          "type": "mcp",
+          "apiName": "bash",
+          "arguments": "{\"command\":\"cd C:\\\\Users\\\\Rhushabh\\\\.config\\\\user\\\\.config\\\\user\\\\documents && dir /b /a-d */ | findstr /i \\\"movies\\\"\"}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 60.24096385542169,
+        "ttft": 724,
+        "latency": 1803,
+        "duration": 1079,
+        "totalTokens": 19932,
+        "inputTextTokens": 19867,
+        "outputTextTokens": 65,
+        "totalInputTokens": 19867,
+        "totalOutputTokens": 65
+      }
+    },
+    {
+      "content": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd C:\\Users\\Rhushabh\\.config\\user\\.config\\user\\documents && dir /b /a-d */ | findstr /i \"movies\"\nThe system cannot find the path specified.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+      "createdAt": "2026-03-09T15:40:55.013Z",
+      "id": "msg_HbP4DqjzC6oawG",
+      "parentId": "msg_eWEPxU9p8eA4UH",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:41:01.341Z",
+      "plugin": {
+        "apiName": "bash",
+        "arguments": "{\"command\":\"cd C:\\\\Users\\\\Rhushabh\\\\.config\\\\user\\\\.config\\\\user\\\\documents && dir /b /a-d */ | findstr /i \\\"movies\\\"\"}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd C:\\Users\\Rhushabh\\.config\\user\\.config\\user\\documents && dir /b /a-d */ | findstr /i \"movies\"\nThe system cannot find the path specified.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\"",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Microsoft Windows [Version 10.0.26200.7922]\n(c) Microsoft Corporation. All rights reserved.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\n\"\"\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>cd C:\\Users\\Rhushabh\\.config\\user\\.config\\user\\documents && dir /b /a-d */ | findstr /i \"movies\"\nThe system cannot find the path specified.\n\nC:\\Users\\Rhushabh\\AppData\\Local\\Programs\\LobeHub>echo \"\"\"\""
+        }
+      },
+      "tool_call_id": "427444496"
+    },
+    {
+      "createdAt": "2026-03-09T15:41:01.831Z",
+      "id": "msg_iCkwwKR5NB3yvv",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_HbP4DqjzC6oawG",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:41:03.107Z",
+      "tools": [
+        {
+          "id": "602934549",
+          "type": "mcp",
+          "apiName": "read_screen_ui",
+          "arguments": "{}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 437.5,
+        "ttft": 747,
+        "latency": 795,
+        "duration": 48,
+        "totalTokens": 20105,
+        "inputTextTokens": 20084,
+        "outputTextTokens": 21,
+        "totalInputTokens": 20084,
+        "totalOutputTokens": 21
+      }
+    },
+    {
+      "content": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:11:07 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶11∶07 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+      "createdAt": "2026-03-09T15:41:03.620Z",
+      "id": "msg_ZVKcb4aJOGQWJQ",
+      "parentId": "msg_iCkwwKR5NB3yvv",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:41:10.359Z",
+      "plugin": {
+        "apiName": "read_screen_ui",
+        "arguments": "{}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:11:07 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶11∶07 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:11:07 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶11∶07 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements"
+        }
+      },
+      "tool_call_id": "602934549"
+    },
+    {
+      "createdAt": "2026-03-09T15:41:10.826Z",
+      "id": "msg_Q87QWGqCShUc1e",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_ZVKcb4aJOGQWJQ",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:41:13.927Z",
+      "tools": [
+        {
+          "id": "336939225",
+          "type": "mcp",
+          "apiName": "mouse_click",
+          "arguments": "{\"coordinate\":[88,40]}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 79.59183673469387,
+        "ttft": 2035,
+        "latency": 2525,
+        "duration": 490,
+        "totalTokens": 22679,
+        "inputTextTokens": 22640,
+        "outputTextTokens": 39,
+        "totalInputTokens": 22640,
+        "totalOutputTokens": 39
+      }
+    },
+    {
+      "content": "Action completed.\n[Screenshot successfully captured]",
+      "createdAt": "2026-03-09T15:41:14.405Z",
+      "id": "msg_Bst1dgY2DRjgGF",
+      "parentId": "msg_Q87QWGqCShUc1e",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:41:22.472Z",
+      "plugin": {
+        "apiName": "mouse_click",
+        "arguments": "{\"coordinate\":[88,40]}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Action completed.\n[Screenshot successfully captured]",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Action completed.\n[Screenshot successfully captured]"
+        }
+      },
+      "tool_call_id": "336939225"
+    },
+    {
+      "createdAt": "2026-03-09T15:41:22.958Z",
+      "id": "msg_hjjjNMUl2l9Zmu",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_Bst1dgY2DRjgGF",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:41:24.235Z",
+      "tools": [
+        {
+          "id": "728423852",
+          "type": "mcp",
+          "apiName": "read_screen_ui",
+          "arguments": "{}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 656.25,
+        "ttft": 719,
+        "latency": 751,
+        "duration": 32,
+        "totalTokens": 22726,
+        "inputTextTokens": 22705,
+        "outputTextTokens": 21,
+        "totalInputTokens": 22705,
+        "totalOutputTokens": 21
+      }
+    },
+    {
+      "content": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:11:29 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶11∶29 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+      "createdAt": "2026-03-09T15:41:24.703Z",
+      "id": "msg_INkeUXBq3m5veH",
+      "parentId": "msg_hjjjNMUl2l9Zmu",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:41:31.843Z",
+      "plugin": {
+        "apiName": "read_screen_ui",
+        "arguments": "{}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:11:29 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶11∶29 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:11:29 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶11∶29 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements"
+        }
+      },
+      "tool_call_id": "728423852"
+    },
+    {
+      "createdAt": "2026-03-09T15:41:32.332Z",
+      "id": "msg_IUJliXssrlDUAV",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_INkeUXBq3m5veH",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:41:35.492Z",
+      "tools": [
+        {
+          "id": "658562766",
+          "type": "mcp",
+          "apiName": "mouse_click",
+          "arguments": "{\"coordinate\":[88,40]}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 80.08213552361396,
+        "ttft": 2116,
+        "latency": 2603,
+        "duration": 487,
+        "totalTokens": 25300,
+        "inputTextTokens": 25261,
+        "outputTextTokens": 39,
+        "totalInputTokens": 25261,
+        "totalOutputTokens": 39
+      }
+    },
+    {
+      "content": "Action completed.\n[Screenshot successfully captured]",
+      "createdAt": "2026-03-09T15:41:36.154Z",
+      "id": "msg_8i8gcQ7TD05QRq",
+      "parentId": "msg_IUJliXssrlDUAV",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:41:43.698Z",
+      "plugin": {
+        "apiName": "mouse_click",
+        "arguments": "{\"coordinate\":[88,40]}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Action completed.\n[Screenshot successfully captured]",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Action completed.\n[Screenshot successfully captured]"
+        }
+      },
+      "tool_call_id": "658562766"
+    },
+    {
+      "createdAt": "2026-03-09T15:41:44.187Z",
+      "id": "msg_Yrkq4xanJRDGg4",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_8i8gcQ7TD05QRq",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:41:45.452Z",
+      "tools": [
+        {
+          "id": "662796721",
+          "type": "mcp",
+          "apiName": "read_screen_ui",
+          "arguments": "{}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 428.57142857142856,
+        "ttft": 741,
+        "latency": 790,
+        "duration": 49,
+        "totalTokens": 25347,
+        "inputTextTokens": 25326,
+        "outputTextTokens": 21,
+        "totalInputTokens": 25326,
+        "totalOutputTokens": 21
+      }
+    },
+    {
+      "content": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:11:49 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶11∶50 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+      "createdAt": "2026-03-09T15:41:45.925Z",
+      "id": "msg_FdiIPxIDGKLqzR",
+      "parentId": "msg_Yrkq4xanJRDGg4",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:41:52.481Z",
+      "plugin": {
+        "apiName": "read_screen_ui",
+        "arguments": "{}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:11:49 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶11∶50 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:11:49 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶11∶50 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements"
+        }
+      },
+      "tool_call_id": "662796721"
+    },
+    {
+      "createdAt": "2026-03-09T15:41:52.957Z",
+      "id": "msg_0wRb9JZempz0qW",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_FdiIPxIDGKLqzR",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:41:56.027Z",
+      "tools": [
+        {
+          "id": "236268844",
+          "type": "mcp",
+          "apiName": "mouse_click",
+          "arguments": "{\"coordinate\":[170,40]}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 77.0712909441233,
+        "ttft": 2035,
+        "latency": 2554,
+        "duration": 519,
+        "totalTokens": 27922,
+        "inputTextTokens": 27882,
+        "outputTextTokens": 40,
+        "totalInputTokens": 27882,
+        "totalOutputTokens": 40
+      }
+    },
+    {
+      "content": "Action completed.\n[Screenshot successfully captured]",
+      "createdAt": "2026-03-09T15:41:56.459Z",
+      "id": "msg_Qfv9AFYzCETM6V",
+      "parentId": "msg_0wRb9JZempz0qW",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:42:03.468Z",
+      "plugin": {
+        "apiName": "mouse_click",
+        "arguments": "{\"coordinate\":[170,40]}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Action completed.\n[Screenshot successfully captured]",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Action completed.\n[Screenshot successfully captured]"
+        }
+      },
+      "tool_call_id": "236268844"
+    },
+    {
+      "createdAt": "2026-03-09T15:42:03.986Z",
+      "id": "msg_SD1w4WU16jdPRZ",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_Qfv9AFYzCETM6V",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:42:05.342Z",
+      "tools": [
+        {
+          "id": "634078463",
+          "type": "mcp",
+          "apiName": "read_screen_ui",
+          "arguments": "{}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 437.5,
+        "ttft": 720,
+        "latency": 768,
+        "duration": 48,
+        "totalTokens": 27969,
+        "inputTextTokens": 27948,
+        "outputTextTokens": 21,
+        "totalInputTokens": 27948,
+        "totalOutputTokens": 21
+      }
+    },
+    {
+      "content": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:12:09 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶12∶09 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+      "createdAt": "2026-03-09T15:42:05.835Z",
+      "id": "msg_B56Fcp00CPfvJi",
+      "parentId": "msg_SD1w4WU16jdPRZ",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:42:12.012Z",
+      "plugin": {
+        "apiName": "read_screen_ui",
+        "arguments": "{}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:12:09 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶12∶09 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:12:09 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶12∶09 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements"
+        }
+      },
+      "tool_call_id": "634078463"
+    },
+    {
+      "createdAt": "2026-03-09T15:42:12.659Z",
+      "id": "msg_SFVQyNgGXmG4Eq",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_B56Fcp00CPfvJi",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:42:16.213Z",
+      "tools": [
+        {
+          "id": "612935800",
+          "type": "mcp",
+          "apiName": "mouse_double_click",
+          "arguments": "{\"coordinate\":[80,155]}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 78.9980732177264,
+        "ttft": 2302,
+        "latency": 2821,
+        "duration": 519,
+        "totalTokens": 30545,
+        "inputTextTokens": 30504,
+        "outputTextTokens": 41,
+        "totalInputTokens": 30504,
+        "totalOutputTokens": 41
+      }
+    },
+    {
+      "content": "Action completed.\n[Screenshot successfully captured]",
+      "createdAt": "2026-03-09T15:42:16.630Z",
+      "id": "msg_0Um9alXKYLBX4V",
+      "parentId": "msg_SFVQyNgGXmG4Eq",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:42:24.379Z",
+      "plugin": {
+        "apiName": "mouse_double_click",
+        "arguments": "{\"coordinate\":[80,155]}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Action completed.\n[Screenshot successfully captured]",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Action completed.\n[Screenshot successfully captured]"
+        }
+      },
+      "tool_call_id": "612935800"
+    },
+    {
+      "createdAt": "2026-03-09T15:42:25.068Z",
+      "id": "msg_cr0KFtAxjAM27G",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_0Um9alXKYLBX4V",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:42:26.530Z",
+      "tools": [
+        {
+          "id": "495245573",
+          "type": "mcp",
+          "apiName": "read_screen_ui",
+          "arguments": "{}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 636.3636363636364,
+        "ttft": 660,
+        "latency": 693,
+        "duration": 33,
+        "totalTokens": 30592,
+        "inputTextTokens": 30571,
+        "outputTextTokens": 21,
+        "totalInputTokens": 30571,
+        "totalOutputTokens": 21
+      }
+    },
+    {
+      "content": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:12:31 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶12∶31 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+      "createdAt": "2026-03-09T15:42:27.208Z",
+      "id": "msg_SXlaCRDIiKOf0p",
+      "parentId": "msg_cr0KFtAxjAM27G",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:42:33.362Z",
+      "plugin": {
+        "apiName": "read_screen_ui",
+        "arguments": "{}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:12:31 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶12∶31 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:12:31 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶12∶31 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements"
+        }
+      },
+      "tool_call_id": "495245573"
+    },
+    {
+      "createdAt": "2026-03-09T15:42:33.878Z",
+      "id": "msg_csLiu5sRDmZgIc",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_SXlaCRDIiKOf0p",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:42:37.398Z",
+      "tools": [
+        {
+          "id": "989476004",
+          "type": "mcp",
+          "apiName": "mouse_click",
+          "arguments": "{\"coordinate\":[683,340]}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 74.27536231884058,
+        "ttft": 2264,
+        "latency": 2816,
+        "duration": 552,
+        "totalTokens": 33168,
+        "inputTextTokens": 33127,
+        "outputTextTokens": 41,
+        "totalInputTokens": 33127,
+        "totalOutputTokens": 41
+      }
+    },
+    {
+      "content": "Action completed.\n[Screenshot successfully captured]",
+      "createdAt": "2026-03-09T15:42:38.058Z",
+      "id": "msg_UIDXhgLKG6wd0g",
+      "parentId": "msg_csLiu5sRDmZgIc",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:42:46.997Z",
+      "plugin": {
+        "apiName": "mouse_click",
+        "arguments": "{\"coordinate\":[683,340]}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Action completed.\n[Screenshot successfully captured]",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Action completed.\n[Screenshot successfully captured]"
+        }
+      },
+      "tool_call_id": "989476004"
+    },
+    {
+      "createdAt": "2026-03-09T15:42:47.639Z",
+      "id": "msg_PRMLZtaXG7nnFf",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_UIDXhgLKG6wd0g",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:42:49.133Z",
+      "tools": [
+        {
+          "id": "478357335",
+          "type": "mcp",
+          "apiName": "read_screen_ui",
+          "arguments": "{}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 437.5,
+        "ttft": 682,
+        "latency": 730,
+        "duration": 48,
+        "totalTokens": 33215,
+        "inputTextTokens": 33194,
+        "outputTextTokens": 21,
+        "totalInputTokens": 33194,
+        "totalOutputTokens": 21
+      }
+    },
+    {
+      "content": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:12:53 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶12∶53 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+      "createdAt": "2026-03-09T15:42:49.688Z",
+      "id": "msg_MXDQuTjWj6kro6",
+      "parentId": "msg_PRMLZtaXG7nnFf",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:42:56.015Z",
+      "plugin": {
+        "apiName": "read_screen_ui",
+        "arguments": "{}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:12:53 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶12∶53 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:12:53 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶12∶53 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements"
+        }
+      },
+      "tool_call_id": "478357335"
+    },
+    {
+      "createdAt": "2026-03-09T15:42:56.526Z",
+      "id": "msg_3Xq6rROWIs0GYf",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_MXDQuTjWj6kro6",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:42:59.866Z",
+      "tools": [
+        {
+          "id": "140848464",
+          "type": "mcp",
+          "apiName": "mouse_click",
+          "arguments": "{\"coordinate\":[75,484]}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 75.04690431519701,
+        "ttft": 2311,
+        "latency": 2844,
+        "duration": 533,
+        "totalTokens": 35790,
+        "inputTextTokens": 35750,
+        "outputTextTokens": 40,
+        "totalInputTokens": 35750,
+        "totalOutputTokens": 40
+      }
+    },
+    {
+      "content": "Action completed.\n[Screenshot successfully captured]",
+      "createdAt": "2026-03-09T15:43:00.537Z",
+      "id": "msg_jJ4jFsy8AbKOSK",
+      "parentId": "msg_3Xq6rROWIs0GYf",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:43:08.489Z",
+      "plugin": {
+        "apiName": "mouse_click",
+        "arguments": "{\"coordinate\":[75,484]}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Action completed.\n[Screenshot successfully captured]",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Action completed.\n[Screenshot successfully captured]"
+        }
+      },
+      "tool_call_id": "140848464"
+    },
+    {
+      "createdAt": "2026-03-09T15:43:09.218Z",
+      "id": "msg_ibW8xDO6QAzxYT",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_jJ4jFsy8AbKOSK",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:43:10.672Z",
+      "tools": [
+        {
+          "id": "278032002",
+          "type": "mcp",
+          "apiName": "read_screen_ui",
+          "arguments": "{}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 437.5,
+        "ttft": 706,
+        "latency": 754,
+        "duration": 48,
+        "totalTokens": 35837,
+        "inputTextTokens": 35816,
+        "outputTextTokens": 21,
+        "totalInputTokens": 35816,
+        "totalOutputTokens": 21
+      }
+    },
+    {
+      "content": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:13:15 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶13∶15 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+      "createdAt": "2026-03-09T15:43:11.314Z",
+      "id": "msg_HX1gJ0bmM0VQWS",
+      "parentId": "msg_ibW8xDO6QAzxYT",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:43:17.816Z",
+      "plugin": {
+        "apiName": "read_screen_ui",
+        "arguments": "{}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:13:15 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶13∶15 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:13:15 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶13∶15 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements"
+        }
+      },
+      "tool_call_id": "278032002"
+    },
+    {
+      "createdAt": "2026-03-09T15:43:18.534Z",
+      "id": "msg_4IZxahtv8gN0jG",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_HX1gJ0bmM0VQWS",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:43:21.893Z",
+      "tools": [
+        {
+          "id": "615622537",
+          "type": "mcp",
+          "apiName": "mouse_click",
+          "arguments": "{\"coordinate\":[134,549]}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 76.49253731343283,
+        "ttft": 2300,
+        "latency": 2836,
+        "duration": 536,
+        "totalTokens": 38413,
+        "inputTextTokens": 38372,
+        "outputTextTokens": 41,
+        "totalInputTokens": 38372,
+        "totalOutputTokens": 41
+      }
+    },
+    {
+      "content": "Action completed.\n[Screenshot successfully captured]",
+      "createdAt": "2026-03-09T15:43:22.600Z",
+      "id": "msg_6dDZdnjLMmIeiW",
+      "parentId": "msg_4IZxahtv8gN0jG",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:43:30.566Z",
+      "plugin": {
+        "apiName": "mouse_click",
+        "arguments": "{\"coordinate\":[134,549]}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Action completed.\n[Screenshot successfully captured]",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Action completed.\n[Screenshot successfully captured]"
+        }
+      },
+      "tool_call_id": "615622537"
+    },
+    {
+      "createdAt": "2026-03-09T15:43:31.052Z",
+      "id": "msg_LohfnQpPxmZAk5",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_6dDZdnjLMmIeiW",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:43:32.692Z",
+      "tools": [
+        {
+          "id": "466003890",
+          "type": "mcp",
+          "apiName": "read_screen_ui",
+          "arguments": "{}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 446.80851063829783,
+        "ttft": 861,
+        "latency": 908,
+        "duration": 47,
+        "totalTokens": 38460,
+        "inputTextTokens": 38439,
+        "outputTextTokens": 21,
+        "totalInputTokens": 38439,
+        "totalOutputTokens": 21
+      }
+    },
+    {
+      "content": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:13:37 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶13∶37 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+      "createdAt": "2026-03-09T15:43:33.409Z",
+      "id": "msg_qVdc001ouMeoQN",
+      "parentId": "msg_LohfnQpPxmZAk5",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:43:40.532Z",
+      "plugin": {
+        "apiName": "read_screen_ui",
+        "arguments": "{}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:13:37 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶13∶37 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "[NOTE]: Elements below are detected via OS automation. Internal indices may be present even if the element is OCCLUDED by other windows. ALWAYS VERIFY visibility in the screenshot before clicking.\n\n[M1] [1] Window \"Taskbar\" at (683,751)\n[M1] [3] Pane \"Running applications\" at (416,751)\n[M1] [4] Pane \"DesktopWindowXamlSource\" at (683,751)\n[M1] [5] Button \"Show Hidden Icons\" at (1185,751)\n[M1] [6] Text \"\" at (1185,751)\n[M1] [7] Button \"Tray Input Indicator English (United States)\r\nUS\r\n\r\nTo switc\" at (1212,751)\n[M1] [8] Text \"ENG\r\nUS\" at (1212,751)\n[M1] [9] Button \"Network Airtel_Shashwat\nInternet access\" at (1237,751)\n[M1] [10] Text \"\" at (1239,751)\n[M1] [11] Text \"\" at (1239,751)\n[M1] [12] Button \"Volume Speakers (Realtek(R) Audio): Muted\" at (1256,751)\n[M1] [13] Text \"\" at (1256,751)\n[M1] [14] Button \"Power Battery status: 65% remaining\" at (1276,751)\n[M1] [15] Text \"\" at (1274,751)\n[M1] [16] Text \"\" at (1274,751)\n[M1] [17] Button \"Clock 9:13:37 PM\n‎9/‎3/‎2026\" at (1312,751)\n[M1] [18] Text \"9∶13∶37 PM\" at (1314,745)\n[M1] [19] Text \"‎9/‎3/‎2026\" at (1314,756)\n[M1] [20] Button \"Notifications 2 new notifications\" at (1348,751)\n[M1] [21] Text \"\" at (1346,751)\n[M1] [22] Button \"Show Desktop\" at (1362,751)\n[M1] [22] Window \"open D: drive, then · LobeHub\" at (683,367)\n[M1] [45] Button \"Minimize\" at (1283,13)\n[M1] [46] Button \"Maximize\" at (1316,13)\n[M1] [47] Button \"Close\" at (1349,13)\n[M1] [26] Window \"Desktop and 2 more tabs - File Explorer\" at (683,367)\n[M1] [53] Pane \"Desktop\" at (683,412)\n[M1] [54] Pane \"Explorer Pane\" at (683,412)\n[M1] [55] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [56] Pane \"qwen3.5-9b-tool-use-lora-gguf\" at (683,412)\n[M1] [57] Pane \"Explorer Pane\" at (683,412)\n[M1] [58] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [59] Pane \"Rhushabh\" at (683,412)\n[M1] [60] Pane \"Explorer Pane\" at (683,412)\n[M1] [61] Pane \"Folder Layout Pane\" at (683,412)\n[M1] [62] Button \"Add New Tab\" at (534,12)\n[M1] [63] Button \"Back\" at (19,40)\n[M1] [64] Button \"Forward\" at (53,40)\n[M1] [65] Button \"Up to \"FUN (D:)\" (Alt + Up Arrow)\" at (88,40)\n[M1] [66] Button \"Refresh \"Desktop\" (F5)\" at (122,40)\n[M1] [67] Edit \"Address Bar\" at (570,40)\n[M1] [68] SplitButton \"This PC\" at (170,40)\n[M1] [69] Button \"<Button>\" at (158,40)\n[M1] [70] Button \"<Button>\" at (179,40)\n[M1] [71] Edit \" Search Desktop\" at (1180,40)\n[M1] [72] Button \"New\" at (35,74)\n[M1] [73] Button \"Cut\" at (88,74)\n[M1] [74] Button \"Copy\" at (122,74)\n[M1] [75] Button \"Paste\" at (156,74)\n[M1] [76] Button \"Rename\" at (190,74)\n[M1] [77] Button \"Share\" at (224,74)\n[M1] [78] Button \"Delete\" at (258,74)\n[M1] [79] Button \"Sort\" at (310,74)\n[M1] [80] Button \"View\" at (374,74)\n[M1] [81] Button \"More options\" at (427,74)\n[M1] [82] Button \"Preview\" at (1327,74)\n[M1] [83] MenuBar \"System\" at (8,8)\n[M1] [84] MenuItem \"System\" at (8,8)\n[M1] [85] Button \"Minimize\" at (1282,10)\n[M1] [86] Button \"Restore\" at (1315,10)\n[M1] [87] Button \"Close\" at (1349,10)\n[M1] [62] Window \"Program Manager\" at (1366,384)\n[M1] [125] List \"Desktop\" at (1366,384)\n[M1] [126] ListItem \"Rhushabh Vaghela\" at (26,31)\n[M1] [127] ListItem \"This PC\" at (26,90)\n[M1] [128] ListItem \"Recycle Bin\" at (26,155)\n[M1] [129] ListItem \"Control Panel\" at (27,220)\n[M1] [130] ListItem \"Learn about this picture\" at (26,290)\n[M1] [131] ListItem \"4K Video Downloader+\" at (27,355)\n[M1] [132] ListItem \"Advanced SystemCare\" at (26,420)\n[M1] [133] ListItem \"Codec Tweak Tool\" at (26,484)\n[M1] [134] ListItem \"Driver Booster 13\" at (26,549)\n[M1] [135] ListItem \"EaseUS Data Recovery Wizard\" at (26,614)\n[M1] [136] ListItem \"Everything\" at (26,673)\n[M1] [137] ListItem \"FolderSizes 9\" at (80,26)\n[M1] [138] ListItem \"Google Chrome\" at (80,96)\n[M1] [139] ListItem \"IObit Software Updater\" at (80,161)\n[M1] [140] ListItem \"IObit Uninstaller\" at (80,225)\n[M1] [141] ListItem \"iTop VPN\" at (80,284)\n[M1] [142] ListItem \"Media Player Classic\" at (80,355)\n[M1] [143] ListItem \"Meta Horizon Link\" at (81,420)\n[M1] [144] ListItem \"NVIDIA App\" at (80,479)\n[M1] [145] ListItem \"Ready or Not\" at (80,543)\n[M1] [146] ListItem \"SKYBOX\" at (80,608)\n[M1] [147] ListItem \"Snagit 2023 Editor\" at (80,678)\n[M1] [148] ListItem \"Snagit 2023\" at (134,26)\n[M1] [149] ListItem \"Steam\" at (134,90)\n[M1] [150] ListItem \"Typora\" at (134,155)\n[M1] [151] ListItem \"VMware Workstation Pro\" at (134,225)\n[M1] [152] ListItem \"Wondershare PDFelement\" at (134,290)\n[M1] [153] ListItem \"agents\" at (134,349)\n[M1] [154] ListItem \"1DM+\" at (134,414)\n[M1] [155] ListItem \"7-Zip File Manager\" at (134,484)\n[M1] [156] ListItem \"Aerofly FS 4 Flight Simulator\" at (134,549)\n[M1] [157] ListItem \"AionUi\" at (134,608)\n[M1] [158] ListItem \"Android Settings (WSA)\" at (134,678)\n[M1] [159] ListItem \"Android Sideloader\" at (189,31)\n[M1] [160] ListItem \"Antigravity\" at (189,90)\n[M1] [161] ListItem \"Comet\" at (189,155)\n[M1] [162] ListItem \"computer-use-prompt.txt\" at (189,220)\n... and 41 more elements"
+        }
+      },
+      "tool_call_id": "466003890"
+    },
+    {
+      "createdAt": "2026-03-09T15:43:41.181Z",
+      "id": "msg_AAbZBuVO9Rifla",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_qVdc001ouMeoQN",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:43:58.821Z",
+      "tools": [
+        {
+          "id": "886723570",
+          "type": "mcp",
+          "apiName": "mouse_click",
+          "arguments": "{\"coordinate\":[75,484]}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 44.84304932735426,
+        "ttft": 16163,
+        "latency": 17055,
+        "duration": 892,
+        "totalTokens": 20392,
+        "inputTextTokens": 20352,
+        "outputTextTokens": 40,
+        "totalInputTokens": 20352,
+        "totalOutputTokens": 40
+      }
+    },
+    {
+      "content": "Action completed.\n[Screenshot successfully captured]",
+      "createdAt": "2026-03-09T15:43:59.625Z",
+      "id": "msg_fNNomk72mdKKAL",
+      "parentId": "msg_AAbZBuVO9Rifla",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:44:08.312Z",
+      "plugin": {
+        "apiName": "mouse_click",
+        "arguments": "{\"coordinate\":[75,484]}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Action completed.\n[Screenshot successfully captured]",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Action completed.\n[Screenshot successfully captured]"
+        }
+      },
+      "tool_call_id": "886723570"
+    },
+    {
+      "createdAt": "2026-03-09T15:44:09.030Z",
+      "id": "msg_d9FLPz0gSofdlD",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_fNNomk72mdKKAL",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:44:31.753Z",
+      "tools": [
+        {
+          "id": "102481134",
+          "type": "mcp",
+          "apiName": "mouse_click",
+          "arguments": "{\"coordinate\":[570,250]}",
+          "identifier": "Computer-Use"
+        }
+      ],
+      "metadata": {
+        "tps": 44.711014176663035,
+        "ttft": 20971,
+        "latency": 21888,
+        "duration": 917,
+        "totalTokens": 20393,
+        "inputTextTokens": 20352,
+        "outputTextTokens": 41,
+        "totalInputTokens": 20352,
+        "totalOutputTokens": 41
+      }
+    },
+    {
+      "content": "Action completed.\n[Screenshot successfully captured]",
+      "createdAt": "2026-03-09T15:44:32.261Z",
+      "id": "msg_HJ25AE1Qar1ico",
+      "parentId": "msg_d9FLPz0gSofdlD",
+      "role": "tool",
+      "updatedAt": "2026-03-09T15:44:40.608Z",
+      "plugin": {
+        "apiName": "mouse_click",
+        "arguments": "{\"coordinate\":[570,250]}",
+        "identifier": "Computer-Use",
+        "type": "mcp"
+      },
+      "pluginState": {
+        "content": [
+          {
+            "text": "Action completed.\n[Screenshot successfully captured]",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "result": "Action completed.\n[Screenshot successfully captured]"
+        }
+      },
+      "tool_call_id": "102481134"
+    },
+    {
+      "createdAt": "2026-03-09T15:44:41.140Z",
+      "id": "msg_elPNkHezhCkSiy",
+      "model": "rhushabh/Qwen3.5-9B-Computer-Use-Reasoning",
+      "parentId": "msg_HJ25AE1Qar1ico",
+      "provider": "lmstudio",
+      "role": "assistant",
+      "updatedAt": "2026-03-09T15:45:03.472Z",
+      "tools": [],
+      "metadata": {
+        "tps": 46.263345195729535,
+        "ttft": 20690,
+        "latency": 21533,
+        "duration": 843,
+        "totalTokens": 20391,
+        "inputTextTokens": 20352,
+        "outputTextTokens": 39,
+        "totalInputTokens": 20352,
+        "totalOutputTokens": 39
+      }
+    }
+  ],
+  "exportedAt": "2026-03-09T15:46:07.032Z"
+}

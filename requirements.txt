@@ -1,0 +1,18 @@
+# Core MCP Dependencies
+mcp[cli]
+fastmcp
+uvicorn
+starlette
+python-dotenv
+
+# Computer-Use Dependencies
+pyautogui
+mss
+pillow
+pywin32; platform_system == "Windows"
+uiautomation; platform_system == "Windows"
+playwright
+
+# NOTE: browser-use cannot be installed into this venv because it pins dependencies
+# (rich/typer/psutil/anthropic) that conflict with open-interpreter.
+# Use a separate venv under `../browser-use/.venv` for browser-use.

@@ -1,0 +1,25 @@
+pip install torch==2.10.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130 --no-cache-dir
+
+pip install ipykernel unsloth datasets trl tqdm jupyter
+
+python -m ipykernel install --user --name computer-use --display-name "computer-use"
+
+Test - 
+import torch
+from trl import SFTTrainer, SFTConfig
+from unsloth import FastLanguageModel
+
+print("Torch:", torch.__version__, "CUDA available:", torch.cuda.is_available())
+print("Unsloth import OK 🦥")
+
+
+
+CHECK -
+
+import torch
+print(f"PyTorch version: {torch.__version__}")
+print(f"CUDA available: {torch.cuda.is_available()}")
+if torch.cuda.is_available():
+    print(f"CUDA version: {torch.version.cuda}")
+    print(f"GPU count: {torch.cuda.device_count()}")
+    print(f"Current GPU: {torch.cuda.get_device_name(0)}")

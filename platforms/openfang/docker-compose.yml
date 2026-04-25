@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  openfang-interpreter:
+    build: .
+    container_name: openfang-interpreter-gui
+    ports:
+      - "8080:8080" # NoVNC GUI
+      - "5901:5901" # VNC Direct
+      - "4200:4200" # OpenFang API
+    restart: unless-stopped
+    volumes:
+      # Optional: Map keys and memory to persist data outside the container
+      # - ./openfang_data:/home/user/.config/openfang
+      - ./shared_data:/home/user/workspace

@@ -1,0 +1,3 @@
+# Install browser-use into its own venv (do not install into oi-computer-use-mcp/.venv).
+-e ../browser-use
+
