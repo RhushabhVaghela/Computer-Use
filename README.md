@@ -1,87 +1,243 @@
 # Open Interpreter Computer-Use MCP Server
 
-Standalone MCP server that exposes Open Interpreter computer-use capabilities (screen reading, mouse/keyboard control, and code execution) to MCP clients.
+A standalone **Model Context Protocol (MCP)** server that exposes **Open Interpreter computer-use capabilities** to MCP clients such as Claude Desktop, OpenFang, MCP Inspector, and other compatible hosts.
 
-This repo supports two modes:
-1. Computer-Use mode: `src/server.py` (desktop automation via UIAutomation + mouse/keyboard)
-2. Hybrid mode: `src/hybrid_server.py` (adds `bu_*` browser DOM tools via `browser-use` in a separate venv)
+This project is designed for **real desktop automation**, not just browser scripting. It combines:
 
-## Quick Start (Windows)
+- desktop UI scanning
+- mouse / keyboard control
+- screenshots
+- shell execution
+- browser launch + DOM extraction
+- optional deep browser automation through a separate `browser-use` integration
 
-```bat
-cd oi-computer-use-mcp
-scripts\setup.bat
-copy .env.example .env
-scripts\start.bat --stdio
+***
+
+## Why this project exists
+
+Most MCP integrations stop at filesystem or shell tools. This repository goes further by giving an agent a practical **computer-use surface**:
+
+- inspect what is visible on screen
+- reason over UI elements
+- click, type, drag, and scroll
+- launch and inspect browsers
+- combine desktop actions with browser DOM workflows
+
+It is especially useful when you want an MCP client to automate:
+
+- desktop applications
+- mixed browser + desktop workflows
+- repetitive UI tasks
+- agentic research and execution loops
+- human-visible, interactive automation instead of headless-only scripts
+
+***
+
+## Operating modes
+
+The repository currently provides two primary runtime modes.
+
+| Mode     | Entry point            | Best for                                                     | Notes                                                |
+| -------- | ---------------------- | ------------------------------------------------------------ | ---------------------------------------------------- |
+| Standard | `src/server.py`        | Desktop automation, screenshots, shell, lightweight browser support | Simplest setup path                                  |
+| Hybrid   | `src/hybrid_server.py` | Mixed desktop + richer browser workflows                     | Adds delegated `browser-use` tools via separate venv |
+
+***
+
+## Feature matrix
+
+| Capability                       | Standard mode | Hybrid mode | Notes                              |
+| -------------------------------- | ------------: | ----------: | ---------------------------------- |
+| MCP over stdio                   |           Yes |         Yes | Best for Claude Desktop / OpenFang |
+| MCP over SSE                     |           Yes |         Yes | Legacy-friendly transport          |
+| MCP over HTTP                    |           Yes |         Yes | For HTTP-capable MCP clients       |
+| Desktop screenshots              |           Yes |         Yes | Through `computer`                 |
+| Mouse control                    |           Yes |         Yes | Move, click, drag                  |
+| Keyboard input                   |           Yes |         Yes | Type and key actions               |
+| Scrolling                        |           Yes |         Yes | Desktop interaction                |
+| Desktop UI tree scanning         |           Yes |         Yes | Through `read_screen_ui`           |
+| Shell / command execution        |           Yes |         Yes | Through `bash`                     |
+| File rename utility              |           Yes |         Yes | Through `rename_file`              |
+| Agent loop termination tool      |           Yes |         Yes | Through `terminate_task`           |
+| Browser launch helper            |           Yes |         Yes | Through `browser_action`           |
+| Browser DOM extraction           |           Yes |         Yes | Through `browser_use_dom`          |
+| Delegated `browser-use` tools    |            No |         Yes | `bu_*` tools only in hybrid mode   |
+| Separate browser automation venv |            No |         Yes | Reduces dependency conflicts       |
+
+***
+
+## Architecture
+
+At a high level, the system looks like this:
+
+```text
+MCP Client
+  ├─ Claude Desktop
+  ├─ OpenFang
+  ├─ MCP Inspector
+  └─ Other MCP hosts
+          |
+          v
++-----------------------------------+
+| Open Interpreter Computer-Use MCP |
+|                                   |
+|  Standard server (`src/server.py`) |
+|   ├─ computer                      |
+|   ├─ read_screen_ui                |
+|   ├─ bash                          |
+|   ├─ browser_action                |
+|   ├─ browser_use_dom               |
+|   ├─ rename_file                   |
+|   └─ terminate_task                |
+|                                   |
+|  Hybrid server (`src/hybrid_server.py`) |
+|   ├─ all standard tools            |
+|   └─ bu_* delegated browser tools  |
++-----------------------------------+
+          |
+          +--> Open Interpreter local clone
+          +--> Desktop UI / input automation
+          +--> Browser remote debugging / DOM extraction
+          +--> Optional browser-use subprocess in separate venv
 ```
 
-Hybrid mode:
+### Core components
 
-```bat
-REM 1) Install browser-use into its own venv (required; do not install into this repo's venv)
-python -m venv ..\browser-use\.venv
-..\browser-use\.venv\Scripts\python.exe -m pip install -U pip
-..\browser-use\.venv\Scripts\python.exe -m pip install -r requirements.browser-use.txt
+| Path                       | Purpose                                                      |
+| -------------------------- | ------------------------------------------------------------ |
+| `src/server.py`            | Main MCP server for standard computer-use mode               |
+| `src/hybrid_server.py`     | Hybrid MCP server that layers delegated browser-use tools on top |
+| `src/ui_elements.py`       | UI element discovery / representation utilities              |
+| `src/overlay.py`           | Visual overlay for interaction feedback                      |
+| `scripts/setup.bat`        | Windows setup helper                                         |
+| `scripts/setup.sh`         | Shell setup helper                                           |
+| `scripts/start.bat`        | Windows launch helper                                        |
+| `scripts/start.sh`         | Shell launch helper                                          |
+| `tests/`                   | Smoke tests, coordinate checks, and verification scripts     |
+| `computer-use-finetuning/` | Separate training / experimentation area, not the core MCP runtime |
 
-REM 2) Start the hybrid server
-scripts\start.bat --hybrid --stdio
-```
+***
 
-## Supported Transports
+## Tools exposed
 
-Same flags for both `src/server.py` and `src/hybrid_server.py`:
-- `--stdio` (Claude Desktop, OpenFang, MCP Inspector)
-- `--sse` (legacy clients)
-- `--http` (Streamable HTTP, e.g. LobeHub)
+### Standard mode tools
 
-## Tools (Computer-Use Mode)
+| Tool              | Purpose                                           |
+| ----------------- | ------------------------------------------------- |
+| `computer`        | Mouse, keyboard, scroll, cursor, drag, screenshot |
+| `read_screen_ui`  | Hierarchical UI scan of visible desktop elements  |
+| `bash`            | Shell / code execution                            |
+| `rename_file`     | Rename file operations                            |
+| `terminate_task`  | Explicit task termination signal                  |
+| `browser_action`  | Launch or focus supported browsers                |
+| `browser_use_dom` | Extract browser DOM state for agent reasoning     |
 
-Computer-use tools are exposed as:
-- `computer`: Precise mouse/keyboard control and screenshots.
-- `read_screen_ui`: Hierarchical UI tree for the entire desktop.
-- `bash`: Code and shell command execution.
-- `rename_file`: Direct file operations.
-- `terminate_task`: Final signal to end an agent loop.
-- `browser_action`: Launch Chrome, Edge, Brave, Perplexity Comet, or Firefox with debugging enabled.
-- `browser_use_dom`: Efficient DOM extraction from any running browser (CDP-based).
+### `computer` action surface
 
-### `computer` actions
+| Category   | Actions                                                      |
+| ---------- | ------------------------------------------------------------ |
+| Mouse      | `mouse_move`, `left_click`, `right_click`, `double_click`, `middle_click`, `drag` |
+| Keyboard   | `type`, `key`                                                |
+| Navigation | `scroll`                                                     |
+| Utility    | `cursor_position`, `screenshot`                              |
 
-- Mouse: `mouse_move`, `left_click`, `right_click`, `double_click`, `middle_click`, `drag`
-- Keyboard: `type`, `key`
-- Scroll: `scroll` (positive = down, negative = up; also accepts `up`/`down`)
-- Other: `cursor_position`, `screenshot`
+### Hybrid-only additions
 
-Notes:
-- `read_screen_ui` returns coordinates in screenshot pixels that match the image returned by `computer`.
-- You can click by UI element index using `computer` with `text: "<index>"` for click actions.
+Hybrid mode exposes all standard tools plus delegated browser tools prefixed with `bu_*`, including patterns such as:
 
-## Hybrid Mode (Browser DOM + Desktop)
-
-Hybrid mode exposes everything above plus browser DOM tools prefixed with `bu_*`:
 - `bu_browser_navigate`
 - `bu_browser_get_state`
 - `bu_browser_click`
 - `bu_browser_type`
 - `bu_browser_scroll`
 - `bu_browser_extract_content`
-- plus tab/session helpers (`bu_browser_list_tabs`, etc.)
+- browser tab and session helpers exposed by the delegated browser-use process
 
-Hybrid mode runs `browser-use` out-of-process from `../browser-use/.venv` to avoid dependency conflicts with Open Interpreter.
+***
 
-## MCP Configuration (Claude Desktop / OpenFang)
+## Transports
 
-Add this to your `claude_desktop_config.json` or equivalent MCP client configuration.
+Both runtime modes support the same transport flags.
 
-### Standard Mode
-Best for general desktop automation and fast browser interactions.
+| Flag      | Use case                                                     |
+| --------- | ------------------------------------------------------------ |
+| `--stdio` | Preferred for Claude Desktop, OpenFang, and most local MCP integrations |
+| `--sse`   | Useful for legacy SSE-based clients                          |
+| `--http`  | Useful for streamable HTTP MCP clients                       |
+
+***
+
+## Platform support
+
+This repository is currently **Windows-first** in setup ergonomics and documentation.
+
+### Current state
+
+- Batch setup and start scripts are included for Windows
+- Shell setup and start scripts are also present
+- Environment variables support platform-specific Open Interpreter paths via `OI_PATH_WIN` and `OI_PATH_LINUX`
+- Browser launch and UI automation assumptions are most mature on Windows
+
+### Practical guidance
+
+- If you want the smoothest path, start on Windows first
+- If you are experimenting from WSL or Linux, validate the Open Interpreter path resolution carefully
+- Treat non-Windows usage as possible but worth testing end to end in your own environment
+
+***
+
+## Quick start
+
+### Windows setup
+
+```bat
+git clone https://github.com/RhushabhVaghela/Computer-Use.git
+cd Computer-Use
+scripts\setup.bat
+copy .env.example .env
+```
+
+Start the standard server:
+
+```bat
+scripts\start.bat --stdio
+```
+
+### Hybrid setup
+
+Install `browser-use` in a separate virtual environment. Do **not** mix it into the main environment unless you intentionally want to manage dependency conflicts yourself.
+
+```bat
+python -m venv ..\browser-use\.venv
+..\browser-use\.venv\Scripts\python.exe -m pip install -U pip
+..\browser-use\.venv\Scripts\python.exe -m pip install -r requirements.browser-use.txt
+scripts\start.bat --hybrid --stdio
+```
+
+### Shell-based setup
+
+If you prefer shell scripts, review and adapt:
+
+```bash
+./scripts/setup.sh
+./scripts/start.sh --stdio
+```
+
+***
+
+## MCP client configuration
+
+### Claude Desktop / local stdio
 
 ```json
 {
   "mcpServers": {
     "computer-use": {
-      "command": "d:/Agents-and-other-repos/oi-computer-use-mcp/.venv/Scripts/python.exe",
-      "args": ["d:/Agents-and-other-repos/oi-computer-use-mcp/src/server.py", "--stdio"],
+      "command": "D:/path/to/Computer-Use/.venv/Scripts/python.exe",
+      "args": [
+        "D:/path/to/Computer-Use/src/server.py",
+        "--stdio"
+      ],
       "env": {
         "MCP_AUTO_SCAN_ON_CHANGE": "1"
       }
@@ -90,62 +246,272 @@ Best for general desktop automation and fast browser interactions.
 }
 ```
 
-### Hybrid Mode
-Includes deep DOM tools from `browser-use`. Requires separate installation (see above).
+### Hybrid configuration
 
 ```json
 {
   "mcpServers": {
     "computer-use-hybrid": {
-      "command": "d:/Agents-and-other-repos/oi-computer-use-mcp/.venv/Scripts/python.exe",
-      "args": ["d:/Agents-and-other-repos/oi-computer-use-mcp/src/hybrid_server.py", "--stdio"]
+      "command": "D:/path/to/Computer-Use/.venv/Scripts/python.exe",
+      "args": [
+        "D:/path/to/Computer-Use/src/hybrid_server.py",
+        "--stdio"
+      ]
     }
   }
 }
 ```
 
-## Usage Guide
+### HTTP example
 
-The agent can perform advanced multi-environment tasks using these tools.
+If you want to run the server over HTTP instead of stdio:
 
-### Web Browsing Workflow
-1.  **Launch Browser**: Use `browser_action(url="https://google.com", browser="chrome")`. This starts Chrome, Edge, Brave, or Perplexity Comet with the `--remote-debugging-port=9222` flag.
-2.  **Analyze DOM**: Use `browser_use_dom()`. This extracts a high-quality DOM tree with absolute desktop coordinates mapped for every button and link.
-3.  **Interact**: Use `computer(action="left_click", text="<index>")` with the index from the DOM tree.
+```bash
+python src/server.py --http
+```
 
-### Desktop UI Workflow
-1.  **Scan Desktop**: Use `read_screen_ui()`. This generates a hierarchical tree of all visible windows (Excel, Word, VS Code, etc.).
-2.  **Interact**: Use the provided index to click or type into specific UI elements without needing coordinates.
+Then point your MCP-capable client at the configured host and port.
 
-### Visual Feedback
-The **Mouse Overlay** provides real-time feedback. When the AI moves the mouse or clicks, a modern pill-shaped overlay with a gradient background appears, displaying the AI's current "Thinking" status.
+***
 
-## Repo Layout
+## Example workflows
 
-- `src/`: MCP servers + overlay + UI scanning code
-- `tests/`: smoke tests and accuracy checks
-- `scripts/`: setup/start scripts and LLM runner helpers
-- `logs/`: server logs (default `logs/mcp_server.log`)
+### 1. Browser-assisted desktop workflow
 
-## Environment Variables
+Use this when a task starts in the browser and finishes in a desktop app.
 
-Core:
-- `OI_PATH` (path to your `open-interpreter` clone). You can also use `OI_PATH_WIN` or `OI_PATH_LINUX` for platform-specific overrides.
-- `HOST`, `PORT`
-- `MCP_TOOL_TIMEOUT`
+1. Launch a browser with `browser_action`
+2. Extract page structure with `browser_use_dom`
+3. Click or type using `computer`
+4. Switch to the target desktop application
+5. Scan visible controls with `read_screen_ui`
+6. Continue interaction with `computer`
 
-Verification / scanning:
-- `MCP_AUTO_SCAN_ALWAYS` (set `1` to scan after every `computer` action)
-- `MCP_AUTO_SCAN_ON_CHANGE` (default `1`)
-- `MCP_AUTO_SCAN_MAX_ELEMENTS`
-- `MCP_UI_SCAN_BROWSER_ELEMENT_LIMIT`, `MCP_UI_SCAN_BROWSER_MAX_DEPTH`, `MCP_UI_SCAN_BROWSER_ACTIVE_ONLY`
+### 2. Desktop-only workflow
 
-Overlay / input tuning:
-- `MCP_MOVE_DURATION_MS`
-- `MCP_OVERLAY_MIN_HOLD_MS`
-- `MCP_OVERLAY_FADE_MS`
-- `MCP_TYPE_INTERVAL_SEC`
+Use this for local application automation.
 
-Hybrid:
-- `BROWSER_USE_PYTHON` (override python used to start browser-use MCP server)
-- `BROWSER_USE_HEADLESS` (default profile is headless=false; keep `0` for visible browser)
+1. Call `read_screen_ui`
+2. Inspect the returned hierarchy / indices
+3. Use `computer` to click or type into the intended control
+4. Capture a screenshot if validation is needed
+
+### 3. Hybrid browser workflow
+
+Use this when browser interactions need deeper DOM-aware primitives.
+
+1. Start `src/hybrid_server.py`
+2. Navigate with `bu_browser_navigate`
+3. Inspect browser state with `bu_browser_get_state`
+4. Use `bu_*` tools for browser-native actions
+5. Fall back to `computer` when you need OS-level interaction
+
+***
+
+## Environment variables
+
+The `.env.example` file already documents the current runtime knobs. The most important ones are grouped below.
+
+### Core
+
+| Variable           | Purpose                                          |
+| ------------------ | ------------------------------------------------ |
+| `OI_PATH`          | Primary path to the local Open Interpreter clone |
+| `OI_PATH_WIN`      | Windows-specific override                        |
+| `OI_PATH_LINUX`    | Linux-specific override                          |
+| `HOST`             | Server bind host                                 |
+| `PORT`             | Server port                                      |
+| `MCP_TOOL_TIMEOUT` | Tool timeout in milliseconds                     |
+
+### Overlay / input tuning
+
+| Variable                  | Purpose                       |
+| ------------------------- | ----------------------------- |
+| `MCP_MOVE_DURATION_MS`    | Smooth mouse move duration    |
+| `MCP_OVERLAY_MIN_HOLD_MS` | Minimum overlay hold time     |
+| `MCP_OVERLAY_FADE_MS`     | Overlay fade timing           |
+| `MCP_TYPE_INTERVAL_SEC`   | Per-character typing interval |
+
+### Verification / scanning
+
+| Variable                            | Purpose                                |
+| ----------------------------------- | -------------------------------------- |
+| `MCP_AUTO_SCAN_ALWAYS`              | Force scan after every computer action |
+| `MCP_AUTO_SCAN_ON_CHANGE`           | Scan when the screen changes           |
+| `MCP_AUTO_SCAN_MAX_ELEMENTS`        | Limit returned UI elements             |
+| `MCP_UI_SCAN_BROWSER_ELEMENT_LIMIT` | Browser scan element cap               |
+| `MCP_UI_SCAN_BROWSER_MAX_DEPTH`     | Browser scan depth cap                 |
+| `MCP_UI_SCAN_BROWSER_ACTIVE_ONLY`   | Restrict browser scan scope            |
+
+### Hybrid mode
+
+| Variable               | Purpose                                                      |
+| ---------------------- | ------------------------------------------------------------ |
+| `BROWSER_USE_PYTHON`   | Override Python executable for delegated browser-use process |
+| `BROWSER_USE_HEADLESS` | Control browser-use headless behavior                        |
+
+***
+
+## Supported browsers
+
+The current project documentation describes browser launch / DOM extraction flows around:
+
+- Google Chrome
+- Microsoft Edge
+- Brave
+- Perplexity Comet
+- Firefox
+
+Browser support is most useful when remote debugging and DOM extraction are part of the workflow.
+
+***
+
+## Repository structure
+
+```text
+.
+├── README.md
+├── .env.example
+├── requirements.txt
+├── requirements.browser-use.txt
+├── src/
+│   ├── server.py
+│   ├── hybrid_server.py
+│   ├── ui_elements.py
+│   ├── overlay.py
+│   └── ...
+├── scripts/
+│   ├── setup.bat
+│   ├── setup.sh
+│   ├── start.bat
+│   └── start.sh
+├── tests/
+│   ├── test_accuracy.py
+│   ├── test_mcp_coordinates.py
+│   ├── test_mcp_full_smoke.py
+│   ├── verify_tools.py
+│   └── verify_hybrid_tools.py
+├── screenshots/
+├── artifacts/
+├── platforms/
+│   └── openfang/
+└── computer-use-finetuning/
+```
+
+***
+
+## Development and verification
+
+### Tests currently present
+
+- `tests/test_accuracy.py`
+- `tests/test_mcp_coordinates.py`
+- `tests/test_mcp_full_smoke.py`
+- `tests/verify_tools.py`
+- `tests/verify_hybrid_tools.py`
+
+### Run tests
+
+```bash
+pytest -q
+```
+
+### Suggested maintainer workflow
+
+When changing tools or protocol behavior:
+
+1. update runtime code
+2. verify standard mode tools
+3. verify hybrid mode tools
+4. re-check setup scripts
+5. update README in the same commit
+
+***
+
+## Recommendations for future improvement
+
+These are the highest-value README and project improvements based on the current visible repo structure.
+
+### Documentation improvements
+
+- Add a **Requirements** section listing Python version, OS assumptions, and Open Interpreter prerequisite clearly
+- Add a **Troubleshooting** section for common issues such as path resolution, browser debugging ports, missing Open Interpreter clone, or hybrid venv misconfiguration
+- Add **real screenshots / GIFs** showing desktop scanning, overlay feedback, and browser + desktop workflows
+- Add a short **Security / Safety** section, because this project gives agents direct input-control capability
+- Add a proper **License** section once a license is chosen
+
+### Product / developer experience improvements
+
+- Add a **tool schema summary** for each MCP tool with argument examples
+- Add a **compatibility matrix** for supported MCP clients
+- Add a **transport behavior note** explaining when to prefer stdio vs HTTP vs SSE
+- Add explicit **non-goals** so users understand this is not a cloud sandbox or VM orchestration framework
+- Add structured **release notes / changelog** once the interface stabilizes
+
+### Architecture improvements
+
+- Separate the runtime server docs from the `computer-use-finetuning/` research material more explicitly
+- Consider adding an `ARCHITECTURE.md` that documents data flow between MCP transport, UI scanning, browser DOM extraction, overlay rendering, and delegated browser-use subprocesses
+- Consider defining a stable compatibility layer for tool names and arguments so future changes do not break existing MCP client setups
+
+***
+
+## Positioning
+
+A simple way to position this repository:
+
+> **An MCP-first computer-use server for Open Interpreter, with optional hybrid browser automation.**
+
+That description is more precise than calling it a generic browser automation tool, and it highlights the repository's strongest differentiator: **desktop + browser workflows exposed cleanly to MCP clients**.
+
+***
+
+## Security note
+
+This project can control the mouse, keyboard, desktop UI, browser sessions, and shell execution. Treat it as a powerful local automation surface.
+
+Recommended safety practices:
+
+- run it only in trusted environments
+- avoid exposing HTTP mode broadly without network controls
+- keep API keys in environment variables, not source files
+- validate what an MCP client is allowed to do before attaching it to this server
+
+***
+
+## License
+
+No license is clearly documented in the currently visible repository root. Add one if you want other developers to know how they can use, modify, and redistribute the project.
+
+Common options:
+
+- MIT for maximal simplicity
+- Apache-2.0 for explicit patent language
+- GPL for strong copyleft
+
+***
+
+## Contributing
+
+Issues and pull requests are welcome.
+
+If you change any of the following, update the README in the same PR:
+
+- tool names
+- tool arguments
+- startup scripts
+- environment variables
+- supported transports
+- supported browser integrations
+- platform expectations
+
+***
+
+## TL;DR
+
+If you want the shortest path:
+
+- use `src/server.py` for desktop-first automation
+- use `src/hybrid_server.py` when you need richer browser-use flows
+- keep `browser-use` in its own virtual environment
+- document changes aggressively as the tool surface evolves
