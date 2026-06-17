@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    import src.server as s
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 53, in <module>
+    import mcp.types
+ModuleNotFoundError: No module named 'mcp'

@@ -1,1 +1,4 @@
-computer-use-finetuning/models/lora-checkpoint/*
+.history
+models
+*.code-workspace
+screenshots

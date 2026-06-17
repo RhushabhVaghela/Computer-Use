@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Computer-Use Stress Test Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --sidebar-color: #1e293b;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --card-bg: #1e293b80;
+            --status-success: #10b981;
+            --status-warning: #f59e0b;
+            --status-danger: #ef4444;
+            --status-danger-bg: #451a1a;
+            --status-success-bg: #064e3b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: 260px;
+            background-color: var(--sidebar-color);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: #334155;
+            color: var(--text-primary);
+        }
+
+        .menu-item.active {
+            border-left: 4px solid var(--accent-color);
+        }
+
+        /* Main content area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background-color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background-color: #334155;
+        }
+
+        .btn-danger {
+            background-color: var(--status-danger);
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        /* Tab panels */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* Dashboard Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .card {
+            background-color: var(--sidebar-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .card h3 {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .card .value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card .indicator {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .indicator.up { color: var(--status-success); }
+        .indicator.down { color: var(--status-danger); }
+
+        /* Table design */
+        .table-container {
+            background-color: var(--sidebar-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #1e293b;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge.online {
+            background-color: var(--status-success-bg);
+            color: var(--status-success);
+        }
+
+        .status-badge.critical {
+            background-color: var(--status-danger-bg);
+            color: var(--status-danger);
+        }
+
+        .status-badge.offline {
+            background-color: #334155;
+            color: var(--text-secondary);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal {
+            background-color: var(--sidebar-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 500px;
+            max-width: 90%;
+            padding: 32px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .modal-close:hover {
+            background-color: #334155;
+            color: var(--text-primary);
+        }
+
+        .modal h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--status-danger);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        /* Form elements for Settings */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-color);
+        }
+
+        /* Success Alert */
+        .alert-success {
+            background-color: var(--status-success-bg);
+            border: 1px solid var(--status-success);
+            color: var(--text-primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-dot"></div>
+            <span>StressTest OS</span>
+        </div>
+        <div class="menu-item active" id="tab-overview" onclick="switchTab('overview')">Overview</div>
+        <div class="menu-item" id="tab-database" onclick="switchTab('database')">Database</div>
+        <div class="menu-item" id="tab-settings" onclick="switchTab('settings')">Settings</div>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main-content">
+        
+        <!-- Overview Panel -->
+        <div id="panel-overview" class="tab-panel active">
+            <div class="header">
+                <h1>Overview Status</h1>
+                <button class="btn btn-danger" id="trigger-modal-btn" onclick="openModal()">Run Integrity Check</button>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>CPU Load</h3>
+                    <div class="value">14.2%</div>
+                    <div class="indicator up">Normal</div>
+                </div>
+                <div class="card">
+                    <h3>Memory Usage</h3>
+                    <div class="value">8.4 GB</div>
+                    <div class="indicator up">Healthy</div>
+                </div>
+                <div class="card">
+                    <h3>Storage Speed</h3>
+                    <div class="value">4.2 GB/s</div>
+                    <div class="indicator up">Optimal</div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 24px;">
+                <h3>System Console</h3>
+                <p style="font-family: monospace; padding: 12px; background: #0f172a; border-radius: 6px; margin-top: 10px; font-size: 13px; color: var(--status-success);">
+                    [OK] All core services checking in.<br>
+                    [OK] Secondary storage mirror connected.<br>
+                    [INFO] Next automated diagnostic check in 4h 12m.
+                </p>
+            </div>
+        </div>
+
+        <!-- Database Panel -->
+        <div id="panel-database" class="tab-panel">
+            <div class="header">
+                <h1>System Infrastructure</h1>
+                <button class="btn" onclick="alert('Exporting system records...')">Export CSV</button>
+            </div>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                The table below displays all currently monitored microservices and DB clusters.
+            </p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Device / Service Name</th>
+                            <th>Status</th>
+                            <th>Region</th>
+                            <th>Health Metric</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#1024</td>
+                            <td>DB-Primary-Cluster</td>
+                            <td><span class="status-badge online">online</span></td>
+                            <td>us-east-1</td>
+                            <td>98% uptime</td>
+                        </tr>
+                        <tr>
+                            <td>#1025</td>
+                            <td>Cache-Redis-Secondary</td>
+                            <td><span class="status-badge online">online</span></td>
+                            <td>us-west-2</td>
+                            <td>99.9% hitrate</td>
+                        </tr>
+                        <tr>
+                            <td>#1026</td>
+                            <td>Auth-Gateway-Service</td>
+                            <td><span class="status-badge critical">critical</span></td>
+                            <td>eu-west-1</td>
+                            <td>42% failure-rate</td>
+                        </tr>
+                        <tr>
+                            <td>#1027</td>
+                            <td>Queue-Rabbit-Manager</td>
+                            <td><span class="status-badge offline">offline</span></td>
+                            <td>ap-south-1</td>
+                            <td>0% processed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Settings Panel -->
+        <div id="panel-settings" class="tab-panel">
+            <div class="header">
+                <h1>Settings Configuration</h1>
+            </div>
+
+            <div class="card" style="max-width: 600px;">
+                <div class="form-group">
+                    <label for="cluster-name">Cluster Name</label>
+                    <input type="text" id="cluster-name" class="form-control" value="Zephyrus-RTX5080-Cluster">
+                </div>
+
+                <div class="form-group">
+                    <label for="sync-mode">Synchronization Mode</label>
+                    <select id="sync-mode" class="form-control">
+                        <option value="realtime">Real-time Streaming</option>
+                        <option value="interval">Interval Polling (5m)</option>
+                        <option value="manual">Manual Synchronous</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="enable-telemetry" checked>
+                        <label for="enable-telemetry" style="margin-bottom: 0; cursor: pointer;">Enable telemetry statistics reporting</label>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="saveSettings()">Save Configuration</button>
+
+                <div id="success-alert" class="alert-success">
+                    Configuration settings saved successfully!
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal Dialog (Overlay) -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2>⚠️ Critical Status Verification</h2>
+            <p>
+                WARNING: Running this integrity check will trigger automated diagnostics across the database replication groups. This may cause performance degradation on low-tier clusters.
+            </p>
+            <p style="font-weight: 500; color: var(--text-primary);">
+                To complete this step, click the close button 'X' or dismiss this dialog.
+            </p>
+            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 8px;">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="alert('Running diagnostics...'); closeModal();">Confirm Run</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simple Tab Switching Logic -->
+    <script>
+        function switchTab(tabId) {
+            // Remove active classes from navigation items
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+            // Hide all tab panels
+            document.querySelectorAll('.tab-panel').forEach(el => el.classList.remove('active'));
+            
+            // Activate selected items
+            document.getElementById('tab-' + tabId).classList.add('active');
+            document.getElementById('panel-' + tabId).classList.add('active');
+        }
+
+        function openModal() {
+            document.getElementById('modal-overlay').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').style.display = 'none';
+        }
+
+        function saveSettings() {
+            const btn = document.querySelector('#panel-settings .btn');
+            const alertBox = document.getElementById('success-alert');
+            
+            btn.innerText = 'Saving...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerText = 'Save Configuration';
+                btn.disabled = false;
+                alertBox.style.display = 'block';
+                setTimeout(() => {
+                    alertBox.style.display = 'none';
+                }, 4000);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

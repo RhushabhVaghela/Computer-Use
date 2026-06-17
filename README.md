@@ -400,6 +400,63 @@ Browser support is most useful when remote debugging and DOM extraction are part
 
 ***
 
+## Local VLM Inference Optimization (llama.cpp)
+
+Using desktop frontends like LM Studio for high-frequency agent actions can introduce unnecessary latency due to GUI overhead. Running `llama-server` directly from the command line is highly recommended for maximizing performance.
+
+### RTX 5080 (16GB VRAM) Setup & Tuning
+
+For cards like the NVIDIA RTX 5080 (16GB VRAM), we can fit the entire weights of models like `google/gemma-4-12b-qat` or `Qwen2-VL-7B` into VRAM for maximum speed.
+
+1. **Download llama.cpp Server:**
+   * Get the latest pre-built Windows CUDA binary package from the official [llama.cpp releases](https://github.com/ggerganov/llama.cpp/releases) page. Ensure you download the release compiled with CUDA support (e.g., `cudart-llama-bin-win-cuXX.X-x64.zip`).
+
+2. **Acquire GGUF and Projector Files:**
+   * Download your VLM GGUF file (e.g. `gemma-4-12b-qat-Q4_K_M.gguf`).
+   * Download the matching multimodal projector file (e.g. `mmproj-model-f16.gguf`).
+
+3. **Start the High-Performance Server:**
+   Run the following command in command prompt or powershell:
+   ```cmd
+   llama-server.exe -m path/to/gemma-4-12b-qat-Q4_K_M.gguf --mmproj path/to/mmproj-model-f16.gguf -ngl 99 -c 8192 --host 127.0.0.1 --port 12345 --threads 8
+   ```
+   * **Key Parameters Explained:**
+     * `-ngl 99` (`--n-gpu-layers 99`): Offloads all 99 model layers onto the RTX 5080's VRAM. Prefill and token generation will run purely on the GPU.
+     * `-c 8192` (`--ctx-size 8192`): Restricts context to 8KB which is ideal for holding 1-2 turns of visual screenshots plus agent history.
+     * `--threads 8`: Sets execution threads matching physical processor cores for optimal text token processing.
+
+4. **Run the Agent Client:**
+   Direct the agent client to target the high-performance local server instance:
+   ```cmd
+   python src/run_agent.py --provider local --api-base http://127.0.0.1:12345/v1 --model google/gemma-4-12b-qat --prompt "Launch Notepad and write a greeting"
+   ```
+
+***
+
+## Stress Testing Suite
+
+To stress-test coordinate clicking, multi-step browser DOM extraction, taskbar restoration, and agent self-correction under focus-loss, we have a multi-scenario benchmark tool.
+
+### Scenarios
+1. **Scenario 1 (Simple Notepad Flow):** Launches Notepad, inputs text, saves file in the temp directory, and closes.
+2. **Scenario 2 (Dense Browser Scrape & Modal):** Opens a local visual dashboard, clicks to open a modal, dismisses the modal, navigates to the database tab, scans a dense service grid, extracts a critical service name, writes it to a file, and closes Chrome.
+3. **Scenario 3 (Visual Focus Restoration):** Launches Notepad, begins typing. Mid-execution, the suite programmatically minimizes the Notepad window. The agent must visually detect the focus loss, click the taskbar icon to restore the window, append the completion phrase, save, and exit.
+
+### Running the Suite
+Execute the following to run all scenarios:
+```cmd
+python tests/stress_test_suite.py --provider local --api-base http://127.0.0.1:12345/v1 --model google/gemma-4-12b-qat
+```
+
+To run a single scenario (e.g. Scenario 2):
+```cmd
+python tests/stress_test_suite.py --provider local --api-base http://127.0.0.1:12345/v1 --model google/gemma-4-12b-qat --scenarios 2
+```
+
+Metrics, turns taken, latency numbers, and success codes are written to [logs/stress_test_report.json](file:///d:/Agents-and-other-repos/Computer-Use/logs/stress_test_report.json).
+
+***
+
 ## Development and verification
 
 ### Tests currently present

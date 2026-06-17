@@ -1,0 +1,374 @@
+{
+  "timestamp": "2026-06-10 21:34:21",
+  "provider": "local",
+  "model": "gemma-4-12B-it-qat-UD-Q4_K_XL",
+  "hybrid": false,
+  "text_only": false,
+  "results": [
+    {
+      "scenario_id": 1,
+      "success": true,
+      "total_turns": 12,
+      "total_duration_sec": 289.28,
+      "avg_vlm_latency_sec": 14.5,
+      "turns": [
+        {
+          "turn": 1,
+          "vlm_latency_sec": 8.25,
+          "thought": "",
+          "actions": [
+            "bash"
+          ],
+          "execution_latency_sec": 11.25
+        },
+        {
+          "turn": 2,
+          "vlm_latency_sec": 1.03,
+          "thought": "",
+          "actions": [
+            "read_screen_ui"
+          ],
+          "execution_latency_sec": 5.65
+        },
+        {
+          "turn": 3,
+          "vlm_latency_sec": 4.03,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 11.44
+        },
+        {
+          "turn": 4,
+          "vlm_latency_sec": 13.73,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 6.98
+        },
+        {
+          "turn": 5,
+          "vlm_latency_sec": 19.84,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.97
+        },
+        {
+          "turn": 6,
+          "vlm_latency_sec": 23.14,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.69
+        },
+        {
+          "turn": 7,
+          "vlm_latency_sec": 27.92,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 9.97
+        },
+        {
+          "turn": 8,
+          "vlm_latency_sec": 24.2,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.69
+        },
+        {
+          "turn": 9,
+          "vlm_latency_sec": 12.43,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.4
+        },
+        {
+          "turn": 10,
+          "vlm_latency_sec": 17.11,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.73
+        },
+        {
+          "turn": 11,
+          "vlm_latency_sec": 12.75,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 9.92
+        },
+        {
+          "turn": 12,
+          "vlm_latency_sec": 9.53,
+          "thought": "",
+          "actions": [
+            "terminate_task"
+          ],
+          "execution_latency_sec": 1.03
+        }
+      ],
+      "error_msg": "Successfully opened Notepad, typed the text 'STRESS_TEST_SCENARIO_1_SUCCESS', saved it to 'C:\\Users\\Rhushabh\\AppData\\Local\\Temp\\mcp_scen1_done.txt', and closed Notepad.",
+      "verified": true
+    },
+    {
+      "scenario_id": 2,
+      "success": false,
+      "total_turns": 0,
+      "total_duration_sec": 44.88,
+      "avg_vlm_latency_sec": 0,
+      "turns": [],
+      "error_msg": "",
+      "verified": false
+    },
+    {
+      "scenario_id": 3,
+      "success": false,
+      "total_turns": 25,
+      "total_duration_sec": 597.81,
+      "avg_vlm_latency_sec": 13.97,
+      "turns": [
+        {
+          "turn": 1,
+          "vlm_latency_sec": 5.82,
+          "thought": "",
+          "actions": [
+            "bash"
+          ],
+          "execution_latency_sec": 1.46
+        },
+        {
+          "turn": 2,
+          "vlm_latency_sec": 0.7,
+          "thought": "",
+          "actions": [
+            "read_screen_ui"
+          ],
+          "execution_latency_sec": 4.35
+        },
+        {
+          "turn": 3,
+          "vlm_latency_sec": 4.37,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.26
+        },
+        {
+          "turn": 4,
+          "vlm_latency_sec": 24.27,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.74
+        },
+        {
+          "turn": 5,
+          "vlm_latency_sec": 26.25,
+          "thought": "",
+          "actions": [
+            "bash"
+          ],
+          "execution_latency_sec": 1.16
+        },
+        {
+          "turn": 6,
+          "vlm_latency_sec": 11.4,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.65
+        },
+        {
+          "turn": 7,
+          "vlm_latency_sec": 21.08,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.72
+        },
+        {
+          "turn": 8,
+          "vlm_latency_sec": 15.95,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 9.82
+        },
+        {
+          "turn": 9,
+          "vlm_latency_sec": 16.43,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.41
+        },
+        {
+          "turn": 10,
+          "vlm_latency_sec": 15.95,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 9.87
+        },
+        {
+          "turn": 11,
+          "vlm_latency_sec": 19.88,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.97
+        },
+        {
+          "turn": 12,
+          "vlm_latency_sec": 10.83,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 11.0
+        },
+        {
+          "turn": 13,
+          "vlm_latency_sec": 23.07,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.71
+        },
+        {
+          "turn": 14,
+          "vlm_latency_sec": 11.22,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.51
+        },
+        {
+          "turn": 15,
+          "vlm_latency_sec": 13.84,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.91
+        },
+        {
+          "turn": 16,
+          "vlm_latency_sec": 13.39,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.37
+        },
+        {
+          "turn": 17,
+          "vlm_latency_sec": 12.46,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.33
+        },
+        {
+          "turn": 18,
+          "vlm_latency_sec": 22.77,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.03
+        },
+        {
+          "turn": 19,
+          "vlm_latency_sec": 23.53,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 8.3
+        },
+        {
+          "turn": 20,
+          "vlm_latency_sec": 7.93,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.76
+        },
+        {
+          "turn": 21,
+          "vlm_latency_sec": 14.01,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.78
+        },
+        {
+          "turn": 22,
+          "vlm_latency_sec": 8.64,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 11.09
+        },
+        {
+          "turn": 23,
+          "vlm_latency_sec": 8.09,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.63
+        },
+        {
+          "turn": 24,
+          "vlm_latency_sec": 8.94,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 9.75
+        },
+        {
+          "turn": 25,
+          "vlm_latency_sec": 8.54,
+          "thought": "",
+          "actions": [
+            "computer"
+          ],
+          "execution_latency_sec": 10.18
+        }
+      ],
+      "error_msg": "",
+      "verified": false
+    }
+  ]
+}

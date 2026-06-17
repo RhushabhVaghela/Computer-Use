@@ -517,9 +517,22 @@ async def computer(
 
         if not target_x and coordinate:
             sx, sy = int(coordinate[0]), int(coordinate[1])
-            target_x, target_y = _api_xy_to_desktop_xy(sx, sy, desktop, out_w, out_h)
+            try:
+                coord_grid = int(os.environ.get("MCP_COORD_GRID", "0"))
+            except Exception:
+                coord_grid = 0
+            
+            if coord_grid > 0:
+                # The model outputs coordinates on a fixed grid (e.g. 1000x1000)
+                # We map directly to the absolute desktop physical pixels
+                target_x = round(sx * (desktop["width"] / coord_grid)) + desktop["left"]
+                target_y = round(sy * (desktop["height"] / coord_grid)) + desktop["top"]
+                target_x, target_y = int(target_x), int(target_y)
+            else:
+                target_x, target_y = _api_xy_to_desktop_xy(sx, sy, desktop, out_w, out_h)
+            
             print(
-                f"[COORD]: Target acquired from screenshot coords ({sx}, {sy}) -> desktop ({target_x}, {target_y})",
+                f"[COORD]: Target acquired from model coords ({sx}, {sy}) -> desktop ({target_x}, {target_y})",
                 file=sys.stderr,
             )
 
