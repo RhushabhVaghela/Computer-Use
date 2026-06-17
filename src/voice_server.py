@@ -19,7 +19,10 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from run_agent import call_openai_compatible, get_mcp_params, to_openai_tools, format_tool_content_for_role, prune_message_history
 from mcp.client.session import ClientSession
 from mcp.client.stdio import stdio_client
-from speech_processor import ASRProcessor, VADDetector, EdgeTTSProcessor, KittenTTSProcessor, SupertonicTTSProcessor
+from speech_processor import (
+    ASRProcessor, VADDetector, TTSProcessor, EdgeTTSProcessor, 
+    KittenTTSProcessor, SupertonicTTSProcessor, Qwen3ASRProcessor, Qwen3TTSProcessor
+)
 
 # Configure logging
 logging.basicConfig(
@@ -34,16 +37,39 @@ logger = logging.getLogger("voice-server")
 USE_NATIVE_AUDIO = False
 
 class LowLatencyVoiceServer:
-    def __init__(self, host: str = "0.0.0.0", port: int = 8086, api_base: str = "http://127.0.0.1:8080/v1", vlm_model_name: str = "gpt-4o"):
+    def __init__(self, host: str = "0.0.0.0", port: int = 8086, api_base: str = None, vlm_model_name: str = None):
         self.host = host
         self.port = port
-        self.api_base = api_base
-        self.vlm_model_name = vlm_model_name
+        self.api_base = os.environ.get("VLM_API_BASE", api_base or "http://127.0.0.1:8080/v1")
+        self.vlm_model_name = os.environ.get("VLM_MODEL_NAME", vlm_model_name or "gpt-4o")
         
-        # Load local model engines
-        self.asr = ASRProcessor(model_size="large-v3-turbo")
+        # Determine engines from environment variables
+        asr_engine = os.environ.get("ASR_ENGINE", "qwen3").lower()
+        tts_engine = os.environ.get("TTS_ENGINE", "qwen3").lower()
+        
+        # ASR Initialization
+        if asr_engine == "qwen3":
+            qwen3_asr_model = os.environ.get("QWEN3_ASR_MODEL", "Qwen/Qwen3-ASR-0.6B")
+            qwen3_asr_endpoint = os.environ.get("QWEN3_ASR_ENDPOINT", None)
+            self.asr = Qwen3ASRProcessor(model_size_or_name=qwen3_asr_model, remote_url=qwen3_asr_endpoint)
+        else:
+            self.asr = ASRProcessor(model_size="large-v3-turbo")
+            
         self.vad = VADDetector()
-        self.tts = SupertonicTTSProcessor()
+        
+        # TTS Initialization
+        if tts_engine == "qwen3":
+            qwen3_tts_model = os.environ.get("QWEN3_TTS_MODEL", "Qwen/Qwen3-TTS-12Hz-0.6B-Base")
+            qwen3_tts_endpoint = os.environ.get("QWEN3_TTS_ENDPOINT", None)
+            self.tts = Qwen3TTSProcessor(model_name=qwen3_tts_model, remote_url=qwen3_tts_endpoint)
+        elif tts_engine == "kokoro":
+            self.tts = TTSProcessor()
+        elif tts_engine == "edge-tts":
+            self.tts = EdgeTTSProcessor()
+        elif tts_engine == "kittentts":
+            self.tts = KittenTTSProcessor()
+        else:
+            self.tts = SupertonicTTSProcessor()
         
         # Shared states
         self.latest_frame_b64: Optional[str] = None
@@ -244,6 +270,11 @@ class LowLatencyVoiceServer:
                                 self.current_vlm_task.cancel()
                                 self.is_processing = False
                             self.current_vlm_task = asyncio.create_task(self.run_vlm_cycle(websocket, text, history))
+                        elif msg_type == "set_voice":
+                            voice = data.get("voice")
+                            if voice:
+                                logger.info(f"Setting TTS default voice to: '{voice}'")
+                                self.tts.default_voice = voice
                     except Exception as e:
                         logger.error(f"Error handling text message: {e}")
         finally:

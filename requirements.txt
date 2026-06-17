@@ -13,6 +13,15 @@ pywin32; platform_system == "Windows"
 uiautomation; platform_system == "Windows"
 playwright
 
-# NOTE: browser-use cannot be installed into this venv because it pins dependencies
-# (rich/typer/psutil/anthropic) that conflict with open-interpreter.
-# Use a separate venv under `../browser-use/.venv` for browser-use.
+# Optional GPU stack
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.11.0+cu128
+torchaudio==2.11.0+cu128
+huggingface-hub
+numpy
+openai
+
+
+# IMPORTANT:
+# Keep qwen-tts and qwen-asr out of this environment.
+# Install them in separate venvs because they require conflicting transformers versions.

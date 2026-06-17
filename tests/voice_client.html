@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <!-- Premium Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -36,7 +39,7 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.05) 0%, transparent 40%),
                 radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.03) 0%, transparent 40%);
         }
@@ -150,7 +153,9 @@
             letter-spacing: 0.05em;
         }
 
-        select, input, button {
+        select,
+        input,
+        button {
             width: 100%;
             padding: 0.8rem 1rem;
             border-radius: 12px;
@@ -168,7 +173,8 @@
             color: var(--text-color);
         }
 
-        select:focus, input:focus {
+        select:focus,
+        input:focus {
             border-color: var(--accent-color);
             box-shadow: 0 0 0 2px var(--accent-glow);
         }
@@ -250,7 +256,8 @@
             position: relative;
         }
 
-        video, canvas {
+        video,
+        canvas {
             width: 100%;
             height: 100%;
             object-fit: contain;
@@ -302,9 +309,17 @@
             letter-spacing: 0.05em;
         }
 
-        .log-role.user { color: #38bdf8; }
-        .log-role.assistant { color: #34d399; }
-        .log-role.system { color: #a3a3a3; }
+        .log-role.user {
+            color: #38bdf8;
+        }
+
+        .log-role.assistant {
+            color: #34d399;
+        }
+
+        .log-role.system {
+            color: #a3a3a3;
+        }
 
         .log-text {
             line-height: 1.5;
@@ -317,52 +332,105 @@
 
         /* Keyframes */
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         @keyframes pulse-active {
-            0% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 10px var(--accent-glow); }
-            50% { transform: scale(1.1); opacity: 0.4; box-shadow: 0 0 30px var(--accent-glow); }
-            100% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 10px var(--accent-glow); }
+            0% {
+                transform: scale(0.9);
+                opacity: 0.8;
+                box-shadow: 0 0 10px var(--accent-glow);
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.4;
+                box-shadow: 0 0 30px var(--accent-glow);
+            }
+
+            100% {
+                transform: scale(0.9);
+                opacity: 0.8;
+                box-shadow: 0 0 10px var(--accent-glow);
+            }
         }
 
         @keyframes pulse-active-success {
-            0% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
-            50% { transform: scale(1.15); opacity: 0.3; box-shadow: 0 0 30px rgba(16, 185, 129, 0.4); }
-            100% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+            0% {
+                transform: scale(0.9);
+                opacity: 0.8;
+                box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+            }
+
+            50% {
+                transform: scale(1.15);
+                opacity: 0.3;
+                box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+            }
+
+            100% {
+                transform: scale(0.9);
+                opacity: 0.8;
+                box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Scrollbar styling */
         ::-webkit-scrollbar {
             width: 6px;
         }
+
         ::-webkit-scrollbar-track {
             background: transparent;
         }
+
         ::-webkit-scrollbar-thumb {
             background: var(--border-color);
             border-radius: 10px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: var(--text-muted);
         }
+
         /* Dropdown menu needs explicit dark background so Windows doesn't render it white */
         select {
             background-color: var(--bg-color);
         }
-        select option, select optgroup {
+
+        select option,
+        select optgroup {
             background-color: var(--bg-color);
             color: var(--text-color);
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>🎙️ Gemini Live Desktop</h1>
@@ -376,7 +444,7 @@
         <!-- Sidebar controls -->
         <section class="card">
             <h2>Controls</h2>
-            
+
             <div class="control-group">
                 <label for="server-address">Server Address</label>
                 <input type="text" id="server-address" value="ws://localhost:8086">
@@ -385,6 +453,14 @@
             <div class="control-group">
                 <label for="tts-voice">TTS Voice</label>
                 <select id="tts-voice">
+                    <optgroup label="Qwen3 TTS">
+                        <option value="Vivian">Vivian (Recommended)</option>
+                        <option value="Aiden">Aiden</option>
+                        <option value="Ryan">Ryan</option>
+                        <option value="Momo">Momo</option>
+                        <option value="Elias">Elias</option>
+                        <option value="Bunny">Bunny</option>
+                    </optgroup>
                     <optgroup label="Supertonic (Current)">
                         <option value="F1">F1 (Female 1)</option>
                         <option value="F2">F2 (Female 2)</option>
@@ -443,6 +519,17 @@
                         <option value="bm_lewis">bm_lewis</option>
                         <option value="bm_daniel">bm_daniel</option>
                     </optgroup>
+                    <optgroup label="Qwen3 TTS">
+                        <option value="vivian">Vivian (Female, Recommended)</option>
+                        <option value="serena">Serena (Female)</option>
+                        <option value="ono_anna">Ono Anna (Female)</option>
+                        <option value="sohee">Sohee (Female)</option>
+                        <option value="aiden">Aiden (Male)</option>
+                        <option value="dylan">Dylan (Male)</option>
+                        <option value="eric">Eric (Male)</option>
+                        <option value="ryan">Ryan (Male)</option>
+                        <option value="uncle_fu">Uncle Fu (Male)</option>
+                    </optgroup>
                 </select>
             </div>
 
@@ -476,7 +563,7 @@
                     <span class="log-text">Welcome! Set the Server Address and click Connect to start the loop.</span>
                 </div>
             </div>
-            
+
             <div class="control-group" style="flex-direction: row; gap: 0.5rem;">
                 <input type="text" id="text-input" placeholder="Type a message fallback..." disabled>
                 <button id="send-btn" style="width: auto; padding: 0.8rem 1.5rem;" disabled>Send</button>
@@ -514,15 +601,15 @@
         function addLog(role, text) {
             const entry = document.createElement("div");
             entry.className = "log-entry";
-            
+
             const roleSpan = document.createElement("span");
             roleSpan.className = `log-role ${role}`;
             roleSpan.textContent = role;
-            
+
             const textSpan = document.createElement("span");
             textSpan.className = "log-text";
             textSpan.textContent = text;
-            
+
             entry.appendChild(roleSpan);
             entry.appendChild(textSpan);
             logsFeed.appendChild(entry);
@@ -542,9 +629,9 @@
             addLog("system", `Connecting to server at ${serverAddress.value}...`);
             statusIndicator.className = "status-dot processing";
             statusText.textContent = "Connecting";
-            
+
             ws = new WebSocket(serverAddress.value);
-            
+
             ws.onopen = () => {
                 addLog("system", "Connected to Voice Server.");
                 statusIndicator.className = "status-dot connected";
@@ -553,16 +640,19 @@
                 screenBtn.disabled = false;
                 textInput.disabled = false;
                 sendBtn.disabled = false;
-                
+
                 // Initialize audio contexts
                 initAudio();
+
+                // Sync current selected voice to server
+                sendVoiceUpdate();
             };
-            
+
             ws.onclose = () => {
                 addLog("system", "Disconnected from server.");
                 closeConnection();
             };
-            
+
             ws.onerror = (err) => {
                 addLog("system", `WebSocket Error: Connection failed.`);
                 statusIndicator.className = "status-dot error";
@@ -651,15 +741,15 @@
                     video: { frameRate: { ideal: 5 } },
                     audio: false
                 });
-                
+
                 previewVideo.srcObject = screenStream;
                 previewPlaceholder.style.display = "none";
                 screenBtn.textContent = "Stop Share";
                 screenBtn.className = "active";
-                
+
                 // Set up visual capture loop (1 FPS)
                 const ctx = captureCanvas.getContext("2d");
-                
+
 
 
                 screenInterval = setInterval(() => {
@@ -671,7 +761,7 @@
                             captureCanvas.width = out_w;
                             captureCanvas.height = out_h;
                             ctx.drawImage(previewVideo, 0, 0, captureCanvas.width, captureCanvas.height);
-                            
+
                             // Export as JPEG bytes
                             captureCanvas.toBlob((blob) => {
                                 if (blob && ws.readyState === WebSocket.OPEN) {
@@ -681,7 +771,7 @@
                         }
                     }
                 }, 333);
-                
+
                 addLog("system", "Screen share active and streaming.");
             } catch (e) {
                 addLog("system", `Screen Share Failed: ${e.message}`);
@@ -707,22 +797,22 @@
         async function initAudio() {
             try {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
-                micStream = await navigator.mediaDevices.getUserMedia({ 
-                    audio: { 
-                        echoCancellation: true, 
-                        noiseSuppression: true, 
-                        autoGainControl: true 
-                    }, 
-                    video: false 
+                micStream = await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                        autoGainControl: true
+                    },
+                    video: false
                 });
-                
+
                 const source = audioContext.createMediaStreamSource(micStream);
                 // ScriptProcessor is deprecated but offers high-portability for simple PCM conversions
                 micProcessor = audioContext.createScriptProcessor(4096, 1, 1);
-                
+
                 source.connect(micProcessor);
                 micProcessor.connect(audioContext.destination);
-                
+
                 micProcessor.onaudioprocess = (e) => {
                     if (ws && ws.readyState === WebSocket.OPEN && !isPlayingAudio && !isProcessing) {
                         const inputData = e.inputBuffer.getChannelData(0);
@@ -735,7 +825,7 @@
                         ws.send(pcmData.buffer);
                     }
                 };
-                
+
                 visualizerRing.className = "pulse-ring listening";
                 addLog("system", "Microphone capture active.");
             } catch (e) {
@@ -765,17 +855,17 @@
                 const blob = new Blob([arrayBuffer], { type: 'audio/wav' });
                 const url = URL.createObjectURL(blob);
                 const audio = new Audio(url);
-                
+
                 isPlayingAudio = true;
                 visualizerRing.className = "pulse-ring speaking";
                 statusText.textContent = "Speaking";
-                
+
                 audio.onended = () => {
                     setTimeout(() => {
                         isPlayingAudio = false;
                         // DO NOT reset isProcessing here, the server controls when it's done via "Connected" status
                         URL.revokeObjectURL(url);
-                        
+
                         // Only visually revert to listening if server is no longer processing
                         if (!isProcessing) {
                             visualizerRing.className = "pulse-ring listening";
@@ -786,12 +876,12 @@
                         }
                     }, 600);
                 };
-                
+
                 audio.onerror = (e) => {
                     console.error("Audio playback error:", e);
                     isPlayingAudio = false;
                 };
-                
+
                 await audio.play();
             } catch (e) {
                 console.error("Error setting up audio playback:", e);
@@ -804,6 +894,20 @@
         textInput.addEventListener("keypress", (e) => {
             if (e.key === "Enter") sendTextMessage();
         });
+
+        // --- Voice change listener ---
+        ttsVoice.addEventListener("change", sendVoiceUpdate);
+
+        function sendVoiceUpdate() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const voice = ttsVoice.value;
+                ws.send(JSON.stringify({
+                    type: "set_voice",
+                    voice: voice
+                }));
+                addLog("system", `TTS voice changed to: ${voice}`);
+            }
+        }
 
         function sendTextMessage() {
             const text = textInput.value.trim();
@@ -818,4 +922,5 @@
         }
     </script>
 </body>
+
 </html>

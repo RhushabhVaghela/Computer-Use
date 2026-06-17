@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import numpy as np
 import logging
 import urllib.request
@@ -353,5 +354,223 @@ class SupertonicTTSProcessor:
             
         except Exception as e:
             logger.error(f"Error in Supertonic synthesis: {e}")
+
+
+class Qwen3ASRProcessor:
+    """
+    ASR using Qwen3-ASR (0.6B/1.7B). Supports both local inference and remote HTTP API.
+    """
+    def __init__(self, model_size_or_name: str = "Qwen/Qwen3-ASR-0.6B", remote_url: Optional[str] = None):
+        self.model_name = model_size_or_name
+        self.remote_url = remote_url
+        self.model = None
+        
+        # Resolve imports safely
+        try:
+            from qwen_asr import Qwen3ASRModel
+        except ImportError:
+            Qwen3ASRModel = None
+            
+        if not self.remote_url:
+            if Qwen3ASRModel:
+                logger.info(f"Initializing local Qwen3 ASR model '{self.model_name}'...")
+                try:
+                    self.model = Qwen3ASRModel.from_pretrained(self.model_name)
+                    logger.info("Local Qwen3 ASR loaded successfully.")
+                except Exception as e:
+                    logger.error(f"Error loading local Qwen3 ASR: {e}")
+            else:
+                logger.warning("qwen-asr is not installed. Local Qwen3 ASR will not be functional.")
+
+    def transcribe(self, audio_data: np.ndarray, sample_rate: int = 16000) -> str:
+        """Transcribes float32 numpy array audio data."""
+        import struct
+        # Convert float32 back to int16 PCM bytes
+        int16_audio = (audio_data * 32768.0).astype(np.int16)
+        pcm_bytes = int16_audio.tobytes()
+        
+        # Create standard WAV header
+        channels = 1
+        bits_per_sample = 16
+        byte_rate = sample_rate * channels * bits_per_sample // 8
+        block_align = channels * bits_per_sample // 8
+        
+        header = b'RIFF' + struct.pack('<I', 36 + len(pcm_bytes)) + b'WAVE'
+        header += b'fmt ' + struct.pack('<IHHIIHH', 16, 1, channels, sample_rate, byte_rate, block_align, bits_per_sample)
+        header += b'data' + struct.pack('<I', len(pcm_bytes))
+        wav_bytes = header + pcm_bytes
+
+        if self.remote_url:
+            logger.info(f"Transcribing audio via remote ASR endpoint: {self.remote_url}...")
+            try:
+                import uuid
+                
+                # Simple multipart form encoder using standard libraries
+                boundary = f"----WebKitFormBoundary{uuid.uuid4().hex}"
+                data = []
+                data.append(f"--{boundary}".encode('utf-8'))
+                data.append(b'Content-Disposition: form-data; name="file"; filename="audio.wav"')
+                data.append(b'Content-Type: audio/wav\r\n')
+                data.append(wav_bytes)
+                data.append(f"--{boundary}".encode('utf-8'))
+                data.append(b'Content-Disposition: form-data; name="model"')
+                data.append(f'\r\n{self.model_name}'.encode('utf-8'))
+                data.append(f"--{boundary}--".encode('utf-8'))
+                
+                body = b'\r\n'.join(data)
+                
+                url = self.remote_url.rstrip('/')
+                if not url.endswith('/audio/transcriptions') and not url.endswith('/transcriptions'):
+                    url = f"{url}/audio/transcriptions"
+                
+                req = urllib.request.Request(url, data=body, method='POST')
+                req.add_header('Content-Type', f'multipart/form-data; boundary={boundary}')
+                
+                with urllib.request.urlopen(req, timeout=10) as response:
+                    res_body = response.read().decode('utf-8')
+                    res_data = json.loads(res_body)
+                    return res_data.get("text", "").strip()
+            except Exception as e:
+                logger.error(f"Error calling remote ASR endpoint: {e}")
+                return ""
+        else:
+            if not self.model:
+                logger.error("Local Qwen3 ASR is not loaded.")
+                return ""
+            try:
+                os.makedirs("scratch", exist_ok=True)
+                temp_wav = "scratch/temp_asr_input.wav"
+                with open(temp_wav, "wb") as f:
+                    f.write(wav_bytes)
+                
+                transcription_list = self.model.transcribe(temp_wav)
+                result_text = transcription_list[0].text if transcription_list else ""
+                try:
+                    os.remove(temp_wav)
+                except Exception:
+                    pass
+                return result_text
+            except Exception as e:
+                logger.error(f"Error transcribing audio locally: {e}")
+                return ""
+
+
+class Qwen3TTSProcessor:
+    """
+    TTS using Qwen3-TTS (0.6B/1.7B). Supports both local inference and remote HTTP API.
+    """
+    def __init__(self, model_name: str = "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice", remote_url: Optional[str] = None, default_voice: str = "vivian"):
+        self.model_name = model_name
+        self.remote_url = remote_url
+        self.default_voice = default_voice
+        self.model = None
+        
+        # Resolve imports safely
+        try:
+            from qwen_tts import Qwen3TTSModel
+        except ImportError:
+            Qwen3TTSModel = None
+            
+        if not self.remote_url:
+            if Qwen3TTSModel:
+                logger.info(f"Initializing local Qwen3 TTS model '{self.model_name}'...")
+                try:
+                    self.model = Qwen3TTSModel.from_pretrained(
+                        self.model_name,
+                        device_map="cuda:0" if torch.cuda.is_available() else "cpu",
+                        dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,
+                    )
+                    logger.info("Local Qwen3 TTS loaded successfully.")
+                except Exception as e:
+                    logger.error(f"Error loading local Qwen3 TTS: {e}")
+            else:
+                logger.warning("qwen-tts is not installed. Local Qwen3 TTS will not be functional.")
+
+    async def synthesize_stream(self, text: str, voice: str = None):
+        """
+        Synthesizes text into audio bytes and yields chunks.
+        """
+        import struct
+        import asyncio
+        
+        voice_name = voice or self.default_voice
+        
+        if self.remote_url:
+            logger.info(f"Synthesizing text via remote TTS endpoint: {self.remote_url} (voice: {voice_name})...")
+            try:
+                url = self.remote_url.rstrip('/')
+                if not url.endswith('/audio/speech') and not url.endswith('/speech'):
+                    url = f"{url}/audio/speech"
+                
+                def _post():
+                    body = json.dumps({
+                        "model": self.model_name,
+                        "input": text,
+                        "voice": voice_name,
+                        "response_format": "wav"
+                    }).encode('utf-8')
+                    req = urllib.request.Request(url, data=body, method='POST')
+                    req.add_header('Content-Type', 'application/json')
+                    with urllib.request.urlopen(req, timeout=10) as response:
+                        return response.read()
+                
+                audio_bytes = await asyncio.to_thread(_post)
+                
+                # Chunk and yield
+                chunk_size = 8192
+                for i in range(0, len(audio_bytes), chunk_size):
+                    yield audio_bytes[i:i+chunk_size]
+                    
+            except Exception as e:
+                logger.error(f"Error calling remote TTS endpoint: {e}")
+                return
+        else:
+            if not self.model:
+                logger.error("Local Qwen3 TTS is not loaded.")
+                return
+                
+            try:
+                logger.info(f"Synthesizing text via local Qwen3-TTS: '{text}' using voice '{voice_name}'...")
+                
+                def _generate():
+                    # Try generate_custom_voice first (works with CustomVoice models)
+                    if hasattr(self.model, "generate_custom_voice"):
+                        try:
+                            return self.model.generate_custom_voice(text, speaker=voice_name)
+                        except (ValueError, TypeError):
+                            # Fallback: if speaker isn't valid, use generate_voice_design
+                            if hasattr(self.model, "generate_voice_design"):
+                                instruct = f"A clear, natural {voice_name} voice speaking at a moderate pace."
+                                return self.model.generate_voice_design(text, instruct=instruct)
+                            else:
+                                raise
+                    elif hasattr(self.model, "generate_voice_design"):
+                        instruct = f"A clear, natural {voice_name} voice speaking at a moderate pace."
+                        return self.model.generate_voice_design(text, instruct=instruct)
+                    else:
+                        raise ValueError("No valid generation method found on TTS model.")
+                
+                wavs, sr = await asyncio.to_thread(_generate)
+                
+                audio = wavs[0]
+                if isinstance(audio, torch.Tensor):
+                    audio = audio.cpu().numpy()
+                int16_audio = (audio * 32767.0).astype(np.int16)
+                pcm_bytes = int16_audio.tobytes()
+                
+                channels = 1
+                byte_rate = sr * channels * 2
+                block_align = channels * 2
+                
+                header = b'RIFF' + struct.pack('<I', 36 + len(pcm_bytes)) + b'WAVE'
+                header += b'fmt ' + struct.pack('<IHHIIHH', 16, 1, channels, sr, byte_rate, block_align, 16)
+                header += b'data' + struct.pack('<I', len(pcm_bytes))
+                
+                full_data = header + pcm_bytes
+                chunk_size = 8192
+                for i in range(0, len(full_data), chunk_size):
+                    yield full_data[i:i+chunk_size]
+            except Exception as e:
+                logger.error(f"Error in local Qwen3 TTS synthesis: {e}")
 
 
