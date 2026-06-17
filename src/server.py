@@ -117,10 +117,52 @@ ui_provider = None
 overlay = None
 oi_interpreter = None
 
-# Allow configuring the OI path via environment variable or default
-OI_PATH = os.environ.get("OI_PATH_WIN") or os.environ.get("OI_PATH_LINUX") or os.environ.get("OI_PATH", r"d:\Agents-and-other-repos\open-interpreter")
-# Strip quotes
-OI_PATH = OI_PATH.strip('"').strip("'")
+def _validate_oi_path():
+    """Validate and return OI_PATH. Raises error if not set or invalid."""
+    # Check environment variables in priority order
+    oi_path = os.environ.get("OI_PATH_WIN") or os.environ.get("OI_PATH_LINUX") or os.environ.get("OI_PATH")
+    
+    if not oi_path:
+        error_msg = (
+            "ERROR: OI_PATH environment variable is not set.\n"
+            "\nThis is REQUIRED for the application to function. Please set one of:\n"
+            "  - OI_PATH: Generic path to open-interpreter (used as fallback)\n"
+            "  - OI_PATH_WIN: Windows-specific path (takes priority on Windows)\n"
+            "  - OI_PATH_LINUX: Linux-specific path (takes priority on Linux)\n"
+            "\nExample setup:\n"
+            "  Windows: set OI_PATH_WIN=d:\\path\\to\\open-interpreter\n"
+            "  Linux:   export OI_PATH_LINUX=/path/to/open-interpreter\n"
+            "\nThe path should point to your local open-interpreter clone directory\n"
+            "and must contain an 'interpreter' module."
+        )
+        logger.error(error_msg)
+        raise RuntimeError(error_msg)
+    
+    # Strip quotes
+    oi_path = oi_path.strip('"').strip("'")
+    
+    # Validate path exists
+    if not os.path.isdir(oi_path):
+        error_msg = f"ERROR: OI_PATH directory does not exist: {oi_path}"
+        logger.error(error_msg)
+        raise RuntimeError(error_msg)
+    
+    # Validate interpreter module exists
+    interpreter_path = os.path.join(oi_path, "interpreter")
+    if not os.path.isdir(interpreter_path):
+        error_msg = (
+            f"ERROR: 'interpreter' module not found in OI_PATH: {oi_path}\n"
+            f"Expected directory: {interpreter_path}\n"
+            "Make sure OI_PATH points to the root of the open-interpreter repository."
+        )
+        logger.error(error_msg)
+        raise RuntimeError(error_msg)
+    
+    logger.info(f"OI_PATH validated successfully: {oi_path}")
+    return oi_path
+
+# Validate OI_PATH at module load time (will raise if not set)
+OI_PATH = _validate_oi_path()
 
 def ensure_tools():
     """Lazily initialize all heavy tools."""

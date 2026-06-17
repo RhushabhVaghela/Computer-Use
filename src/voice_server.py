@@ -288,10 +288,28 @@ class LowLatencyVoiceServer:
             
         self.is_processing = True
         
-        # Determine actual screen dimensions dynamically if possible (hardcoded for user's primary monitor 2560x1600)
-        SCREEN_W, SCREEN_H = 2560, 1600
+        # Query actual screen dimensions at runtime
+        try:
+            import pyautogui
+            SCREEN_W, SCREEN_H = pyautogui.size()
+            logger.info(f"Queried screen dimensions: {SCREEN_W}x{SCREEN_H}")
+        except Exception as e:
+            # Fallback with warning if query fails
+            logger.warning(f"Failed to query screen dimensions: {e}. Using fallback 1920x1080")
+            SCREEN_W, SCREEN_H = 1920, 1080
         
-        logger.info(f"VLM cycle triggered. Prompt: '{user_text}'")
+        # Allow override via environment variables (optional)
+        try:
+            if "VOICE_SCREEN_W" in os.environ:
+                SCREEN_W = int(os.environ["VOICE_SCREEN_W"])
+            if "VOICE_SCREEN_H" in os.environ:
+                SCREEN_H = int(os.environ["VOICE_SCREEN_H"])
+            if "VOICE_SCREEN_W" in os.environ or "VOICE_SCREEN_H" in os.environ:
+                logger.info(f"Screen dimensions overridden via env vars: {SCREEN_W}x{SCREEN_H}")
+        except (ValueError, TypeError) as e:
+            logger.warning(f"Invalid VOICE_SCREEN_W/VOICE_SCREEN_H values: {e}")
+        
+        logger.info(f"VLM cycle triggered. Prompt: '{user_text}' | Screen: {SCREEN_W}x{SCREEN_H}")
         
         # Prepare multimodal query message
         query_content = []
