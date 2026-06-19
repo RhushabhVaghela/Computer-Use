@@ -13,6 +13,15 @@ import argparse
 import sys
 import os
 import time
+import contextvars
+import asyncio
+from threading import Lock
+import signal
+import atexit
+from functools import wraps
+
+# Import configuration (validates OI_PATH at startup)
+from config import CONFIG, OI_PATH, COMMAND_DENYLIST
 
 # Enable DPI Awareness on Windows BEFORE importing pyautogui or mss
 # to ensure we get physical coordinates and correct screen sizes.
@@ -110,121 +119,277 @@ logging.getLogger("starlette").setLevel(logging.ERROR)
 # Open Interpreter & Tools Initialization (Lazy)
 # ==========================================
 
-# Global state for lazy initialization
+# Single global lock for thread-safe initialization (only used once)
+_init_lock = Lock()
 _tools_initialized = False
-computer_tool = None
-ui_provider = None
-overlay = None
-oi_interpreter = None
 
-def _validate_oi_path():
-    """Validate and return OI_PATH. Raises error if not set or invalid."""
-    # Check environment variables in priority order
-    oi_path = os.environ.get("OI_PATH_WIN") or os.environ.get("OI_PATH_LINUX") or os.environ.get("OI_PATH")
-    
-    if not oi_path:
-        error_msg = (
-            "ERROR: OI_PATH environment variable is not set.\n"
-            "\nThis is REQUIRED for the application to function. Please set one of:\n"
-            "  - OI_PATH: Generic path to open-interpreter (used as fallback)\n"
-            "  - OI_PATH_WIN: Windows-specific path (takes priority on Windows)\n"
-            "  - OI_PATH_LINUX: Linux-specific path (takes priority on Linux)\n"
-            "\nExample setup:\n"
-            "  Windows: set OI_PATH_WIN=d:\\path\\to\\open-interpreter\n"
-            "  Linux:   export OI_PATH_LINUX=/path/to/open-interpreter\n"
-            "\nThe path should point to your local open-interpreter clone directory\n"
-            "and must contain an 'interpreter' module."
-        )
-        logger.error(error_msg)
-        raise RuntimeError(error_msg)
-    
-    # Strip quotes
-    oi_path = oi_path.strip('"').strip("'")
-    
-    # Validate path exists
-    if not os.path.isdir(oi_path):
-        error_msg = f"ERROR: OI_PATH directory does not exist: {oi_path}"
-        logger.error(error_msg)
-        raise RuntimeError(error_msg)
-    
-    # Validate interpreter module exists
-    interpreter_path = os.path.join(oi_path, "interpreter")
-    if not os.path.isdir(interpreter_path):
-        error_msg = (
-            f"ERROR: 'interpreter' module not found in OI_PATH: {oi_path}\n"
-            f"Expected directory: {interpreter_path}\n"
-            "Make sure OI_PATH points to the root of the open-interpreter repository."
-        )
-        logger.error(error_msg)
-        raise RuntimeError(error_msg)
-    
-    logger.info(f"OI_PATH validated successfully: {oi_path}")
-    return oi_path
+# Per-request context vars (async-safe, isolated per request)
+_context_tools_initialized = contextvars.ContextVar('tools_initialized', default=False)
+_context_computer_tool = contextvars.ContextVar('computer_tool', default=None)
+_context_ui_provider = contextvars.ContextVar('ui_provider', default=None)
+_context_overlay = contextvars.ContextVar('overlay', default=None)
+_context_oi_interpreter = contextvars.ContextVar('oi_interpreter', default=None)
 
-# Validate OI_PATH at module load time (will raise if not set)
-OI_PATH = _validate_oi_path()
+
+def get_computer_tool():
+    """Get computer tool from context. Raises RuntimeError if not initialized."""
+    tool = _context_computer_tool.get()
+    if tool is None:
+        raise RuntimeError("Tools not initialized. Call ensure_tools() first.")
+    return tool
+
+
+def get_ui_provider():
+    """Get UI provider from context. Raises RuntimeError if not initialized."""
+    provider = _context_ui_provider.get()
+    if provider is None:
+        raise RuntimeError("Tools not initialized. Call ensure_tools() first.")
+    return provider
+
+
+def get_overlay():
+    """Get mouse overlay from context. May return None if not initialized."""
+    return _context_overlay.get()
+
+
+def get_oi_interpreter():
+    """Get Open Interpreter instance from context. Raises RuntimeError if not initialized."""
+    interp = _context_oi_interpreter.get()
+    if interp is None:
+        raise RuntimeError("Tools not initialized. Call ensure_tools() first.")
+    return interp
+
+# OI_PATH already validated and imported from config module above
 
 def ensure_tools():
-    """Lazily initialize all heavy tools."""
-    global _tools_initialized, computer_tool, ui_provider, overlay, oi_interpreter
-    if _tools_initialized:
+    """
+    Lazily initialize all heavy tools with thread-safe initialization.
+    
+    Uses a global lock to ensure first-time setup happens once across all threads.
+    Stores tools in context vars for per-request isolation (async-safe).
+    """
+    global _tools_initialized
+    
+    # Check if already initialized in this context
+    if _context_tools_initialized.get():
         return
     
-    logger.info("Initializing heavy tools (OI, UI Provider, Overlay)...")
-    
-    if OI_PATH not in sys.path:
-        sys.path.insert(0, OI_PATH)
-
-    try:
-        from interpreter import interpreter as _oi
-        from interpreter.computer_use.tools import ComputerTool
-        from ui_elements import UIElementProvider
-        from overlay import MouseOverlay
+    # Use global lock for thread-safe first-time initialization
+    with _init_lock:
+        # Double-check after acquiring lock (another thread may have initialized)
+        if _tools_initialized:
+            # Copy from module level to this context
+            _context_tools_initialized.set(True)
+            _context_computer_tool.set(None)  # Will be fetched on demand
+            _context_ui_provider.set(None)
+            _context_overlay.set(None)
+            _context_oi_interpreter.set(None)
+            return
         
-        oi_interpreter = _oi
-        computer_tool = ComputerTool()
-        computer_tool._scaling_enabled = False
+        logger.info("Initializing heavy tools (OI, UI Provider, Overlay)...")
         
-        ui_provider = UIElementProvider()
-        overlay = MouseOverlay()
+        if OI_PATH not in sys.path:
+            sys.path.insert(0, OI_PATH)
 
-        # Add set_monitor_size to computer_tool if it doesn't have it
-        # Fixed: must store left/top for multi-monitor accuracy
-        if not hasattr(computer_tool, "set_monitor_size"):
-            def set_monitor_size(self, width, height, left=0, top=0):
-                self.width = width
-                self.height = height
-                self.left = left
-                self.top = top
-            import types
-            computer_tool.set_monitor_size = types.MethodType(set_monitor_size, computer_tool)
-
-        oi_interpreter.auto_run = True
-        oi_interpreter.display = False
-        
-        # Patch ComputerTool's smooth_move_to
         try:
-            import interpreter.computer_use.tools.computer as ct_module
-            ct_module.smooth_move_to = smooth_move_to
-        except Exception:
-            pass
+            from interpreter import interpreter as _oi
+            from interpreter.computer_use.tools import ComputerTool
+            from ui_elements import UIElementProvider
+            from overlay import MouseOverlay
             
-        _tools_initialized = True
-        logger.info("Tools initialization complete.")
-    except Exception as e:
-        logger.exception("Failed to initialize tools")
-        raise
+            _oi_instance = _oi
+            _computer_tool = ComputerTool()
+            _computer_tool._scaling_enabled = False
+            
+            _ui_provider = UIElementProvider()
+            _overlay = MouseOverlay()
+
+            # Add set_monitor_size to computer_tool if it doesn't have it
+            # Fixed: must store left/top for multi-monitor accuracy
+            if not hasattr(_computer_tool, "set_monitor_size"):
+                def set_monitor_size(self, width, height, left=0, top=0):
+                    self.width = width
+                    self.height = height
+                    self.left = left
+                    self.top = top
+                import types
+                _computer_tool.set_monitor_size = types.MethodType(set_monitor_size, _computer_tool)
+
+            _oi_instance.auto_run = True
+            _oi_instance.display = False
+            
+            # Patch ComputerTool's smooth_move_to
+            try:
+                import interpreter.computer_use.tools.computer as ct_module
+                ct_module.smooth_move_to = smooth_move_to
+            except Exception:
+                pass
+            
+            # Store in context vars (per-request isolation)
+            _context_computer_tool.set(_computer_tool)
+            _context_ui_provider.set(_ui_provider)
+            _context_overlay.set(_overlay)
+            _context_oi_interpreter.set(_oi_instance)
+            _context_tools_initialized.set(True)
+            
+            # Mark global initialization as done
+            _tools_initialized = True
+            logger.info("Tools initialization complete.")
+        except Exception as e:
+            logger.exception("Failed to initialize tools")
+            raise
 
 # Global pyautogui config
-# pyautogui.PAUSE = 0.05 
-pyautogui.PAUSE = 0.0 
-pyautogui.FAILSAFE = False 
+# pyautogui.PAUSE = 0.05
+pyautogui.PAUSE = 0.0
+pyautogui.FAILSAFE = False
+
+# ==========================================
+# Graceful Shutdown & Resource Cleanup
+# ==========================================
+
+# Request tracking for draining in-flight requests
+_active_requests = 0
+_request_lock = asyncio.Lock()
+
+async def track_request(name: str):
+    """Context manager to track in-flight requests."""
+    global _active_requests
+    async with _request_lock:
+        _active_requests += 1
+    logger.debug(f"[REQUEST]: +1 {name} (total={_active_requests})")
+    try:
+        yield
+    finally:
+        async with _request_lock:
+            _active_requests -= 1
+        logger.debug(f"[REQUEST]: -1 {name} (total={_active_requests})")
+
+
+class ShutdownManager:
+    """Manages graceful shutdown and resource cleanup."""
+    
+    def __init__(self):
+        self._shutdown_event = asyncio.Event()
+        self._cleanup_done = False
+    
+    async def shutdown(self):
+        """Trigger graceful shutdown."""
+        logger.info("[SHUTDOWN]: Graceful shutdown initiated")
+        self._shutdown_event.set()
+        await self._cleanup_resources()
+    
+    async def _cleanup_resources(self):
+        """Clean up all acquired resources."""
+        if self._cleanup_done:
+            return
+        
+        logger.info("[SHUTDOWN]: Cleaning up resources...")
+        
+        # Wait for in-flight requests to complete (with timeout)
+        logger.info("[SHUTDOWN]: Draining in-flight requests...")
+        timeout = 10  # seconds
+        start = time.time()
+        while _active_requests > 0 and (time.time() - start) < timeout:
+            logger.info(f"[SHUTDOWN]: Waiting for {_active_requests} in-flight request(s)...")
+            await asyncio.sleep(1)
+        
+        if _active_requests > 0:
+            logger.warning(f"[SHUTDOWN]: Timeout reached. {_active_requests} requests still in-flight.")
+        else:
+            logger.info("[SHUTDOWN]: All requests drained successfully")
+        
+        try:
+            # Get current context tools (if any)
+            _overlay = get_overlay()
+            if _overlay:
+                logger.info("[SHUTDOWN]: Hiding overlay...")
+                try:
+                    _overlay.hide()
+                except Exception as e:
+                    logger.warning(f"[SHUTDOWN]: Error hiding overlay: {e}")
+        except Exception as e:
+            logger.warning(f"[SHUTDOWN]: Error accessing overlay: {e}")
+        
+        try:
+            # Release UIAutomation handles
+            logger.info("[SHUTDOWN]: Releasing UIAutomation handles...")
+            # UIAutomation cleanup happens automatically on process exit
+        except Exception as e:
+            logger.warning(f"[SHUTDOWN]: UIAutomation cleanup error: {e}")
+        
+        # Log final resource state
+        _log_resource_state("Shutdown")
+        
+        logger.info("[SHUTDOWN]: Resource cleanup complete")
+        self._cleanup_done = True
+
+
+_shutdown_manager = ShutdownManager()
+
+
+def _setup_signal_handlers():
+    """Register signal handlers for graceful shutdown."""
+    def signal_handler(signum, frame):
+        try:
+            sig_name = signal.Signals(signum).name
+        except (ValueError, AttributeError):
+            sig_name = str(signum)
+        logger.info(f"[SHUTDOWN]: Received signal {sig_name}")
+        try:
+            asyncio.create_task(_shutdown_manager.shutdown())
+        except RuntimeError:
+            # No event loop in current thread, fallback to sync cleanup
+            logger.warning("[SHUTDOWN]: No event loop available, attempting sync cleanup")
+    
+    # Register handlers for SIGTERM and SIGINT
+    try:
+        signal.signal(signal.SIGTERM, signal_handler)
+        signal.signal(signal.SIGINT, signal_handler)
+        logger.info("[STARTUP]: Signal handlers registered (SIGTERM, SIGINT)")
+    except Exception as e:
+        logger.warning(f"[STARTUP]: Failed to register signal handlers: {e}")
+    
+    # Register cleanup at exit
+    def _atexit_cleanup():
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                loop.create_task(_shutdown_manager.shutdown())
+            else:
+                loop.run_until_complete(_shutdown_manager.shutdown())
+        except Exception:
+            logger.warning("[SHUTDOWN]: Error during atexit cleanup")
+    
+    atexit.register(_atexit_cleanup)
+
+
+def _log_resource_state(label: str):
+    """Log current resource usage."""
+    try:
+        import psutil
+        proc = psutil.Process(os.getpid())
+        mem = proc.memory_info()
+        logger.info(f"[RESOURCES] {label}: Memory={mem.rss / 1024 / 1024:.1f}MB, Threads={proc.num_threads()}")
+    except Exception:
+        pass  # psutil not available or not critical
+
 
 def print_startup_info():
     """Print detailed system information on startup to stderr."""
+    # Setup shutdown handlers
+    _setup_signal_handlers()
+    
+    # Log initial resource state
+    _log_resource_state("Startup")
+    
     print("\n" + "="*60, file=sys.stderr)
     print("  Universal OI Computer-Use MCP Server Starting", file=sys.stderr)
     print("="*60, file=sys.stderr)
+    
+    # Configuration Info
+    print(f"[CONFIG]: Loaded from .env with {len(CONFIG.model_dump())} settings", file=sys.stderr)
+    print(f"[CONFIG]: OI_PATH={OI_PATH}", file=sys.stderr)
     
     # OS and Python Info
     import platform
@@ -284,6 +449,9 @@ def print_startup_info():
     except Exception as e:
         print(f"[MONITORS]: Error detecting monitors: {e}", file=sys.stderr)
     
+    # Tool Timeout Configuration
+    print(f"[TIMEOUT]: Default tool timeout: {CONFIG.mcp_tool_timeout}ms ({CONFIG.mcp_tool_timeout/1000}s)", file=sys.stderr)
+    
     print("="*60 + "\n", file=sys.stderr)
 
 # Call startup info
@@ -304,10 +472,7 @@ def direct_move_to(x, y):
 def smooth_move_to(x, y):
     """Ultra-fast ~150ms smooth move with real-time overlay tracking."""
     start_x, start_y = pyautogui.position()
-    try:
-        duration_ms = float(os.environ.get("MCP_MOVE_DURATION_MS", "150"))
-    except Exception:
-        duration_ms = 150.0
+    duration_ms = CONFIG.mcp_move_duration_ms
     duration = max(0.01, duration_ms / 1000.0)
 
     # More steps yields smoother motion, but avoid overwhelming Tk.
@@ -323,8 +488,9 @@ def smooth_move_to(x, y):
         
         # Perfect sync: Move mouse then update overlay immediately
         direct_move_to(curr_x, curr_y)
-        if overlay:
-            overlay.move(curr_x, curr_y)
+        ov = get_overlay()
+        if ov:
+            ov.move(curr_x, curr_y)
 
         # Pace the loop to the target duration (reduces jitter vs fixed sleep).
         next_t = start_t + (i * duration / steps)
@@ -346,8 +512,7 @@ MAX_SCALING_TARGETS: dict[str, dict[str, int]] = {
 
 
 def _scaling_enabled() -> bool:
-    v = str(os.environ.get("MCP_SCREENSHOT_SCALING", "1")).strip().lower()
-    return v not in ("0", "false", "no", "off")
+    return CONFIG.mcp_screenshot_scaling
 
 
 def _pick_scaled_size(width: int, height: int) -> tuple[int, int]:
@@ -361,11 +526,8 @@ def _pick_scaled_size(width: int, height: int) -> tuple[int, int]:
             return dim["width"], dim["height"]
 
     # Fallback: cap to a max bounding box while preserving aspect ratio.
-    try:
-        max_w = int(os.environ.get("MCP_MAX_SCREENSHOT_WIDTH", "1366"))
-        max_h = int(os.environ.get("MCP_MAX_SCREENSHOT_HEIGHT", "768"))
-    except Exception:
-        max_w, max_h = 1366, 768
+    max_w = CONFIG.mcp_max_screenshot_width
+    max_h = CONFIG.mcp_max_screenshot_height
 
     if width <= 0 or height <= 0 or max_w <= 0 or max_h <= 0:
         return width, height
@@ -393,7 +555,7 @@ def _get_capture_region(sct) -> dict:
       - primary (default): use monitor 1 (the primary display)
       - virtual/all: use monitor 0 (full virtual desktop across monitors)
     """
-    scope = str(os.environ.get("MCP_CAPTURE_SCOPE", "primary")).strip().lower()
+    scope = CONFIG.mcp_capture_scope
     if scope in ("virtual", "all", "desktop"):
         m = sct.monitors[0]
     else:
@@ -484,10 +646,185 @@ def _capture_desktop_png_base64(desktop: dict, out_w: int, out_h: int) -> tuple[
     )
     return base64_png, bgra_hash, png_hash
 
+
+async def async_capture_desktop_png_base64(desktop: dict, out_w: int, out_h: int) -> tuple[str, str, str]:
+    """Async wrapper that runs screen capture in a thread executor (C5 fix).
+
+    This prevents mss.grab() from blocking the async event loop for
+    20-50 ms per call, which previously caused tool call timeouts,
+    transport stalls, and voice server jitter.
+
+    Args:
+        desktop: Monitor info dict with left/top/width/height keys.
+        out_w: Target output width for the screenshot.
+        out_h: Target output height for the screenshot.
+
+    Returns:
+        Same tuple as _capture_desktop_png_base64:
+        (base64_png, bgra_hash, png_hash)
+    """
+    return await asyncio.to_thread(_capture_desktop_png_base64, desktop, out_w, out_h)
+
+
+# ==========================================
+# Timeout Decorator for Tool Enforcement
+# ==========================================
+
+def with_timeout(timeout_ms: int = None):
+    """Decorator to enforce timeout on async tools.
+    
+    Args:
+        timeout_ms: Timeout in milliseconds. Uses CONFIG.mcp_tool_timeout if None.
+    
+    Raises:
+        asyncio.TimeoutError if tool exceeds timeout (caught and returned as TextContent).
+    """
+    def decorator(func):
+        @wraps(func)
+        async def wrapper(*args, **kwargs):
+            actual_timeout = timeout_ms or (CONFIG.mcp_tool_timeout / 1000.0)
+            tool_name = func.__name__
+            
+            try:
+                logger.debug(f"[TIMEOUT]: Starting {tool_name} with {actual_timeout}s timeout")
+                result = await asyncio.wait_for(
+                    func(*args, **kwargs),
+                    timeout=actual_timeout
+                )
+                logger.debug(f"[TIMEOUT]: {tool_name} completed within timeout")
+                return result
+            except asyncio.TimeoutError:
+                error_msg = (
+                    f"Tool '{tool_name}' exceeded timeout of {actual_timeout}s. "
+                    f"This may indicate a system issue or performance problem. "
+                    f"Try again or increase MCP_TOOL_TIMEOUT."
+                )
+                logger.error(f"[TIMEOUT ERROR]: {error_msg}")
+                return [TextContent(type="text", text=f"ERROR: {error_msg}")]
+            except Exception as e:
+                logger.exception(f"[TIMEOUT]: Exception in {tool_name}")
+                raise
+        return wrapper
+    return decorator
+
 # ==========================================
 # Core MCP Tools
 # ==========================================
 
+# ------------------------------------------
+# Security: Command Validation (C2)
+# ------------------------------------------
+
+def validate_command(cmd: str) -> tuple[bool, str]:
+    """Validate a shell command against the security denylist.
+
+    Checks the command string against COMMAND_DENYLIST using case-insensitive
+    substring matching. If ALLOW_UNSAFE_COMMANDS is True, all commands are
+    allowed (bypass mode for trusted environments).
+
+    Args:
+        cmd: The shell command string to validate.
+
+    Returns:
+        A tuple of (is_allowed: bool, reason: str).
+        If is_allowed is False, reason contains the matched denylist pattern.
+        If is_allowed is True, reason is an empty string.
+    """
+    if CONFIG.ALLOW_UNSAFE_COMMANDS:
+        return True, ""
+
+    cmd_lower = cmd.lower()
+    for pattern in COMMAND_DENYLIST:
+        if pattern.lower() in cmd_lower:
+            return False, pattern
+    return True, ""
+
+
+# ------------------------------------------
+# C3: Rate Limiting & Audit Logging for Computer Tool
+# ------------------------------------------
+
+class _ActionRateLimiter:
+    """Rate limiter for computer actions (mouse/keyboard control).
+    
+    Tracks action timestamps and enforces a configurable per-minute limit.
+    Thread-safe via Lock.
+    """
+
+    def __init__(self, max_actions_per_minute: int = 60):
+        self._max: int = max_actions_per_minute
+        self._timestamps: list[float] = []
+        self._lock: Lock = Lock()
+
+    def check(self) -> bool:
+        """Check if an action is allowed under the rate limit.
+
+        Returns:
+            True if the action is allowed, False if rate limit exceeded.
+        """
+        if self._max <= 0:
+            return True  # Unlimited
+
+        now = time.time()
+        with self._lock:
+            # Prune timestamps older than 60 seconds
+            self._timestamps = [t for t in self._timestamps if now - t < 60]
+            if len(self._timestamps) >= self._max:
+                return False
+            self._timestamps.append(now)
+            return True
+
+    @property
+    def max_per_minute(self) -> int:
+        """Current rate limit setting."""
+        return self._max
+
+    @max_per_minute.setter
+    def max_per_minute(self, value: int) -> None:
+        """Update the rate limit setting."""
+        self._max = max(0, value)
+
+
+# Global rate limiter instance (initialized after CONFIG is available)
+_computer_rate_limiter: _ActionRateLimiter = _ActionRateLimiter(
+    max_actions_per_minute=CONFIG.computer_action_rate_limit
+)
+
+# Audit logger for computer actions — writes to a dedicated audit file
+_audit_log_dir = os.path.join(PROJECT_ROOT, "logs")
+os.makedirs(_audit_log_dir, exist_ok=True)
+_audit_log_file = os.path.join(_audit_log_dir, "computer_actions.log")
+_audit_logger = logging.getLogger("oi-mcp.audit")
+_audit_logger.setLevel(logging.INFO)
+_audit_logger.propagate = False  # Don't duplicate to root handler
+_audit_file_handler = logging.FileHandler(_audit_log_file)
+_audit_file_handler.setFormatter(logging.Formatter('%(asctime)s | %(message)s'))
+_audit_logger.addHandler(_audit_file_handler)
+
+
+def _log_computer_action(action: str, text: str = None, coordinate: list[int] = None,
+                         start_coordinate: list[int] = None) -> None:
+    """Audit-log a computer action with timestamp, type, and coordinates/keys.
+
+    Args:
+        action: The action type (e.g., 'left_click', 'type', 'key').
+        text: Optional text associated with the action.
+        coordinate: Optional [x, y] target coordinate.
+        start_coordinate: Optional [x, y] start coordinate for drag.
+    """
+    parts = [f"action={action}"]
+    if text is not None:
+        # Truncate long text to avoid bloating the audit log
+        safe_text = str(text)[:200]
+        parts.append(f"text='{safe_text}'")
+    if coordinate is not None:
+        parts.append(f"coordinate={coordinate}")
+    if start_coordinate is not None:
+        parts.append(f"start_coordinate={start_coordinate}")
+    _audit_logger.info(" | ".join(parts))
+
+
+@with_timeout()
 async def computer(
     action: str,
     text: str = None,
@@ -506,7 +843,41 @@ async def computer(
     """
     try:
         ensure_tools()
-        global pyautogui 
+        global pyautogui
+
+        # --- C3: Security controls for risky computer actions ---
+        # Audit-log every computer action
+        _log_computer_action(action, text, coordinate, start_coordinate)
+
+        # Rate limiting check
+        if not _computer_rate_limiter.check():
+            logger.warning(f"[RATE LIMIT] Computer action '{action}' rejected: "
+                           f"rate limit of {_computer_rate_limiter.max_per_minute}/min exceeded")
+            return [TextContent(type="text", text=(
+                f"ERROR: Computer action rate limit exceeded "
+                f"({CONFIG.computer_action_rate_limit} actions per minute). "
+                f"Wait a moment and try again."
+            ))]
+
+        # User confirmation warning for risky actions (mouse clicks / keyboard input)
+        _risky_actions = {"left_click", "right_click", "double_click", "middle_click",
+                          "type", "key", "drag"}
+        if not CONFIG.risky_action_enabled and action in _risky_actions:
+            logger.warning(f"[RISKY ACTION] Computer action '{action}' blocked: "
+                           f"RISKY_ACTION_ENABLED is false")
+            return [TextContent(type="text", text=(
+                f"ERROR: Risky computer action '{action}' is disabled. "
+                f"Set RISKY_ACTION_ENABLED=true in .env to allow mouse/keyboard control."
+            ))]
+
+        if action in _risky_actions:
+            logger.warning(f"[RISKY ACTION WARNING] Executing computer action: "
+                           f"action={action} coordinate={coordinate} text={str(text)[:80] if text else None}")
+
+        # Get context-aware tool instances
+        _computer_tool = get_computer_tool()
+        _ui_provider = get_ui_provider()
+        _overlay = get_overlay()
         
         # Map click1/click2 aliases
         if action == "click1": action = "left_click"
@@ -518,7 +889,7 @@ async def computer(
         import mss
         with mss.mss() as sct:
             desktop = _get_capture_region(sct)
-            computer_tool.set_monitor_size(desktop["width"], desktop["height"], left=desktop["left"], top=desktop["top"])
+            _computer_tool.set_monitor_size(desktop["width"], desktop["height"], left=desktop["left"], top=desktop["top"])
 
         out_w, out_h = _pick_scaled_size(desktop["width"], desktop["height"])
         print(
@@ -545,9 +916,9 @@ async def computer(
         
         if action in ("left_click", "right_click", "double_click", "middle_click", "mouse_move") and text_str and text_str.strip().isdigit():
             idx = int(text_str.strip())
-            element = ui_provider.get_element(idx)
+            element = _ui_provider.get_element(idx)
             if element:
-                cx, cy = element.center 
+                cx, cy = element.center
                 target_x, target_y = cx, cy
                 snap_msg = f"(Targeted element {idx}: {element.name} at {target_x},{target_y})"
                 action_label = f"{action.replace('_click', '').capitalize()} {element.name[:20]}"
@@ -560,7 +931,7 @@ async def computer(
         if not target_x and coordinate:
             sx, sy = int(coordinate[0]), int(coordinate[1])
             try:
-                coord_grid = int(os.environ.get("MCP_COORD_GRID", "0"))
+                coord_grid = CONFIG.mcp_coordinate_grid
             except Exception:
                 coord_grid = 0
             
@@ -583,19 +954,19 @@ async def computer(
         mx, my = pyautogui.position()
         has_moved = False
         
-        if overlay:
+        if _overlay:
             if target_x is not None and target_y is not None:
-                overlay.show(mx, my, combined_label)
+                _overlay.show(mx, my, combined_label)
                 # 2. MOVE SMOOTHLY TO TARGET (150ms)
                 smooth_move_to(target_x, target_y)
                 has_moved = True
             else:
                 # For non-movement actions (type, key, etc.), show overlay at current mouse position
-                overlay.show(mx, my, combined_label)
+                _overlay.show(mx, my, combined_label)
         
         # 3. IF NO TARGET, RE-POSITION OVERLAY TO CURRENT MOUSE POSITION JUST IN CASE
-        if not has_moved and overlay:
-            overlay.move(mx, my)
+        if not has_moved and _overlay:
+            _overlay.move(mx, my)
 
         # 3. CAPTURE PRE-ACTION STATE
         with mss.mss() as sct:
@@ -606,9 +977,9 @@ async def computer(
 
         # 4. PERFORM ACTION
         print(f"[ACTION]: Executing {action}...", file=sys.stderr)
-        if overlay:
+        if _overlay:
             combined_label_exec = f"{thinking}|Executing {action}..." if thinking else f"Executing {action}..."
-            overlay.update_label(combined_label_exec)
+            _overlay.update_label(combined_label_exec)
         
         if action == "left_click":
             if has_moved: pyautogui.click()
@@ -630,12 +1001,9 @@ async def computer(
             if not has_moved and target_x is not None:
                 direct_move_to(target_x, target_y)
         elif action == "type":
-            if text: 
+            if text:
                 logger.info(f"Typing: {text}")
-                try:
-                    interval = float(os.environ.get("MCP_TYPE_INTERVAL_SEC", "0.02"))
-                except Exception:
-                    interval = 0.02
+                interval = CONFIG.mcp_type_interval_sec
                 # Small settle helps prevent dropped characters when focus just changed.
                 time.sleep(0.05)
                 pyautogui.write(str(text), interval=max(0.0, interval))
@@ -678,10 +1046,10 @@ async def computer(
                 pyautogui.dragTo(ax2, ay2, button="left", duration=0.1)
         
         # 5. CAPTURE RESULT AND CHECK FOR CHANGE
-        if overlay and action == "screenshot":
+        if _overlay and action == "screenshot":
             # Make capture feel alive in the overlay.
-            overlay.status("Capturing Screen...", "orange")
-        result_b64, post_hash, _png_hash = _capture_desktop_png_base64(desktop, out_w, out_h)
+            _overlay.status("Capturing Screen...", "orange")
+        result_b64, post_hash, _png_hash = await async_capture_desktop_png_base64(desktop, out_w, out_h)
         
         change_msg = ""
         if pre_hash == post_hash:
@@ -706,8 +1074,8 @@ async def computer(
             except Exception as save_err:
                 print(f"[ERROR]: Failed to save screenshot: {save_err}", file=sys.stderr)
 
-        if overlay:
-            overlay.update_label("Processing prompt...|")
+        if _overlay:
+            _overlay.update_label("Processing prompt...|")
         print(f"[SUCCESS]: {action} completed.", file=sys.stderr)
 
         instruction = "\n\n[SYSTEM]: Action complete. If the screen evolved, you MUST call 'read_screen_ui'. If finished, call 'terminate_task' and STOP."
@@ -718,24 +1086,24 @@ async def computer(
         # Optional: auto-scan UI so the model can verify success.
         # - MCP_AUTO_SCAN_ON_CHANGE=1 scans only when screen hash changed (default)
         # - MCP_AUTO_SCAN_ALWAYS=1 scans after every action (slower but more reliable)
-        auto_scan_on_change = str(os.environ.get("MCP_AUTO_SCAN_ON_CHANGE", "1")).strip().lower() not in ("0", "false", "no", "off")
-        auto_scan_always = str(os.environ.get("MCP_AUTO_SCAN_ALWAYS", "0")).strip().lower() in ("1", "true", "yes", "on")
+        auto_scan_on_change = CONFIG.mcp_auto_scan_on_change
+        auto_scan_always = CONFIG.mcp_auto_scan_always
         do_scan = (auto_scan_always or (auto_scan_on_change and pre_hash != post_hash)) and action not in ("cursor_position",)
         if do_scan:
             try:
                 import mss
-                ui_provider.reset()
+                _ui_provider.reset()
                 with mss.mss() as sct:
-                    scope = str(os.environ.get("MCP_CAPTURE_SCOPE", "primary")).strip().lower()
+                    scope = CONFIG.mcp_capture_scope
                     monitors = sct.monitors[1:] if scope in ("virtual", "all", "desktop") else [sct.monitors[1]]
-                    ui_provider.scan(monitors=monitors)
-                ui_text = ui_provider.format_for_llm(
+                    _ui_provider.scan(monitors=monitors)
+                ui_text = _ui_provider.format_for_llm(
                     monitors=monitors,
-                    computer_tool=computer_tool,
+                    computer_tool=_computer_tool,
                     desktop=desktop,
                     display_size=(out_w, out_h),
-                    max_elements=int(os.environ.get("MCP_AUTO_SCAN_MAX_ELEMENTS", "60")),
-                    elements=ui_provider.scan(monitors=monitors)
+                    max_elements=CONFIG.mcp_auto_scan_max_elements,
+                    elements=_ui_provider.scan(monitors=monitors)
                 )
                 contents.insert(0, TextContent(type="text", text="[AUTO UI SCAN]\n" + ui_text))
             except Exception as _scan_err:
@@ -743,35 +1111,40 @@ async def computer(
         
         return contents
     except Exception as e:
-        if overlay: overlay.hide()
+        if _overlay: _overlay.hide()
         logger.exception("Error in computer tool")
         return [TextContent(type="text", text=f"Exception: {str(e)}")]
 
 
+@with_timeout(timeout_ms=90000)  # 90 seconds for heavy UI scans
 async def read_screen_ui() -> list[TextContent]:
     """Scan the screen for interactive UI elements in a hierarchical tree."""
     try:
         ensure_tools()
-        if overlay:
-            overlay.status("Scanning UI Tree...", "orange")
+        _ui_provider = get_ui_provider()
+        _overlay = get_overlay()
+        _computer_tool = get_computer_tool()
+        
+        if _overlay:
+            _overlay.status("Scanning UI Tree...", "orange")
         
         import hashlib
         import mss
         
-        ui_provider.reset()
+        _ui_provider.reset()
         with mss.mss() as sct:
             desktop = _get_capture_region(sct)
             out_w, out_h = _pick_scaled_size(desktop["width"], desktop["height"])
-            scope = str(os.environ.get("MCP_CAPTURE_SCOPE", "primary")).strip().lower()
+            scope = CONFIG.mcp_capture_scope
             monitors = sct.monitors[1:] if scope in ("virtual", "all", "desktop") else [sct.monitors[1]]
             
         # The scan() method now builds a hierarchical tree internally
-        scanned_elements = ui_provider.scan(monitors=monitors)
+        scanned_elements = _ui_provider.scan(monitors=monitors)
         
         # Format as hierarchical tree for the LLM
-        output = ui_provider.format_for_llm(
+        output = _ui_provider.format_for_llm(
             monitors=monitors,
-            computer_tool=computer_tool,
+            computer_tool=_computer_tool,
             desktop=desktop,
             display_size=(out_w, out_h),
             elements=scanned_elements
@@ -795,10 +1168,10 @@ async def read_screen_ui() -> list[TextContent]:
         except Exception:
             pass
 
-        if overlay:
-            overlay.status("Scan Complete", "cyan")
+        if _overlay:
+            _overlay.status("Scan Complete", "cyan")
             time.sleep(0.1)
-            overlay.update_label("Processing prompt...|")
+            _overlay.update_label("Processing prompt...|")
 
         footer = "\n\n[INSTRUCTION]: Use index numbers [idx] with 'computer' tool. If the tree is too complex, look for semantic landmarks (Window, Group, etc.)."
         return [TextContent(type="text", text=warning + output + browser_hint + footer)]
@@ -807,22 +1180,37 @@ async def read_screen_ui() -> list[TextContent]:
         return [TextContent(type="text", text=f"Exception: {str(e)}")]
 
 
+@with_timeout()
 async def bash(command: str) -> list[TextContent]:
     """Run shell code."""
     try:
         ensure_tools()
-        if overlay:
-            overlay.status(f"Shell: {command[:20]}...", "yellow")
+        _overlay = get_overlay()
+        _oi_interpreter = get_oi_interpreter()
+
+        # --- Command sandboxing: validate against denylist ---
+        is_allowed, matched_pattern = validate_command(command)
+        if not is_allowed:
+            logger.warning(f"[SECURITY] Command blocked by denylist: "
+                           f"pattern='{matched_pattern}' command='{command[:200]}'")
+            return [TextContent(type="text", text=(
+                f"ERROR: Command blocked by security policy: "
+                f"matched denylist pattern '{matched_pattern}'. "
+                f"Set ALLOW_UNSAFE_COMMANDS=true in .env to bypass (trusted environments only)."
+            ))]
+
+        if _overlay:
+            _overlay.status(f"Shell: {command[:20]}...", "yellow")
             
         print(f"[SHELL]: Running command: {command}", file=sys.stderr)
-        output_messages = oi_interpreter.computer.run(language="shell", code=command)
+        output_messages = _oi_interpreter.computer.run(language="shell", code=command)
         output = "\n".join([msg["content"] for msg in output_messages if "content" in msg]).strip()
         final_output = output if output else "Code executed."
         
-        if overlay:
-            overlay.status("Execution Done", "green")
+        if _overlay:
+            _overlay.status("Execution Done", "green")
             time.sleep(0.1)
-            overlay.update_label("Processing prompt...|")
+            _overlay.update_label("Processing prompt...|")
 
         # ENHANCEMENT: Explicitly instruct the LLM on what to do next
         system_instruction = (
@@ -838,6 +1226,7 @@ async def bash(command: str) -> list[TextContent]:
         return [TextContent(type="text", text=fallback_err)]
 
 
+@with_timeout()
 async def rename_file(old_path: str, new_path: str) -> list[TextContent]:
     """Rename or move a file directly (no shell, no interactive prompts)."""
     try:
@@ -868,8 +1257,9 @@ async def rename_file(old_path: str, new_path: str) -> list[TextContent]:
         return [TextContent(type="text", text=f"Exception: {str(e)}")]
 
 
+@with_timeout()
 async def browser_action(url: str = None, search_query: str = None, browser: str = "chrome", isolated_session: bool = True) -> list[TextContent]:
-    """Specialized browser tool. 
+    """Specialized browser tool.
     Directly launches the browser. Defaults to an isolated session with onboarding bypassed.
     """
     try:
@@ -931,11 +1321,13 @@ async def browser_action(url: str = None, search_query: str = None, browser: str
         return [TextContent(type="text", text=f"Exception: {str(e)}")]
 
 
+@with_timeout(timeout_ms=10000)  # 10 seconds for browser DOM queries
 async def browser_use_dom() -> list[TextContent]:
     """Extract efficient DOM structure from the installed browser."""
     try:
         ensure_tools()
-        dom_tree = await ui_provider.scan_browser()
+        _ui_provider = get_ui_provider()
+        dom_tree = await _ui_provider.scan_browser()
         
         if "Error connecting" in dom_tree:
             msg = (
@@ -954,24 +1346,28 @@ async def browser_use_dom() -> list[TextContent]:
     except Exception as e:
         return [TextContent(type="text", text=f"Exception: {str(e)}")]
 
+@with_timeout()
 async def update_thought(thought: str) -> list[TextContent]:
     """Update the overlay with the LLM's live thoughts. (Internal UI Tool)"""
-    if overlay:
+    _overlay = get_overlay()
+    if _overlay:
         # The pill uses "Thinking|Action" format. We put "Thinking..." small, and the live text large.
-        overlay.update_label(f"Thinking...|{thought.strip()}")
+        _overlay.update_label(f"Thinking...|{thought.strip()}")
     return [TextContent(type="text", text="OK")]
 
+@with_timeout()
 async def terminate_task(success: bool, message: str) -> list[TextContent]:
     """FINAL TASK SIGNAL. STOP IMMEDIATELY AFTER CALLING THIS."""
     status = "SUCCESS" if success else "FAILED"
     print(f"\n[TERMINATE]: Task ended with {status}: {message}", file=sys.stderr)
     
     # Update overlay if it exists
-    if overlay:
-        overlay.update_label(f"Task {status}")
-        overlay.status(f"Finished: {status}", "green" if success else "red")
+    _overlay = get_overlay()
+    if _overlay:
+        _overlay.update_label(f"Task {status}")
+        _overlay.status(f"Finished: {status}", "green" if success else "red")
         time.sleep(1.0) # Brief pause so user sees the final status
-        overlay.hide()
+        _overlay.hide()
         
     # Construct a very explicit message for the LLM
     done_msg = f"[TASK_TERMINATED]: {status}\n{message}\n\n"
@@ -1004,22 +1400,40 @@ def create_server(host: str, port: int) -> FastMCP:
         stateless_http=True,
     )
 
+    # Register tools that are NOT decorated with @mcp.tool() via explicit calls.
+    # C4 Fix: browser_action and browser_use_dom are registered below via
+    # @mcp.tool() decorator inside create_server(), so they are NOT duplicated
+    # with explicit mcp.tool()() calls here.
     mcp.tool()(computer)
     mcp.tool()(read_screen_ui)
     mcp.tool()(bash)
     mcp.tool()(terminate_task)
     mcp.tool()(rename_file)
-    mcp.tool()(browser_action)
-    mcp.tool()(browser_use_dom)
-    mcp.tool()(browser_action)
-    mcp.tool()(browser_use_dom)
-    mcp.tool()(update_thought)  # <-- ADD THIS LINE
+    mcp.tool()(update_thought)
+
+    # C4 Fix: Register browser_action and browser_use_dom via @mcp.tool() decorator
+    # to avoid duplicate registration (decorator + explicit add_tool).
+    @mcp.tool(name="browser_action")
+    async def _browser_action(url: str = None, search_query: str = None, browser: str = "chrome", isolated_session: bool = True) -> list[TextContent]:
+        """Specialized browser tool.
+        Directly launches the browser. Defaults to an isolated session with onboarding bypassed.
+        """
+        return await browser_action(url=url, search_query=search_query, browser=browser, isolated_session=isolated_session)
+
+    @mcp.tool(name="browser_use_dom")
+    async def _browser_use_dom() -> list[TextContent]:
+        """Extract efficient DOM structure from the installed browser."""
+        return await browser_use_dom()
 
     return mcp
 
 
 def main():
     args = parse_args()
+    
+    # Initialize shutdown handlers and print startup info
+    print_startup_info()
+    
     mcp = create_server(args.host, args.port)
 
     if args.stdio:

@@ -13,6 +13,7 @@ import asyncio
 import builtins
 import concurrent.futures
 import io
+import logging
 import os
 import sys
 import threading
@@ -40,6 +41,14 @@ def safe_print(*args, **kwargs):
 
 
 builtins.print = safe_print
+
+# Configure logging
+logger = logging.getLogger("hybrid-mcp")
+logger.setLevel(logging.INFO)
+if not logger.handlers:
+    handler = logging.StreamHandler(sys.stderr)
+    handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+    logger.addHandler(handler)
 
 class BrowserUseProxy:
     def __init__(self):
@@ -151,8 +160,18 @@ class BrowserUseProxy:
         session = self._worker_session
         if session is None:
             raise RuntimeError("browser-use worker session not ready")
-        res = await session.call_tool(tool_name, arguments)
-        return list(res.content or [])
+        try:
+            res = await asyncio.wait_for(
+                session.call_tool(tool_name, arguments),
+                timeout=self._call_timeout_s
+            )
+            return list(res.content or [])
+        except asyncio.TimeoutError:
+            msg = f"[TIMEOUT]: Browser-use tool '{tool_name}' exceeded {self._call_timeout_s}s timeout"
+            logger.error(msg)
+            return [mcp_types.TextContent(type="text", text=f"ERROR: {msg}")]
+        except Exception:
+            raise
 
     async def ensure_started(self) -> ClientSession:
         # Fast path: already ready.
@@ -271,6 +290,22 @@ def create_server(host: str, port: int) -> FastMCP:
         transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
         stateless_http=True,
     )
+
+    # Setup lifespan handler for graceful shutdown
+    @app.lifespan
+    async def lifespan(app: FastMCP):
+        """FastMCP lifespan handler for startup/shutdown."""
+        # Startup
+        logger.info("[STARTUP]: Hybrid server starting")
+        yield
+        # Shutdown
+        logger.info("[SHUTDOWN]: Hybrid server shutting down")
+        try:
+            await bu_proxy.close()
+            logger.info("[SHUTDOWN]: Browser-use proxy closed")
+        except Exception as e:
+            logger.warning(f"[SHUTDOWN]: Error closing browser-use proxy: {e}")
+        logger.info("[SHUTDOWN]: Hybrid server shutdown complete")
 
     # Expose computer-use tools unchanged.
     app.tool()(cu.computer)

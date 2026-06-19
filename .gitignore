@@ -1,4 +1,68 @@
-.history
-models
+# ========================================
+# ENVIRONMENT FILES (contains secrets)
+# ========================================
+.env
+
+# ========================================
+# PYTHON
+# ========================================
+__pycache__/
+*.pyc
+*.pyo
+*.so
+*.dll
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.tox/
+
+# Python test/cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ========================================
+# VIRTUAL ENVIRONMENTS
+# ========================================
+venv/
+env/
+*_env/
+.venv/
+asr_env/
+tts_env/
+computer_use_env/
+
+# ========================================
+# IDE / EDITOR
+# ========================================
+.history/
 *.code-workspace
-screenshots
+.vscode/
+.idea/
+
+# ========================================
+# OS FILES
+# ========================================
+.DS_Store
+Thumbs.db
+
+# ========================================
+# LOGS
+# ========================================
+*.log
+logs/
+firebase-debug.log
+
+# ========================================
+# PROJECT-SPECIFIC
+# ========================================
+models/
+screenshots/
+scratch/
+
+# ========================================
+# ARTIFACTS (large media files)
+# ========================================
+artifacts/

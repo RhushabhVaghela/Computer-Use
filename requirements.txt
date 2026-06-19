@@ -4,6 +4,8 @@ fastmcp
 uvicorn
 starlette
 python-dotenv
+pydantic>=2.0
+pydantic-settings>=2.0
 
 # Computer-Use Dependencies
 pyautogui

@@ -4,11 +4,91 @@ import json
 import numpy as np
 import logging
 import urllib.request
+import uuid
 from typing import Optional, List
 import torch
 
 # Configure logging
 logger = logging.getLogger("speech-processor")
+
+
+# ==========================================
+# Bridge Health Check & Retry Utilities (H3)
+# ==========================================
+
+async def check_bridge_health(url: str, timeout: float = 5.0) -> bool:
+    """Check if a bridge endpoint is healthy by hitting its /health endpoint.
+
+    Args:
+        url: Base URL of the bridge service.
+        timeout: Request timeout in seconds.
+
+    Returns:
+        True if the bridge is healthy, False otherwise.
+    """
+    import asyncio
+    try:
+        health_url = url.rstrip("/") + "/health"
+        req = urllib.request.Request(health_url, method="GET")
+        def _check():
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return resp.status == 200
+        return await asyncio.to_thread(_check)
+    except Exception as e:
+        logger.warning(f"Bridge health check failed for {url}: {e}")
+        return False
+
+
+async def call_bridge_with_retry(url: str, data: bytes, content_type: str,
+                                   max_retries: int = 3, base_delay: float = 1.0,
+                                   timeout: float = 30.0) -> bytes:
+    """Call a bridge endpoint with exponential backoff retry.
+
+    Args:
+        url: Full URL of the endpoint.
+        data: Request body as bytes.
+        content_type: Content-Type header value.
+        max_retries: Maximum number of retry attempts.
+        base_delay: Base delay between retries (doubles each attempt).
+        timeout: Request timeout per attempt in seconds.
+
+    Returns:
+        Response body as bytes.
+
+    Raises:
+        ConnectionError: If all retry attempts fail.
+    """
+    import asyncio
+    last_error = None
+    for attempt in range(max_retries):
+        try:
+            req = urllib.request.Request(url, data=data, method="POST")
+            req.add_header("Content-Type", content_type)
+            def _do_request():
+                with urllib.request.urlopen(req, timeout=timeout) as response:
+                    return response.read()
+            return await asyncio.to_thread(_do_request)
+        except urllib.error.HTTPError as e:
+            # Don't retry client errors (4xx) except 429 (rate limited)
+            if 400 <= e.code < 500 and e.code != 429:
+                raise
+            last_error = e
+            logger.warning(f"Bridge call attempt {attempt + 1}/{max_retries} failed "
+                          f"(HTTP {e.code}): {e.reason}")
+        except Exception as e:
+            last_error = e
+            logger.warning(f"Bridge call attempt {attempt + 1}/{max_retries} failed: {e}")
+
+        if attempt < max_retries - 1:
+            delay = base_delay * (2 ** attempt)
+            logger.info(f"Retrying bridge call in {delay:.1f}s...")
+            await asyncio.sleep(delay)
+
+    raise ConnectionError(
+        f"Bridge call to {url} failed after {max_retries} attempts. "
+        f"Last error: {last_error}"
+    )
+
 
 # Try importing dependencies
 try:
@@ -426,10 +506,12 @@ class Qwen3ASRProcessor:
                 req = urllib.request.Request(url, data=body, method='POST')
                 req.add_header('Content-Type', f'multipart/form-data; boundary={boundary}')
                 
-                with urllib.request.urlopen(req, timeout=10) as response:
-                    res_body = response.read().decode('utf-8')
-                    res_data = json.loads(res_body)
-                    return res_data.get("text", "").strip()
+                res_body = await call_bridge_with_retry(
+                    url, body, f'multipart/form-data; boundary={boundary}',
+                    max_retries=3, base_delay=1.0, timeout=30.0
+                )
+                res_data = json.loads(res_body.decode('utf-8'))
+                return res_data.get("text", "").strip()
             except Exception as e:
                 logger.error(f"Error calling remote ASR endpoint: {e}")
                 return ""
@@ -439,7 +521,7 @@ class Qwen3ASRProcessor:
                 return ""
             try:
                 os.makedirs("scratch", exist_ok=True)
-                temp_wav = "scratch/temp_asr_input.wav"
+                temp_wav = f"scratch/temp_asr_input_{uuid.uuid4().hex}.wav"
                 with open(temp_wav, "wb") as f:
                     f.write(wav_bytes)
                 
@@ -511,8 +593,10 @@ class Qwen3TTSProcessor:
                     }).encode('utf-8')
                     req = urllib.request.Request(url, data=body, method='POST')
                     req.add_header('Content-Type', 'application/json')
-                    with urllib.request.urlopen(req, timeout=10) as response:
-                        return response.read()
+                    return await call_bridge_with_retry(
+                        url, body, 'application/json',
+                        max_retries=3, base_delay=1.0, timeout=30.0
+                    )
                 
                 audio_bytes = await asyncio.to_thread(_post)
                 
