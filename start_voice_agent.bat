@@ -1,9 +1,0 @@
-@echo off
-echo Starting LLaMA Server for Gemma-4-12B...
-start "LLaMA Server" cmd /c "llama-server.exe -m C:\Users\Rhushabh\.lmstudio\models\unsloth\gemma-4-12B-it-qat-GGUF -c 4096 --port 8080"
-
-echo Waiting for LLaMA Server to spin up...
-timeout /t 5 /nobreak
-
-echo Starting Computer-Use Voice Agent...
-.\.venv_new\Scripts\python src\run_agent.py --provider local --api-base http://127.0.0.1:8080/v1 --voice --force-fallback
