@@ -32,7 +32,8 @@ from mcp.client.session import ClientSession
 from mcp.client.stdio import stdio_client
 from speech_processor import (
     ASRProcessor, VADDetector, TTSProcessor, EdgeTTSProcessor, 
-    KittenTTSProcessor, SupertonicTTSProcessor, Qwen3ASRProcessor, Qwen3TTSProcessor
+    KittenTTSProcessor, SupertonicTTSProcessor, Qwen3ASRProcessor, Qwen3TTSProcessor,
+    HiggsTTSProcessor
 )
 
 # Configure logging
@@ -69,8 +70,8 @@ class LowLatencyVoiceServer:
             self.personaplex_temperature = 0.7
         
         # Determine engines from environment variables (fallback if PersonaPlex is disabled)
-        asr_engine = os.environ.get("ASR_ENGINE", "qwen3").lower()
-        tts_engine = os.environ.get("TTS_ENGINE", "qwen3").lower()
+        asr_engine = os.environ.get("ASR_ENGINE", CONFIG.asr_engine).lower()
+        tts_engine = os.environ.get("TTS_ENGINE", CONFIG.tts_engine).lower()
         
         self.asr = None
         self.tts = None
@@ -93,6 +94,8 @@ class LowLatencyVoiceServer:
                 qwen3_tts_model = os.environ.get("QWEN3_TTS_MODEL", "Qwen/Qwen3-TTS-12Hz-0.6B-Base")
                 qwen3_tts_endpoint = os.environ.get("QWEN3_TTS_ENDPOINT", None)
                 self.tts = Qwen3TTSProcessor(model_name=qwen3_tts_model, remote_url=qwen3_tts_endpoint)
+            elif tts_engine == "higgs":
+                self.tts = HiggsTTSProcessor()
             elif tts_engine == "kokoro":
                 self.tts = TTSProcessor()
             elif tts_engine == "edge-tts":
