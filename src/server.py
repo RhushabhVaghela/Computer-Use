@@ -1153,14 +1153,14 @@ async def computer(
                 with mss.mss() as sct:
                     scope = CONFIG.mcp_capture_scope
                     monitors = sct.monitors[1:] if scope in ("virtual", "all", "desktop") else [sct.monitors[1]]
-                    _ui_provider.scan(monitors=monitors)
+                scanned_elements = _ui_provider.scan(monitors=monitors)
                 ui_text = _ui_provider.format_for_llm(
                     monitors=monitors,
                     computer_tool=_computer_tool,
                     desktop=desktop,
                     display_size=(out_w, out_h),
                     max_elements=CONFIG.mcp_auto_scan_max_elements,
-                    elements=_ui_provider.scan(monitors=monitors)
+                    elements=scanned_elements
                 )
                 contents.insert(0, TextContent(type="text", text="[AUTO UI SCAN]\n" + ui_text))
             except Exception as _scan_err:

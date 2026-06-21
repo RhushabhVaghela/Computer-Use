@@ -8,12 +8,11 @@ async def test_mcp_server_initialization():
     # In fastmcp, they are usually in mcp._tools
     
     # We can just verify the decorator registered them by checking if the functions exist.
-    from src.server import computer, bash, read_screen_ui, read_browser_ui
+    from src.server import computer, bash, read_screen_ui, create_server
     
     assert computer is not None
     assert bash is not None
     assert read_screen_ui is not None
-    assert read_browser_ui is not None
 
-    # Just a simple sanity check that the config loaded and the server is ready
-    assert mcp.name == "Computer-Use"
+    mcp_app = create_server("0.0.0.0", 8000)
+    assert mcp_app.name == "Open Interpreter Computer-Use"

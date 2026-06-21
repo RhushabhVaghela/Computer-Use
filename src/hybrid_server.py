@@ -73,7 +73,10 @@ class BrowserUseProxy:
         # This file lives under <repo>/src. browser-use lives alongside the repo in the workspace root.
         repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         workspace_root = os.path.dirname(repo_root)
-        bu_py = os.path.join(workspace_root, "browser-use", ".venv", "Scripts", "python.exe")
+        if sys.platform == "win32":
+            bu_py = os.path.join(workspace_root, "browser-use", ".venv", "Scripts", "python.exe")
+        else:
+            bu_py = os.path.join(workspace_root, "browser-use", ".venv", "bin", "python")
         if not os.path.exists(bu_py):
             # Allow override (e.g. different path/OS).
             bu_py = os.environ.get("BROWSER_USE_PYTHON", "") or sys.executable

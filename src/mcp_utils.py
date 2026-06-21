@@ -5,7 +5,11 @@ from mcp.client.stdio import StdioServerParameters
 
 def get_mcp_params(hybrid: bool) -> StdioServerParameters:
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    python = os.path.join(root, ".venv", "Scripts", "python.exe")
+    if sys.platform == "win32":
+        python = os.path.join(root, ".venv", "Scripts", "python.exe")
+    else:
+        python = os.path.join(root, ".venv", "bin", "python")
+        
     if not os.path.exists(python):
         python = sys.executable
         
