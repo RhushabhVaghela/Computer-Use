@@ -94,27 +94,23 @@ class UIElementProvider:
         return []
 
     def _get_browser_window_rect(self) -> Optional[tuple[int, int, int, int]]:
-        """Find the active browser window rect using UIAutomation."""
+        """Find the browser window rect using UIAutomation."""
         try:
             import uiautomation as auto
-            active_win = auto.GetForegroundWindow()
-            if not active_win:
-                return None
-            
-            ctrl = auto.ControlFromHandle(active_win)
-            name = (ctrl.Name or "").lower()
-            # Common browser names
-            if any(b in name for b in ["chrome", "edge", "brave", "firefox", "opera"]):
-                # Try to find the document/pane that contains the web content
-                # Chrome/Edge usually have a 'Document' control
-                doc = ctrl.DocumentControl(searchDepth=3)
-                if doc.Exists(0):
-                    r = doc.BoundingRectangle
+            # Search top-level windows for common browsers
+            for win in auto.GetRootControl().GetChildren():
+                name = (win.Name or "").lower()
+                classname = (win.ClassName or "").lower()
+                if any(b in name for b in ["chrome", "edge", "brave", "firefox", "opera"]) or \
+                   any(b in classname for b in ["chrome_widgetwin", "mozilla", "msedge"]):
+                    
+                    doc = win.DocumentControl(searchDepth=3)
+                    if doc.Exists(0):
+                        r = doc.BoundingRectangle
+                        return (r.left, r.top, r.right, r.bottom)
+                    
+                    r = win.BoundingRectangle
                     return (r.left, r.top, r.right, r.bottom)
-                
-                # Fallback to the whole window if no document found
-                r = ctrl.BoundingRectangle
-                return (r.left, r.top, r.right, r.bottom)
         except Exception:
             pass
         return None

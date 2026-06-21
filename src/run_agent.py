@@ -667,8 +667,26 @@ async def run_agent(
     hybrid: bool,
     max_turns: int,
     text_only: bool = False,
-    force_fallback: bool = False
+    force_fallback: bool = False,
+    voice_mode: bool = False
 ):
+    voice_pipeline = None
+    if voice_mode:
+        print("[VOICE MODE] Initializing ASR and TTS pipelines natively on Windows...")
+        try:
+            from voice_pipeline import AudioRecorder, WhisperASR, HiggsTTS
+            recorder = AudioRecorder()
+            asr = WhisperASR(model_size="turbo")
+            # Using the exact path to the 4-bit NVFP4 model the user has on disk
+            tts = HiggsTTS(r"C:\Users\Rhushabh\Documents\HuggingFace\Reza2kn\Higgs-Audio-v3-TTS-4bit-NVFP4")
+            voice_pipeline = {"recorder": recorder, "asr": asr, "tts": tts}
+            print("[VOICE MODE] Initialization complete.")
+        except Exception as e:
+            print(f"[VOICE MODE ERROR] Failed to initialize voice pipeline: {e}")
+            import traceback
+            traceback.print_exc()
+            voice_mode = False
+            
     server_params = get_mcp_params(hybrid)
     
     async with stdio_client(server_params) as (read, write):
@@ -719,17 +737,32 @@ async def run_agent(
             )
             
             # Initialize messages
-            messages = [{"role": "user", "content": prompt}]
+            messages = [{"role": "user", "content": prompt}] if prompt else []
             
             print(f"\n[AGENT START]: Provider={provider.upper()} Model={model} Max Turns={max_turns}")
-            print(f"Prompt: {prompt}\n")
+            if prompt:
+                print(f"Prompt: {prompt}\n")
             
             last_sig = None
             rep_count = 0
             loop_warning_to_inject = None
             
-            for turn in range(1, max_turns + 1):
-                print(f"[TURN {turn}/{max_turns}]: Requesting VLM response...", flush=True)
+            # Voice Mode Loop Overrides
+            while True:
+                if voice_mode and not prompt:
+                    print("\n--- Waiting for voice command ---")
+                    audio_data = voice_pipeline["recorder"].record_until_silence()
+                    prompt = voice_pipeline["asr"].transcribe(audio_data)
+                    print(f"🗣️ [User Voice]: {prompt}")
+                    if not prompt or len(prompt.strip()) < 2:
+                        continue
+                    if prompt.lower().strip() in ["stop", "exit", "quit", "terminate"]:
+                        print("Exiting voice mode.")
+                        break
+                    messages.append({"role": "user", "content": prompt})
+                    
+                for turn in range(1, max_turns + 1):
+                    print(f"[TURN {turn}/{max_turns}]: Requesting VLM response...", flush=True)
                 
                 # 1. CALL API PROVIDER (with transient error retries)
                 max_retries = 5
@@ -776,6 +809,10 @@ async def run_agent(
                 
                 if thought:
                     print(f"🤖 [Thought]: {thought}")
+                    if voice_mode and voice_pipeline:
+                        # Speak thought or response content
+                        voice_pipeline["tts"].speak(thought)
+                        
                     # Update overlay if it exists
                     try:
                         await session.call_tool("update_thought", {"thought": thought.replace("\n", " ").strip()[-60:]})
@@ -839,23 +876,6 @@ async def run_agent(
                             return
                             
                         # Prepend Anti-Loop Warning to the tool response if triggered
-                        if loop_warning_to_inject:
-                            if isinstance(formatted_content, list):
-                                for item in formatted_content:
-                                    if item.get("type") == "text":
-                                        item["text"] = f"{loop_warning_to_inject}\n\n{item['text']}"
-                                        break
-                            else:
-                                formatted_content = f"{loop_warning_to_inject}\n\n{formatted_content}"
-                            loop_warning_to_inject = None
-
-                        # Append tool response
-                        if provider in ("openai", "local") and isinstance(formatted_content, list):
-                            # OpenAI doesn't support images directly in 'tool' messages.
-                            # So we put the text result in the tool message:
-                            text_part = next((item["text"] for item in formatted_content if item["type"] == "text"), "Action complete.")
-                            messages.append({
-                                "role": "tool",
                                 "tool_call_id": tc_id,
                                 "name": name,
                                 "content": text_part
@@ -918,8 +938,14 @@ def main():
     )
     parser.add_argument(
         "--prompt",
-        required=True,
-        help="Task query description for the agent"
+        required=False,
+        default="",
+        help="Task query description for the agent (optional in voice mode)"
+    )
+    parser.add_argument(
+        "--voice",
+        action="store_true",
+        help="Enable native Voice pipeline (Mic ASR -> VLM -> TTS Speaker)"
     )
     parser.add_argument(
         "--hybrid",
@@ -944,6 +970,10 @@ def main():
     )
     args = parser.parse_args()
     
+    if not args.prompt and not args.voice:
+        print("ERROR: --prompt is required unless --voice is used.")
+        sys.exit(1)
+        
     # 1. Resolve Provider Keys and Defaults
     provider = args.provider.lower()
     api_key = None
@@ -988,7 +1018,8 @@ def main():
             hybrid=args.hybrid,
             max_turns=args.max_turns,
             text_only=args.text_only,
-            force_fallback=args.force_fallback
+            force_fallback=args.force_fallback,
+            voice_mode=args.voice
         ))
     except KeyboardInterrupt:
         print("\n[RUNNER]: Process interrupted by user.")
