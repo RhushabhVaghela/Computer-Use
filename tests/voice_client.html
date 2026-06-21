@@ -207,6 +207,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .visualizer-container:hover .mic-icon {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .visualizer-container:active .mic-icon {
+            transform: scale(0.95);
+        }
+
+        .visualizer-container.muted:hover .mic-icon {
+            border-color: var(--error-color);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.15);
         }
 
         .pulse-ring {
@@ -216,7 +235,7 @@
             border-radius: 50%;
             border: 2px solid var(--accent-color);
             box-shadow: 0 0 20px var(--accent-glow);
-            transition: all 0.5s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .pulse-ring.listening {
@@ -227,6 +246,12 @@
             border-color: var(--success-color);
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
             animation: pulse-active-success 1.2s infinite;
+        }
+
+        .pulse-ring.muted {
+            border-color: var(--error-color);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+            animation: pulse-muted 2.5s infinite ease-in-out;
         }
 
         .mic-icon {
@@ -240,6 +265,32 @@
             align-items: center;
             font-size: 1.8rem;
             z-index: 2;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mic-icon.muted {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--error-color);
+            color: var(--error-color);
+        }
+
+        /* Muted Pulse Ring Keyframes */
+        @keyframes pulse-muted {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.8;
+                box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+            }
+            50% {
+                transform: scale(1.02);
+                opacity: 0.4;
+                box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+            }
+            100% {
+                transform: scale(0.95);
+                opacity: 0.8;
+                box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+            }
         }
 
         /* Screen Preview */
@@ -293,6 +344,25 @@
             gap: 1rem;
             font-size: 0.95rem;
             scroll-behavior: smooth;
+        }
+
+        .conversation-block {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .conversation-block.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-glow), inset 0 0 12px rgba(0, 0, 0, 0.2);
+            background: rgba(14, 165, 233, 0.03);
         }
 
         .log-entry {
@@ -388,6 +458,23 @@
             }
         }
 
+        @keyframes pop-mute {
+            0% { transform: scale(1); }
+            40% { transform: scale(0.7) rotate(-15deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        @keyframes pop-unmute {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.3) rotate(15deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        .mic-icon.muted-anim {
+            animation: pop-mute 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .mic-icon.unmuted-anim {
+            animation: pop-unmute 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -451,90 +538,42 @@
             </div>
 
             <div class="control-group">
+                <label for="voice-model">Voice Model / Engine</label>
+                <select id="voice-model">
+                    <optgroup label="PersonaPlex / Moshi (Speech-to-Speech)">
+                        <option value="personaplex-7b-v1-q4_k" selected>PersonaPlex 7B (Default)</option>
+                        <option value="kyutai/personaplex-rl-seamless">PersonaPlex RL Seamless</option>
+                        <option value="kyutai/moshika-rl-seamless">Moshika RL Seamless</option>
+                        <option value="LiquidAI/LFM2.5-Audio-1.5B">LiquidAI LFM 2.5 Audio</option>
+                    </optgroup>
+                    <optgroup label="Standard TTS Engines">
+                        <option value="qwen3">Qwen3 TTS</option>
+                        <option value="supertonic">Supertonic TTS</option>
+                        <option value="kittentts">KittenTTS</option>
+                        <option value="kokoro">Kokoro / Edge-TTS</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="control-group">
                 <label for="tts-voice">TTS Voice</label>
                 <select id="tts-voice">
-                    <optgroup label="Qwen3 TTS">
-                        <option value="Vivian">Vivian (Recommended)</option>
-                        <option value="Aiden">Aiden</option>
-                        <option value="Ryan">Ryan</option>
-                        <option value="Momo">Momo</option>
-                        <option value="Elias">Elias</option>
-                        <option value="Bunny">Bunny</option>
-                    </optgroup>
-                    <optgroup label="Supertonic (Current)">
-                        <option value="F1">F1 (Female 1)</option>
-                        <option value="F2">F2 (Female 2)</option>
-                        <option value="F3">F3 (Female 3)</option>
-                        <option value="F4">F4 (Female 4)</option>
-                        <option value="F5">F5 (Female 5)</option>
-                        <option value="M1">M1 (Male 1)</option>
-                        <option value="M2">M2 (Male 2)</option>
-                        <option value="M3">M3 (Male 3)</option>
-                        <option value="M4">M4 (Male 4)</option>
-                        <option value="M5">M5 (Male 5)</option>
-                    </optgroup>
-                    <optgroup label="KittenTTS (Legacy)">
-                        <option value="Jasper">Jasper (Recommended)</option>
-                        <option value="Bella">Bella</option>
-                        <option value="Luna">Luna</option>
-                        <option value="Bruno">Bruno</option>
-                        <option value="Rosie">Rosie</option>
-                        <option value="Hugo">Hugo</option>
-                        <option value="Kiki">Kiki</option>
-                        <option value="Leo">Leo</option>
-                    </optgroup>
-                    <optgroup label="American Female">
-                        <option value="af_bella">af_bella (Recommended)</option>
-                        <option value="af_heart">af_heart</option>
-                        <option value="af_alloy">af_alloy</option>
-                        <option value="af_aoede">af_aoede</option>
-                        <option value="af_jessica">af_jessica</option>
-                        <option value="af_kore">af_kore</option>
-                        <option value="af_nicole">af_nicole</option>
-                        <option value="af_nova">af_nova</option>
-                        <option value="af_river">af_river</option>
-                        <option value="af_sky">af_sky</option>
-                        <option value="af_sarah">af_sarah</option>
-                    </optgroup>
-                    <optgroup label="American Male">
-                        <option value="am_adam">am_adam</option>
-                        <option value="am_echo">am_echo</option>
-                        <option value="am_eric">am_eric</option>
-                        <option value="am_fenrir">am_fenrir</option>
-                        <option value="am_liam">am_liam</option>
-                        <option value="am_michael">am_michael</option>
-                        <option value="am_onyx">am_onyx</option>
-                        <option value="am_puck">am_puck</option>
-                        <option value="am_santa">am_santa</option>
-                    </optgroup>
-                    <optgroup label="British Female">
-                        <option value="bf_alice">bf_alice</option>
-                        <option value="bf_lily">bf_lily</option>
-                        <option value="bf_emma">bf_emma</option>
-                        <option value="bf_isabella">bf_isabella</option>
-                    </optgroup>
-                    <optgroup label="British Male">
-                        <option value="bm_george">bm_george</option>
-                        <option value="bm_fable">bm_fable</option>
-                        <option value="bm_lewis">bm_lewis</option>
-                        <option value="bm_daniel">bm_daniel</option>
-                    </optgroup>
-                    <optgroup label="Qwen3 TTS">
-                        <option value="vivian">Vivian (Female, Recommended)</option>
-                        <option value="serena">Serena (Female)</option>
-                        <option value="ono_anna">Ono Anna (Female)</option>
-                        <option value="sohee">Sohee (Female)</option>
-                        <option value="aiden">Aiden (Male)</option>
-                        <option value="dylan">Dylan (Male)</option>
-                        <option value="eric">Eric (Male)</option>
-                        <option value="ryan">Ryan (Male)</option>
-                        <option value="uncle_fu">Uncle Fu (Male)</option>
-                    </optgroup>
+                    <!-- Options populated dynamically by JavaScript based on model -->
                 </select>
             </div>
 
             <button id="connect-btn">Connect Server</button>
             <button id="screen-btn" disabled>Share Screen</button>
+
+            <div class="control-group" style="flex-direction: row; gap: 0.6rem; align-items: center; margin-top: 0.5rem;">
+                <input type="checkbox" id="auto-mute-check" style="width: auto; margin: 0; cursor: pointer;">
+                <label for="auto-mute-check" style="text-transform: none; font-size: 0.85rem; cursor: pointer; user-select: none;">Auto-Mute Mic on Playback</label>
+            </div>
+
+            <div class="control-group" style="flex-direction: row; gap: 0.6rem; align-items: center;">
+                <input type="checkbox" id="ptt-check" style="width: auto; margin: 0; cursor: pointer;">
+                <label for="ptt-check" style="text-transform: none; font-size: 0.85rem; cursor: pointer; user-select: none;">Push-to-Talk (Hold Space)</label>
+            </div>
 
             <div class="visualizer-container">
                 <div id="visualizer-ring" class="pulse-ring"></div>
@@ -596,9 +635,65 @@
         let isPlayingAudio = false;
         let isProcessing = false;
         let echoTimeout = null;
+        let isMuted = false;
+        const autoMuteCheck = document.getElementById("auto-mute-check");
+        const pttCheck = document.getElementById("ptt-check");
+        let isSpacePressed = false;
+        
+        const visualizerContainer = document.querySelector(".visualizer-container");
+        const micIcon = document.querySelector(".mic-icon");
 
         // --- Logger Helper ---
+        let activeLogEntry = {
+            user: null,
+            assistant: null
+        };
+        let currentConversationBlock = null;
+
+        function commitActiveLogs() {
+            if (currentConversationBlock) {
+                currentConversationBlock.classList.remove("active");
+            }
+            activeLogEntry.user = null;
+            activeLogEntry.assistant = null;
+        }
+
         function addLog(role, text) {
+            // If the role is user, and we have an active block that already has assistant logs,
+            // we commit it and reset so the new user turn starts in a fresh block.
+            if (role === "user") {
+                const hasAssistant = currentConversationBlock && 
+                    currentConversationBlock.querySelector(".log-role.assistant");
+                if (hasAssistant) {
+                    commitActiveLogs();
+                    currentConversationBlock = null;
+                }
+            }
+
+            // Create a new conversation block if none is active
+            if (!currentConversationBlock) {
+                currentConversationBlock = document.createElement("div");
+                currentConversationBlock.className = "conversation-block active";
+                logsFeed.appendChild(currentConversationBlock);
+            }
+
+            // Update the active log entry if it exists for this role inside the current block
+            if (role === "user" && activeLogEntry.user && activeLogEntry.user.parentNode === currentConversationBlock) {
+                const textSpan = activeLogEntry.user.querySelector(".log-text");
+                if (textSpan) {
+                    textSpan.textContent = text;
+                    logsFeed.scrollTop = logsFeed.scrollHeight;
+                    return;
+                }
+            } else if (role === "assistant" && activeLogEntry.assistant && activeLogEntry.assistant.parentNode === currentConversationBlock) {
+                const textSpan = activeLogEntry.assistant.querySelector(".log-text");
+                if (textSpan) {
+                    textSpan.textContent = text;
+                    logsFeed.scrollTop = logsFeed.scrollHeight;
+                    return;
+                }
+            }
+
             const entry = document.createElement("div");
             entry.className = "log-entry";
 
@@ -612,8 +707,14 @@
 
             entry.appendChild(roleSpan);
             entry.appendChild(textSpan);
-            logsFeed.appendChild(entry);
+            currentConversationBlock.appendChild(entry);
             logsFeed.scrollTop = logsFeed.scrollHeight;
+
+            if (role === "user") {
+                activeLogEntry.user = entry;
+            } else if (role === "assistant") {
+                activeLogEntry.assistant = entry;
+            }
         }
 
         // --- Server Connection ---
@@ -641,11 +742,10 @@
                 textInput.disabled = false;
                 sendBtn.disabled = false;
 
-                // Initialize audio contexts
-                initAudio();
-
-                // Sync current selected voice to server
-                sendVoiceUpdate();
+                // Sync current selected model, voice, and auto-mute setting to server
+                sendModelUpdate();
+                setTimeout(sendVoiceUpdate, 150);
+                setTimeout(sendAutoMuteUpdate, 300);
             };
 
             ws.onclose = () => {
@@ -667,26 +767,65 @@
                 } else {
                     try {
                         const data = JSON.parse(event.data);
-                        if (data.type === "transcript") {
-                            addLog("user", data.text);
-                            visualizerRing.className = "pulse-ring listening";
-                            isProcessing = true; // Wait for VLM
+                        if (data.type === "config") {
+                            const personaplexGroup = voiceModel.querySelector('optgroup[label*="PersonaPlex"]');
+                            const standardGroup = voiceModel.querySelector('optgroup[label*="Standard"]');
+                            
+                            if (data.personaplex_mode !== "none" && data.personaplex_mode !== "") {
+                                if (standardGroup) standardGroup.style.display = "none";
+                                if (personaplexGroup) personaplexGroup.style.display = "";
+                                if (standardGroup && standardGroup.contains(voiceModel.selectedOptions[0])) {
+                                    voiceModel.value = "personaplex-7b-v1-q4_k";
+                                    updateVoiceOptions();
+                                    sendModelUpdate();
+                                    setTimeout(sendVoiceUpdate, 150);
+                                }
+                            } else {
+                                if (personaplexGroup) personaplexGroup.style.display = "none";
+                                if (standardGroup) standardGroup.style.display = "";
+                                if (personaplexGroup && personaplexGroup.contains(voiceModel.selectedOptions[0])) {
+                                    voiceModel.value = "qwen3";
+                                    updateVoiceOptions();
+                                    sendModelUpdate();
+                                    setTimeout(sendVoiceUpdate, 150);
+                                }
+                            }
+
+                            if (data.personaplex_mode === "subprocess") {
+                                addLog("system", "Subprocess mode active. Microphone and playback are handled natively by the server host.");
+                                stopAudioInput();
+                            } else {
+                                initAudio();
+                            }
+                        } else if (data.type === "transcript") {
+                            const speaker = data.speaker || "user";
+                            addLog(speaker, data.text);
+                            if (speaker === "user") {
+                                visualizerRing.className = "pulse-ring listening";
+                                isProcessing = true; // Wait for VLM
+                            }
                         } else if (data.type === "thought") {
+                            commitActiveLogs();
                             addLog("assistant", data.text);
                         } else if (data.type === "text_response") {
+                            commitActiveLogs();
                             addLog("assistant", data.text);
                         } else if (data.type === "action") {
+                            commitActiveLogs();
                             addLog("system", data.text);
                         } else if (data.type === "status") {
                             statusText.textContent = data.text;
                             if (data.text === "Thinking...") {
                                 isProcessing = true;
+                                commitActiveLogs();
                             } else if (data.text === "Connected") {
                                 isProcessing = false;
+                                commitActiveLogs();
+                                currentConversationBlock = null;
                             }
                         }
                     } catch (e) {
-                        logger.error(e);
+                        console.error(e);
                     }
                 }
             };
@@ -724,6 +863,8 @@
             textInput.disabled = true;
             sendBtn.disabled = true;
             visualizerRing.className = "pulse-ring";
+            commitActiveLogs();
+            currentConversationBlock = null;
         }
 
         // --- Screen Sharing Loop ---
@@ -814,7 +955,7 @@
                 micProcessor.connect(audioContext.destination);
 
                 micProcessor.onaudioprocess = (e) => {
-                    if (ws && ws.readyState === WebSocket.OPEN && !isPlayingAudio && !isProcessing) {
+                    if (ws && ws.readyState === WebSocket.OPEN && !isPlayingAudio && !isProcessing && !isMuted) {
                         const inputData = e.inputBuffer.getChannelData(0);
                         // Convert Float32 array to 16-bit signed Int16 array
                         const pcmData = new Int16Array(inputData.length);
@@ -867,7 +1008,10 @@
                         URL.revokeObjectURL(url);
 
                         // Only visually revert to listening if server is no longer processing
-                        if (!isProcessing) {
+                        if (isMuted) {
+                            visualizerRing.className = "pulse-ring muted";
+                            statusText.textContent = "Muted";
+                        } else if (!isProcessing) {
                             visualizerRing.className = "pulse-ring listening";
                             statusText.textContent = "Connected";
                         } else {
@@ -889,6 +1033,144 @@
             }
         }
 
+        // --- Voice options mapping and update ---
+        const voiceMapping = {
+            "personaplex-7b-v1-q4_k": [
+                { value: "NATF2", text: "NATF2 (Female, Default)" },
+                { value: "NATF0", text: "NATF0 (Female)" },
+                { value: "NATF1", text: "NATF1 (Female)" },
+                { value: "NATF3", text: "NATF3 (Female)" },
+                { value: "NATM0", text: "NATM0 (Male)" },
+                { value: "NATM1", text: "NATM1 (Male)" },
+                { value: "NATM2", text: "NATM2 (Male)" },
+                { value: "NATM3", text: "NATM3 (Male)" },
+                { value: "VARF0", text: "VARF0 (Variety Female)" },
+                { value: "VARF1", text: "VARF1 (Variety Female)" },
+                { value: "VARF2", text: "VARF2 (Variety Female)" },
+                { value: "VARF3", text: "VARF3 (Variety Female)" },
+                { value: "VARF4", text: "VARF4 (Variety Female)" },
+                { value: "VARM0", text: "VARM0 (Variety Male)" },
+                { value: "VARM1", text: "VARM1 (Variety Male)" },
+                { value: "VARM2", text: "VARM2 (Variety Male)" },
+                { value: "VARM3", text: "VARM3 (Variety Male)" },
+                { value: "VARM4", text: "VARM4 (Variety Male)" }
+            ],
+            "kyutai/personaplex-rl-seamless": [
+                { value: "NATF2", text: "NATF2 (Female, Default)" },
+                { value: "NATF0", text: "NATF0 (Female)" },
+                { value: "NATF1", text: "NATF1 (Female)" },
+                { value: "NATF3", text: "NATF3 (Female)" },
+                { value: "NATM0", text: "NATM0 (Male)" },
+                { value: "NATM1", text: "NATM1 (Male)" },
+                { value: "NATM2", text: "NATM2 (Male)" },
+                { value: "NATM3", text: "NATM3 (Male)" },
+                { value: "VARF0", text: "VARF0 (Variety Female)" },
+                { value: "VARF1", text: "VARF1 (Variety Female)" },
+                { value: "VARF2", text: "VARF2 (Variety Female)" },
+                { value: "VARF3", text: "VARF3 (Variety Female)" },
+                { value: "VARF4", text: "VARF4 (Variety Female)" },
+                { value: "VARM0", text: "VARM0 (Variety Male)" },
+                { value: "VARM1", text: "VARM1 (Variety Male)" },
+                { value: "VARM2", text: "VARM2 (Variety Male)" },
+                { value: "VARM3", text: "VARM3 (Variety Male)" },
+                { value: "VARM4", text: "VARM4 (Variety Male)" }
+            ],
+            "kyutai/moshika-rl-seamless": [
+                { value: "moshika", text: "Moshika Default (Female)" }
+            ],
+            "LiquidAI/LFM2.5-Audio-1.5B": [
+                { value: "US Female", text: "US Female (Friendly)" },
+                { value: "US Male", text: "US Male (Professional)" },
+                { value: "UK Female", text: "UK Female (Clear)" },
+                { value: "UK Male", text: "UK Male (Standard)" }
+            ],
+            "qwen3": [
+                { value: "Vivian", text: "Vivian (Female, Recommended)" },
+                { value: "Aiden", text: "Aiden (Male)" },
+                { value: "Ryan", text: "Ryan (Male)" },
+                { value: "Momo", text: "Momo (Female)" },
+                { value: "Elias", text: "Elias (Male)" },
+                { value: "Bunny", text: "Bunny (Female)" }
+            ],
+            "supertonic": [
+                { value: "F1", text: "F1 (Female 1)" },
+                { value: "F2", text: "F2 (Female 2)" },
+                { value: "F3", text: "F3 (Female 3)" },
+                { value: "F4", text: "F4 (Female 4)" },
+                { value: "F5", text: "F5 (Female 5)" },
+                { value: "M1", text: "M1 (Male 1)" },
+                { value: "M2", text: "M2 (Male 2)" },
+                { value: "M3", text: "M3 (Male 3)" },
+                { value: "M4", text: "M4 (Male 4)" },
+                { value: "M5", text: "M5 (Male 5)" }
+            ],
+            "kittentts": [
+                { value: "Jasper", text: "Jasper (Recommended)" },
+                { value: "Bella", text: "Bella" },
+                { value: "Luna", text: "Luna" },
+                { value: "Bruno", text: "Bruno" },
+                { value: "Rosie", text: "Rosie" },
+                { value: "Hugo", text: "Hugo" },
+                { value: "Kiki", text: "Kiki" },
+                { value: "Leo", text: "Leo" }
+            ],
+            "kokoro": [
+                { value: "af_bella", text: "af_bella (Recommended)" },
+                { value: "af_heart", text: "af_heart" },
+                { value: "af_alloy", text: "af_alloy" },
+                { value: "af_aoede", text: "af_aoede" },
+                { value: "af_jessica", text: "af_jessica" },
+                { value: "af_kore", text: "af_kore" },
+                { value: "af_nicole", text: "af_nicole" },
+                { value: "af_nova", text: "af_nova" },
+                { value: "af_river", text: "af_river" },
+                { value: "af_sky", text: "af_sky" },
+                { value: "af_sarah", text: "af_sarah" },
+                { value: "am_adam", text: "am_adam" },
+                { value: "am_echo", text: "am_echo" },
+                { value: "am_eric", text: "am_eric" },
+                { value: "am_fenrir", text: "am_fenrir" },
+                { value: "am_liam", text: "am_liam" },
+                { value: "am_michael", text: "am_michael" },
+                { value: "am_onyx", text: "am_onyx" },
+                { value: "am_puck", text: "am_puck" },
+                { value: "am_santa", text: "am_santa" },
+                { value: "bf_alice", text: "bf_alice" },
+                { value: "bf_lily", text: "bf_lily" },
+                { value: "bf_emma", text: "bf_emma" },
+                { value: "bf_isabella", text: "bf_isabella" },
+                { value: "bm_george", text: "bm_george" },
+                { value: "bm_fable", text: "bm_fable" },
+                { value: "bm_lewis", text: "bm_lewis" },
+                { value: "bm_daniel", text: "bm_daniel" }
+            ]
+        };
+
+        const voiceModel = document.getElementById("voice-model");
+
+        function updateVoiceOptions() {
+            const selectedModel = voiceModel.value;
+            const voices = voiceMapping[selectedModel] || [];
+            
+            ttsVoice.innerHTML = "";
+            voices.forEach(voice => {
+                const opt = document.createElement("option");
+                opt.value = voice.value;
+                opt.textContent = voice.text;
+                ttsVoice.appendChild(opt);
+            });
+        }
+
+        // Initialize voice options at startup
+        updateVoiceOptions();
+
+        voiceModel.addEventListener("change", () => {
+            updateVoiceOptions();
+            sendModelUpdate();
+            // Give it a tiny delay to let server switch, then sync default voice
+            setTimeout(sendVoiceUpdate, 200);
+        });
+
         // --- Text input support ---
         sendBtn.addEventListener("click", sendTextMessage);
         textInput.addEventListener("keypress", (e) => {
@@ -897,6 +1179,17 @@
 
         // --- Voice change listener ---
         ttsVoice.addEventListener("change", sendVoiceUpdate);
+
+        function sendModelUpdate() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const model = voiceModel.value;
+                ws.send(JSON.stringify({
+                    type: "set_model",
+                    model: model
+                }));
+                addLog("system", `Voice model changed to: ${model}`);
+            }
+        }
 
         function sendVoiceUpdate() {
             if (ws && ws.readyState === WebSocket.OPEN) {
@@ -912,14 +1205,183 @@
         function sendTextMessage() {
             const text = textInput.value.trim();
             if (text && ws && ws.readyState === WebSocket.OPEN) {
+                commitActiveLogs();
                 ws.send(JSON.stringify({
                     type: "text_prompt",
                     text: text
                 }));
                 addLog("user", text);
+                commitActiveLogs();
                 textInput.value = "";
             }
         }
+
+        function sendAutoMuteUpdate() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                    type: "set_auto_mute",
+                    enabled: autoMuteCheck.checked
+                }));
+            }
+        }
+
+        // --- Mute / Unmute Toggle Functionality ---
+        visualizerContainer.addEventListener("click", toggleMute);
+
+        function updateVisualizerRingClass() {
+            if (isMuted) {
+                visualizerRing.className = "pulse-ring muted";
+                statusText.textContent = "Muted";
+            } else if (isPlayingAudio) {
+                visualizerRing.className = "pulse-ring speaking";
+                statusText.textContent = "Speaking";
+            } else if (isProcessing) {
+                visualizerRing.className = "pulse-ring processing";
+                statusText.textContent = "Processing...";
+            } else {
+                visualizerRing.className = "pulse-ring listening";
+                statusText.textContent = "Connected";
+            }
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            
+            // Toggle visual classes
+            if (isMuted) {
+                // Animate mic icon
+                micIcon.classList.remove("unmuted-anim");
+                void micIcon.offsetWidth; // Trigger reflow
+                micIcon.classList.add("muted-anim");
+                
+                visualizerContainer.classList.add("muted");
+                micIcon.classList.add("muted");
+                micIcon.textContent = "🔇";
+                visualizerRing.className = "pulse-ring muted";
+                statusText.textContent = "Muted";
+                addLog("system", "Microphone muted.");
+            } else {
+                // Animate mic icon
+                micIcon.classList.remove("muted-anim");
+                void micIcon.offsetWidth; // Trigger reflow
+                micIcon.classList.add("unmuted-anim");
+                
+                visualizerContainer.classList.remove("muted");
+                micIcon.classList.remove("muted");
+                micIcon.textContent = "🎙️";
+                
+                updateVisualizerRingClass();
+                addLog("system", "Microphone unmuted.");
+            }
+            
+            // Sync mute state to server
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                    type: "set_mute",
+                    muted: isMuted
+                }));
+            }
+        }
+
+        // --- Echo Mitigation Event Listeners ---
+        autoMuteCheck.addEventListener("change", () => {
+            sendAutoMuteUpdate();
+            addLog("system", `Auto-mute on playback set to: ${autoMuteCheck.checked}`);
+        });
+
+        pttCheck.addEventListener("change", () => {
+            isSpacePressed = false;
+            if (pttCheck.checked) {
+                // Mute by default for PTT
+                isMuted = true;
+                micIcon.classList.remove("unmuted-anim");
+                void micIcon.offsetWidth;
+                micIcon.classList.add("muted-anim");
+                
+                visualizerContainer.classList.add("muted");
+                micIcon.classList.add("muted");
+                micIcon.textContent = "🔇";
+                visualizerRing.className = "pulse-ring muted";
+                statusText.textContent = "Muted";
+                
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({ type: "set_mute", muted: true }));
+                }
+                addLog("system", "Push-to-Talk enabled. Hold Spacebar to speak.");
+            } else {
+                // Unmute when PTT is turned off
+                isMuted = false;
+                micIcon.classList.remove("muted-anim");
+                void micIcon.offsetWidth;
+                micIcon.classList.add("unmuted-anim");
+                
+                visualizerContainer.classList.remove("muted");
+                micIcon.classList.remove("muted");
+                micIcon.textContent = "🎙️";
+                
+                updateVisualizerRingClass();
+                
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({ type: "set_mute", muted: false }));
+                }
+                addLog("system", "Push-to-Talk disabled.");
+            }
+        });
+
+        // PTT keyboard hotkey event bindings
+        window.addEventListener("keydown", (e) => {
+            if (e.key === " " && pttCheck.checked && document.activeElement !== textInput) {
+                e.preventDefault();
+                if (!isSpacePressed) {
+                    isSpacePressed = true;
+                    if (isMuted) {
+                        isMuted = false;
+                        
+                        micIcon.classList.remove("muted-anim");
+                        void micIcon.offsetWidth;
+                        micIcon.classList.add("unmuted-anim");
+                        
+                        visualizerContainer.classList.remove("muted");
+                        micIcon.classList.remove("muted");
+                        micIcon.textContent = "🎙️";
+                        
+                        updateVisualizerRingClass();
+                        
+                        if (ws && ws.readyState === WebSocket.OPEN) {
+                            ws.send(JSON.stringify({ type: "set_mute", muted: false }));
+                        }
+                        addLog("system", "PTT: Microphone active (Space held).");
+                    }
+                }
+            }
+        });
+
+        window.addEventListener("keyup", (e) => {
+            if (e.key === " " && pttCheck.checked) {
+                if (isSpacePressed) {
+                    isSpacePressed = false;
+                    if (!isMuted) {
+                        isMuted = true;
+                        
+                        micIcon.classList.remove("unmuted-anim");
+                        void micIcon.offsetWidth;
+                        micIcon.classList.add("muted-anim");
+                        
+                        visualizerContainer.classList.add("muted");
+                        micIcon.classList.add("muted");
+                        micIcon.textContent = "🔇";
+                        
+                        visualizerRing.className = "pulse-ring muted";
+                        statusText.textContent = "Muted";
+                        
+                        if (ws && ws.readyState === WebSocket.OPEN) {
+                            ws.send(JSON.stringify({ type: "set_mute", muted: true }));
+                        }
+                        addLog("system", "PTT: Microphone muted (Space released).");
+                    }
+                }
+            }
+        });
     </script>
 </body>
 

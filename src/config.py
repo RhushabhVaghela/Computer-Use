@@ -18,19 +18,43 @@ from pydantic_settings import BaseSettings
 # ==========================================
 
 COMMAND_DENYLIST: list[str] = [
+    # Unix/Linux/macOS Destructive
     "rm -rf /",
     "rm -rf /*",
+    "rm -rf ~",
+    "rm -rf .*",
     "mkfs",
     "dd if=",
-    "format",
-    "del /f",
     "chmod 777 /",
+    "chown -R",
+    
+    # Windows Destructive (CMD & PowerShell)
+    "del /f /s /q C:\\",
+    "rd /s /q C:\\",
+    "format",
+    "Remove-Item -Recurse -Force C:\\",
+    "Clear-RecycleBin",
+    
+    # System Control (Cross-OS)
     "shutdown",
     "reboot",
     "halt",
     "init 0",
     "init 6",
+    "poweroff",
+    "Stop-Computer",
+    "Restart-Computer",
+    
+    # Fork Bombs & Malicious Payloads
     ":(){ :|:& };:",
+    "%0|%0",
+    "Invoke-Expression",
+    "iex",
+    
+    # User / Privilege Management
+    "net user",
+    "usermod",
+    "visudo",
 ]
 
 
@@ -199,6 +223,32 @@ class ServerConfig(BaseSettings):
         description="Override screen height for voice server"
     )
     
+    # PersonaPlex (Moshi) Unified Voice Pipeline Settings
+    personaplex_mode: str = Field(
+        default="websocket",
+        description="PersonaPlex integration mode: websocket|subprocess"
+    )
+    personaplex_url: str = Field(
+        default="ws://localhost:8998/api/chat",
+        description="WebSocket URL for PersonaPlex server (Moshi server)"
+    )
+    personaplex_binary: str = Field(
+        default="moshi-sts.exe",
+        description="Path to local moshi-sts executable (for subprocess mode)"
+    )
+    personaplex_model_path: str = Field(
+        default="models/personaplex-7b-v1-q4_k.gguf",
+        description="Path to the GGUF model file"
+    )
+    personaplex_prompt: str = Field(
+        default="You enjoy having a good conversation.",
+        description="System prompt for PersonaPlex model"
+    )
+    personaplex_temperature: float = Field(
+        default=0.7,
+        description="Temperature for PersonaPlex model generation"
+    )
+    
     # Browser-Use Logging
     browser_use_logging_level: str = Field(
         default="warning",
@@ -245,6 +295,14 @@ class ServerConfig(BaseSettings):
         valid = ["primary", "virtual", "all", "desktop"]
         if v.lower() not in valid:
             raise ValueError(f"mcp_capture_scope must be one of {valid}, got '{v}'")
+        return v.lower()
+        
+    @field_validator("personaplex_mode", mode="after")
+    @classmethod
+    def validate_personaplex_mode(cls, v):
+        valid = ["websocket", "subprocess", "none", "false", ""]
+        if v.lower() not in valid:
+            raise ValueError(f"personaplex_mode must be one of {valid}, got '{v}'")
         return v.lower()
     
     def get_oi_path(self) -> str:

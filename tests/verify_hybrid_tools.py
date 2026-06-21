@@ -8,7 +8,9 @@ from mcp.client.stdio import StdioServerParameters, stdio_client
 
 async def main() -> int:
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    python_path = os.path.join(root, ".venv", "Scripts", "python.exe")
+    python_path = os.path.join(root, "computer_use_env", "Scripts", "python.exe")
+    if not os.path.exists(python_path):
+        python_path = os.path.join(root, ".venv", "Scripts", "python.exe")
     if not os.path.exists(python_path):
         python_path = sys.executable
 

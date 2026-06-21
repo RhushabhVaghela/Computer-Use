@@ -3,9 +3,9 @@ import json
 import os
 import sys
 import time
-import requests
 from mcp.client.session import ClientSession
 from mcp.client.stdio import StdioServerParameters, stdio_client
+from mcp_utils import get_mcp_params, to_openai_tools
 
 
 async def call_local_llm_stream(messages, tools, session: ClientSession):
@@ -20,76 +20,63 @@ async def call_local_llm_stream(messages, tools, session: ClientSession):
         "stream": True  # Streaming enabled for live thoughts!
     }
     
-    loop = asyncio.get_running_loop()
+    import httpx
+    full_content = ""
+    tool_calls_dict = {}
+    last_update = time.time()
     
-    def _do_stream():
-        try:
-            r = requests.post(url, json=payload, stream=True, timeout=120)
-            r.raise_for_status()
-        except Exception as e:
-            print(f"\n[STREAM ERROR] Connection failed: {e}")
-            return "", {}
-            
-        full_content = ""
-        tool_calls_dict = {}
-        last_update = time.time()
-        
-        for line in r.iter_lines():
-            if not line: continue
-            decoded = line.decode('utf-8')
-            if decoded.startswith("data: "):
-                data_str = decoded[6:]
-                if data_str.strip() == "[DONE]": break
-                try:
-                    chunk = json.loads(data_str)
-                    if not chunk.get("choices"): continue
-                    delta = chunk["choices"][0].get("delta", {})
-                    
-                    # 1. Intercept Text Thoughts and Push to Overlay
-                    if "content" in delta and delta["content"]:
-                        full_content += delta["content"]
-                        print(delta["content"], end="", flush=True)
-                        
-                        now = time.time()
-                        if now - last_update > 0.4: # Update UI smoothly
-                            display_text = full_content.replace("\n", " ").strip()[-50:]
-                            asyncio.run_coroutine_threadsafe(
-                                session.call_tool("update_thought", {"thought": display_text}),
-                                loop
-                            )
-                            last_update = now
+    try:
+        async with httpx.AsyncClient() as client:
+            async with client.stream("POST", url, json=payload, timeout=120.0) as r:
+                r.raise_for_status()
+                async for line in r.aiter_lines():
+                    if not line: continue
+                    if line.startswith("data: "):
+                        data_str = line[6:]
+                        if data_str.strip() == "[DONE]": break
+                        try:
+                            chunk = json.loads(data_str)
+                            if not chunk.get("choices"): continue
+                            delta = chunk["choices"][0].get("delta", {})
                             
-                    # 2. Rebuild Tool Calls flawlessly
-                    if "tool_calls" in delta:
-                        for tc in delta["tool_calls"]:
-                            idx = tc.get("index", 0)
-                            if idx not in tool_calls_dict:
-                                tool_calls_dict[idx] = {
-                                    "id": tc.get("id", f"call_local_{idx}_{int(time.time())}"), 
-                                    "type": "function", 
-                                    "function": {"name": "", "arguments": ""}
-                                }
-                            elif tc.get("id"):
-                                tool_calls_dict[idx]["id"] = tc["id"]
+                            # 1. Intercept Text Thoughts and Push to Overlay
+                            if "content" in delta and delta["content"]:
+                                full_content += delta["content"]
+                                print(delta["content"], end="", flush=True)
                                 
-                            fn = tc.get("function", {})
-                            if "name" in fn and fn["name"]:
-                                tool_calls_dict[idx]["function"]["name"] += fn["name"]
-                                # Show tool preparation in the overlay
-                                asyncio.run_coroutine_threadsafe(
-                                    session.call_tool("update_thought", {"thought": f"Preparing {tool_calls_dict[idx]['function']['name']}..."}),
-                                    loop
-                                )
-                                
-                            if "arguments" in fn and fn["arguments"]:
-                                tool_calls_dict[idx]["function"]["arguments"] += fn["arguments"]
-                except Exception as e:
-                    pass
-                    
-        print() # Add newline in terminal when stream finishes
-        return full_content, tool_calls_dict
+                                now = time.time()
+                                if now - last_update > 0.4: # Update UI smoothly
+                                    await session.call_tool("update_thought", {"thought": full_content.replace("\n", " ").strip()[-50:]})
+                                    last_update = now
+                                    
+                            # 2. Rebuild Tool Calls flawlessly
+                            if "tool_calls" in delta:
+                                for tc in delta["tool_calls"]:
+                                    idx = tc.get("index", 0)
+                                    if idx not in tool_calls_dict:
+                                        tool_calls_dict[idx] = {
+                                            "id": tc.get("id", f"call_local_{idx}_{int(time.time())}"), 
+                                            "type": "function", 
+                                            "function": {"name": "", "arguments": ""}
+                                        }
+                                    elif tc.get("id"):
+                                        tool_calls_dict[idx]["id"] = tc["id"]
+                                        
+                                    fn = tc.get("function", {})
+                                    if "name" in fn and fn["name"]:
+                                        tool_calls_dict[idx]["function"]["name"] += fn["name"]
+                                        # Show tool preparation in the overlay
+                                        await session.call_tool("update_thought", {"thought": f"Preparing {tool_calls_dict[idx]['function']['name']}..."})
+                                        
+                                    if "arguments" in fn and fn["arguments"]:
+                                        tool_calls_dict[idx]["function"]["arguments"] += fn["arguments"]
+                        except Exception:
+                            pass
+    except Exception as e:
+        print(f"\n[STREAM ERROR] Connection failed: {e}")
+        return {"role": "assistant", "content": ""}
 
-    full_content, tool_calls_dict = await loop.run_in_executor(None, _do_stream)
+    print() # Add newline in terminal when stream finishes
     
     # Construct final OpenAI-compatible message
     final_message = {"role": "assistant"}
@@ -162,19 +149,7 @@ def _is_disallowed_shell(cmd: str) -> bool:
     return True
 
 
-def _to_openai_tools(mcp_tools):
-    out = []
-    for t in mcp_tools:
-        params = t.inputSchema or {"type": "object", "properties": {}}
-        out.append({
-            "type": "function",
-            "function": {
-                "name": t.name,
-                "description": t.description or "",
-                "parameters": params,
-            },
-        })
-    return out
+
 
 
 def _extract_tool_calls(message: dict) -> list[dict]:
@@ -202,26 +177,13 @@ def _msg_has_final_answer(message: dict) -> bool:
 
 
 async def run(prompt: str) -> int:
-    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    python = os.path.join(root, ".venv", "Scripts", "python.exe")
-    if not os.path.exists(python):
-        python = sys.executable
-
-    # You can read an env var or arg here to decide which server script to launch,
-    # but for now, it launches hybrid_server if available, or falls back.
-    server_script = "hybrid_server.py" if "--hybrid" in sys.argv else "server.py"
-    
-    server_params = StdioServerParameters(
-        command=python,
-        args=[os.path.join(root, "src", server_script), "--stdio"],
-        env=os.environ.copy(),
-    )
+    server_params = get_mcp_params("--hybrid" in sys.argv)
 
     async with stdio_client(server_params) as (read, write):
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = await session.list_tools()
-            openai_tools = _to_openai_tools(tools.tools)
+            openai_tools = to_openai_tools(tools.tools)
 
             # --- DYNAMIC BROWSER INJECTION ---
             has_bu_tools = any(t.name.startswith("bu_") for t in tools.tools)

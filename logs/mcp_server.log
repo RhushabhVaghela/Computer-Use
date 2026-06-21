@@ -2236,3 +2236,406 @@ Ultrafast machine learning on FPGAs via Kolmogorov-Arnold Networks
 2026-06-11 20:42:20,020 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\comtypes\gen'
 2026-06-11 20:42:32,830 - oi-mcp - INFO - Pressing keys: win+r
 2026-06-11 20:42:51,454 - oi-mcp - INFO - Typing: notepad
+2026-06-18 22:50:16,676 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-18 22:50:16,713 - oi-mcp - INFO - [SHUTDOWN]: Graceful shutdown initiated
+2026-06-18 22:50:16,714 - oi-mcp - INFO - [SHUTDOWN]: Cleaning up resources...
+2026-06-18 22:50:16,714 - oi-mcp - INFO - [SHUTDOWN]: Draining in-flight requests...
+2026-06-18 22:50:16,714 - oi-mcp - INFO - [SHUTDOWN]: All requests drained successfully
+2026-06-18 22:50:16,714 - oi-mcp - INFO - [SHUTDOWN]: Releasing UIAutomation handles...
+2026-06-18 22:50:16,716 - oi-mcp - INFO - [SHUTDOWN]: Resource cleanup complete
+2026-06-18 23:28:02,912 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-18 23:28:02,943 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-18 23:28:02,997 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-18 23:28:03,009 - oi-mcp - ERROR - Failed to initialize tools
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 13, in <module>
+    import shortuuid
+ModuleNotFoundError: No module named 'shortuuid'
+2026-06-18 23:28:03,013 - oi-mcp - ERROR - Error in read_screen_ui
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1123, in read_screen_ui
+    ensure_tools()
+    ~~~~~~~~~~~~^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 13, in <module>
+    import shortuuid
+ModuleNotFoundError: No module named 'shortuuid'
+2026-06-18 23:28:03,031 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-18 23:28:03,036 - oi-mcp - ERROR - Failed to initialize tools
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 13, in <module>
+    import shortuuid
+ModuleNotFoundError: No module named 'shortuuid'
+2026-06-18 23:28:03,038 - oi-mcp - ERROR - [TIMEOUT]: Exception in computer
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 844, in computer
+    ensure_tools()
+    ~~~~~~~~~~~~^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 13, in <module>
+    import shortuuid
+ModuleNotFoundError: No module named 'shortuuid'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 689, in wrapper
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "C:\Users\Rhushabh\miniconda3\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1114, in computer
+    if _overlay: _overlay.hide()
+       ^^^^^^^^
+UnboundLocalError: cannot access local variable '_overlay' where it is not associated with a value
+2026-06-18 23:28:03,044 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-18 23:28:03,049 - oi-mcp - ERROR - Failed to initialize tools
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 13, in <module>
+    import shortuuid
+ModuleNotFoundError: No module named 'shortuuid'
+2026-06-18 23:28:03,050 - oi-mcp - ERROR - [TIMEOUT]: Exception in computer
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 844, in computer
+    ensure_tools()
+    ~~~~~~~~~~~~^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 13, in <module>
+    import shortuuid
+ModuleNotFoundError: No module named 'shortuuid'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 689, in wrapper
+    result = await asyncio.wait_for(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "C:\Users\Rhushabh\miniconda3\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1114, in computer
+    if _overlay: _overlay.hide()
+       ^^^^^^^^
+UnboundLocalError: cannot access local variable '_overlay' where it is not associated with a value
+2026-06-18 23:28:03,057 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-18 23:28:03,057 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-18 23:29:13,693 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-18 23:29:13,715 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-18 23:29:13,761 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-18 23:29:13,781 - oi-mcp - ERROR - Failed to initialize tools
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 17, in <module>
+    from .core import OpenInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\core.py", line 11, in <module>
+    from ..terminal_interface.local_setup import local_setup
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\terminal_interface\local_setup.py", line 9, in <module>
+    import inquirer
+ModuleNotFoundError: No module named 'inquirer'
+2026-06-18 23:29:13,785 - oi-mcp - ERROR - Error in read_screen_ui
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1128, in read_screen_ui
+    ensure_tools()
+    ~~~~~~~~~~~~^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 17, in <module>
+    from .core import OpenInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\core.py", line 11, in <module>
+    from ..terminal_interface.local_setup import local_setup
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\terminal_interface\local_setup.py", line 9, in <module>
+    import inquirer
+ModuleNotFoundError: No module named 'inquirer'
+2026-06-18 23:29:13,805 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-18 23:29:13,812 - oi-mcp - ERROR - Failed to initialize tools
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 17, in <module>
+    from .core import OpenInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\core.py", line 11, in <module>
+    from ..terminal_interface.local_setup import local_setup
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\terminal_interface\local_setup.py", line 9, in <module>
+    import inquirer
+ModuleNotFoundError: No module named 'inquirer'
+2026-06-18 23:29:13,815 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 844, in computer
+    ensure_tools()
+    ~~~~~~~~~~~~^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 17, in <module>
+    from .core import OpenInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\core.py", line 11, in <module>
+    from ..terminal_interface.local_setup import local_setup
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\terminal_interface\local_setup.py", line 9, in <module>
+    import inquirer
+ModuleNotFoundError: No module named 'inquirer'
+2026-06-18 23:29:13,837 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-18 23:29:13,844 - oi-mcp - ERROR - Failed to initialize tools
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 17, in <module>
+    from .core import OpenInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\core.py", line 11, in <module>
+    from ..terminal_interface.local_setup import local_setup
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\terminal_interface\local_setup.py", line 9, in <module>
+    import inquirer
+ModuleNotFoundError: No module named 'inquirer'
+2026-06-18 23:29:13,846 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 844, in computer
+    ensure_tools()
+    ~~~~~~~~~~~~^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 194, in ensure_tools
+    from interpreter import interpreter as _oi
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\__init__.py", line 57, in <module>
+    from .core.async_core import AsyncInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\async_core.py", line 17, in <module>
+    from .core import OpenInterpreter
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\core\core.py", line 11, in <module>
+    from ..terminal_interface.local_setup import local_setup
+  File "D:\Agents-and-other-repos\open-interpreter\interpreter\terminal_interface\local_setup.py", line 9, in <module>
+    import inquirer
+ModuleNotFoundError: No module named 'inquirer'
+2026-06-18 23:29:13,870 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-18 23:29:13,870 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 09:51:12,536 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 09:51:12,719 - oi-mcp - INFO - [RESOURCES] Startup: Memory=77.8MB, Threads=7
+2026-06-19 09:51:12,768 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 09:51:12,800 - oi-mcp - INFO - [RESOURCES] Startup: Memory=79.3MB, Threads=7
+2026-06-19 09:51:12,916 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-19 10:00:45,168 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:00:45,210 - oi-mcp - INFO - [RESOURCES] Startup: Memory=76.2MB, Threads=7
+2026-06-19 10:00:45,241 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:00:45,252 - oi-mcp - INFO - [RESOURCES] Startup: Memory=78.0MB, Threads=7
+2026-06-19 10:00:45,326 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-19 10:04:16,005 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:04:16,037 - oi-mcp - INFO - [RESOURCES] Startup: Memory=76.3MB, Threads=7
+2026-06-19 10:04:16,057 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:04:16,067 - oi-mcp - INFO - [RESOURCES] Startup: Memory=78.0MB, Threads=7
+2026-06-19 10:04:54,703 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:04:54,737 - oi-mcp - INFO - [RESOURCES] Startup: Memory=76.5MB, Threads=7
+2026-06-19 10:04:54,762 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:04:54,772 - oi-mcp - INFO - [RESOURCES] Startup: Memory=78.3MB, Threads=7
+2026-06-19 10:04:54,838 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-19 10:06:18,298 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:06:18,336 - oi-mcp - INFO - [RESOURCES] Startup: Memory=76.2MB, Threads=7
+2026-06-19 10:06:18,357 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:06:18,366 - oi-mcp - INFO - [RESOURCES] Startup: Memory=78.0MB, Threads=7
+2026-06-19 10:06:18,416 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 10:06:18,416 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 10:06:44,357 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:06:44,388 - oi-mcp - INFO - [RESOURCES] Startup: Memory=76.1MB, Threads=7
+2026-06-19 10:06:44,409 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:06:44,418 - oi-mcp - INFO - [RESOURCES] Startup: Memory=78.0MB, Threads=7
+2026-06-19 10:06:44,466 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-19 10:06:44,467 - oi-mcp - INFO - Importing interpreter...
+2026-06-19 10:09:07,456 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:09:07,490 - oi-mcp - INFO - [RESOURCES] Startup: Memory=76.2MB, Threads=7
+2026-06-19 10:09:07,515 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:09:07,529 - oi-mcp - INFO - [RESOURCES] Startup: Memory=78.0MB, Threads=7
+2026-06-19 10:09:07,588 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-19 10:09:07,588 - oi-mcp - INFO - Importing interpreter...
+2026-06-19 10:12:59,357 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:12:59,391 - oi-mcp - INFO - [RESOURCES] Startup: Memory=76.3MB, Threads=7
+2026-06-19 10:12:59,412 - oi-mcp - INFO - [WATCHDOG]: Started stack trace dumper thread.
+2026-06-19 10:12:59,413 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:12:59,423 - oi-mcp - INFO - [RESOURCES] Startup: Memory=78.1MB, Threads=8
+2026-06-19 10:12:59,475 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-19 10:12:59,475 - oi-mcp - INFO - Importing interpreter...
+2026-06-19 10:13:40,012 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:13:40,042 - oi-mcp - INFO - [RESOURCES] Startup: Memory=76.4MB, Threads=7
+2026-06-19 10:13:40,064 - oi-mcp - INFO - [WATCHDOG]: Started stack trace dumper thread.
+2026-06-19 10:13:40,065 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:13:40,075 - oi-mcp - INFO - [RESOURCES] Startup: Memory=78.3MB, Threads=8
+2026-06-19 10:13:40,143 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-19 10:13:40,143 - oi-mcp - INFO - Importing interpreter...
+2026-06-19 10:16:01,870 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:16:01,910 - oi-mcp - INFO - [RESOURCES] Startup: Memory=76.4MB, Threads=7
+2026-06-19 10:16:01,930 - oi-mcp - INFO - [WATCHDOG]: Started stack trace dumper thread.
+2026-06-19 10:16:01,931 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:16:01,939 - oi-mcp - INFO - [RESOURCES] Startup: Memory=78.2MB, Threads=8
+2026-06-19 10:16:02,003 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-19 10:16:02,003 - oi-mcp - INFO - Importing interpreter...
+2026-06-19 10:17:06,179 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:17:06,188 - oi-mcp - INFO - [RESOURCES] Startup: Memory=269.7MB, Threads=24
+2026-06-19 10:17:06,225 - oi-mcp - INFO - [WATCHDOG]: Started stack trace dumper thread.
+2026-06-19 10:17:06,226 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:17:06,235 - oi-mcp - INFO - [RESOURCES] Startup: Memory=271.0MB, Threads=25
+2026-06-19 10:17:06,285 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-19 10:17:06,285 - oi-mcp - INFO - Instantiating ComputerTool...
+2026-06-19 10:17:06,285 - oi-mcp - INFO - Instantiating UIElementProvider...
+2026-06-19 10:17:06,285 - oi-mcp - INFO - Instantiating MouseOverlay...
+2026-06-19 10:17:06,286 - oi-mcp - INFO - Tools initialization complete.
+2026-06-19 10:17:06,412 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'D:\\Agents-and-other-repos\\Computer-Use\\computer_use_env\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-06-19 10:17:06,412 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'D:\Agents-and-other-repos\Computer-Use\computer_use_env\Lib\site-packages\comtypes\gen'
+2026-06-19 10:17:10,829 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 10:17:10,830 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 10:17:43,320 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:17:43,329 - oi-mcp - INFO - [RESOURCES] Startup: Memory=270.0MB, Threads=24
+2026-06-19 10:17:43,354 - oi-mcp - INFO - [WATCHDOG]: Started stack trace dumper thread.
+2026-06-19 10:17:43,354 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:17:43,364 - oi-mcp - INFO - [RESOURCES] Startup: Memory=271.2MB, Threads=25
+2026-06-19 10:17:43,429 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-19 10:17:43,430 - oi-mcp - INFO - Instantiating ComputerTool...
+2026-06-19 10:17:43,430 - oi-mcp - INFO - Instantiating UIElementProvider...
+2026-06-19 10:17:43,430 - oi-mcp - INFO - Instantiating MouseOverlay...
+2026-06-19 10:17:43,430 - oi-mcp - INFO - Tools initialization complete.
+2026-06-19 10:17:43,564 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'D:\\Agents-and-other-repos\\Computer-Use\\computer_use_env\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-06-19 10:17:43,565 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'D:\Agents-and-other-repos\Computer-Use\computer_use_env\Lib\site-packages\comtypes\gen'
+2026-06-19 10:17:56,770 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 10:17:56,771 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 10:18:23,840 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:18:23,863 - oi-mcp - INFO - [RESOURCES] Startup: Memory=270.2MB, Threads=24
+2026-06-19 10:18:23,891 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 10:18:23,905 - oi-mcp - INFO - [RESOURCES] Startup: Memory=271.5MB, Threads=24
+2026-06-19 10:18:23,971 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-06-19 10:18:23,972 - oi-mcp - INFO - Instantiating ComputerTool...
+2026-06-19 10:18:23,972 - oi-mcp - INFO - Instantiating UIElementProvider...
+2026-06-19 10:18:23,972 - oi-mcp - INFO - Instantiating MouseOverlay...
+2026-06-19 10:18:23,972 - oi-mcp - INFO - Tools initialization complete.
+2026-06-19 10:18:24,072 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'D:\\Agents-and-other-repos\\Computer-Use\\computer_use_env\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-06-19 10:18:24,073 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'D:\Agents-and-other-repos\Computer-Use\computer_use_env\Lib\site-packages\comtypes\gen'
+2026-06-19 10:18:38,781 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 10:18:38,781 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 14:29:17,625 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 14:29:17,636 - oi-mcp - INFO - [RESOURCES] Startup: Memory=272.8MB, Threads=24
+2026-06-19 14:29:17,669 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 14:29:17,680 - oi-mcp - INFO - [RESOURCES] Startup: Memory=273.9MB, Threads=24
+2026-06-19 14:40:19,409 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 14:40:19,425 - oi-mcp - INFO - [RESOURCES] Startup: Memory=268.2MB, Threads=24
+2026-06-19 14:40:19,504 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 14:40:19,521 - oi-mcp - INFO - [RESOURCES] Startup: Memory=269.4MB, Threads=24
+2026-06-19 14:43:17,502 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 14:43:17,505 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 15:04:11,222 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 15:04:11,233 - oi-mcp - INFO - [RESOURCES] Startup: Memory=269.3MB, Threads=24
+2026-06-19 15:04:11,258 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 15:04:11,268 - oi-mcp - INFO - [RESOURCES] Startup: Memory=270.5MB, Threads=24
+2026-06-19 15:06:23,916 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 15:16:11,552 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 15:16:11,572 - oi-mcp - INFO - [RESOURCES] Startup: Memory=269.7MB, Threads=24
+2026-06-19 15:16:11,621 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 15:16:11,633 - oi-mcp - INFO - [RESOURCES] Startup: Memory=270.9MB, Threads=24
+2026-06-19 15:48:06,064 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 15:48:06,078 - oi-mcp - INFO - [RESOURCES] Startup: Memory=271.7MB, Threads=24
+2026-06-19 15:48:06,113 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 15:48:06,125 - oi-mcp - INFO - [RESOURCES] Startup: Memory=272.8MB, Threads=24
+2026-06-19 15:57:05,834 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 15:57:05,835 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 15:57:59,744 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 15:57:59,763 - oi-mcp - INFO - [RESOURCES] Startup: Memory=270.6MB, Threads=24
+2026-06-19 15:57:59,805 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 15:57:59,819 - oi-mcp - INFO - [RESOURCES] Startup: Memory=271.9MB, Threads=24
+2026-06-19 19:35:33,018 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 19:35:33,043 - oi-mcp - INFO - [RESOURCES] Startup: Memory=268.0MB, Threads=24
+2026-06-19 19:35:33,088 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 19:35:33,104 - oi-mcp - INFO - [RESOURCES] Startup: Memory=269.3MB, Threads=24
+2026-06-19 19:39:54,264 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 19:39:54,272 - oi-mcp - INFO - [RESOURCES] Startup: Memory=267.8MB, Threads=24
+2026-06-19 19:39:54,289 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 19:39:54,297 - oi-mcp - INFO - [RESOURCES] Startup: Memory=269.1MB, Threads=24
+2026-06-19 20:05:13,932 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 20:05:13,942 - oi-mcp - INFO - [RESOURCES] Startup: Memory=269.8MB, Threads=24
+2026-06-19 20:05:13,980 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 20:05:13,989 - oi-mcp - INFO - [RESOURCES] Startup: Memory=271.0MB, Threads=24
+2026-06-19 20:21:53,653 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 20:21:53,663 - oi-mcp - INFO - [RESOURCES] Startup: Memory=267.7MB, Threads=24
+2026-06-19 20:21:53,688 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 20:21:53,704 - oi-mcp - INFO - [RESOURCES] Startup: Memory=268.9MB, Threads=24
+2026-06-19 20:25:51,644 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 20:25:51,645 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 20:26:34,693 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 20:26:34,705 - oi-mcp - INFO - [RESOURCES] Startup: Memory=270.9MB, Threads=24
+2026-06-19 20:26:34,742 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 20:26:34,753 - oi-mcp - INFO - [RESOURCES] Startup: Memory=272.2MB, Threads=24
+2026-06-19 20:28:30,974 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 20:28:30,975 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 21:02:21,059 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 21:02:21,071 - oi-mcp - INFO - [RESOURCES] Startup: Memory=271.7MB, Threads=24
+2026-06-19 21:02:21,108 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 21:02:21,120 - oi-mcp - INFO - [RESOURCES] Startup: Memory=272.9MB, Threads=24
+2026-06-19 21:04:18,946 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 21:04:18,947 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 21:05:25,642 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 21:05:25,657 - oi-mcp - INFO - [RESOURCES] Startup: Memory=273.0MB, Threads=24
+2026-06-19 21:05:25,703 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 21:05:25,718 - oi-mcp - INFO - [RESOURCES] Startup: Memory=274.2MB, Threads=24
+2026-06-19 21:21:46,498 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 21:21:46,509 - oi-mcp - INFO - [RESOURCES] Startup: Memory=257.0MB, Threads=24
+2026-06-19 21:21:46,543 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 21:21:46,553 - oi-mcp - INFO - [RESOURCES] Startup: Memory=258.4MB, Threads=24
+2026-06-19 21:21:46,657 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 21:21:46,658 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 21:23:38,248 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 21:23:38,273 - oi-mcp - INFO - [RESOURCES] Startup: Memory=270.0MB, Threads=24
+2026-06-19 21:23:38,317 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-19 21:23:38,335 - oi-mcp - INFO - [RESOURCES] Startup: Memory=271.3MB, Threads=24
+2026-06-19 21:24:28,099 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-19 21:24:28,099 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-20 14:59:29,827 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-20 14:59:29,841 - oi-mcp - INFO - [RESOURCES] Startup: Memory=267.9MB, Threads=24
+2026-06-20 14:59:29,876 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-20 14:59:29,889 - oi-mcp - INFO - [RESOURCES] Startup: Memory=269.1MB, Threads=24
+2026-06-20 15:00:38,472 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-20 15:00:38,473 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-20 15:02:39,113 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-20 15:02:39,125 - oi-mcp - INFO - [RESOURCES] Startup: Memory=268.4MB, Threads=24
+2026-06-20 15:02:39,156 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-20 15:02:39,168 - oi-mcp - INFO - [RESOURCES] Startup: Memory=269.6MB, Threads=24
+2026-06-20 15:04:51,398 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-20 15:04:51,410 - oi-mcp - INFO - [RESOURCES] Startup: Memory=270.1MB, Threads=24
+2026-06-20 15:04:51,436 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-20 15:04:51,446 - oi-mcp - INFO - [RESOURCES] Startup: Memory=271.3MB, Threads=24
+2026-06-20 15:25:10,442 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-20 15:25:10,452 - oi-mcp - INFO - [RESOURCES] Startup: Memory=268.0MB, Threads=24
+2026-06-20 15:25:10,477 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-20 15:25:10,485 - oi-mcp - INFO - [RESOURCES] Startup: Memory=269.2MB, Threads=24
+2026-06-20 16:40:05,417 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-20 16:40:05,418 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-20 16:40:26,282 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-20 16:40:26,300 - oi-mcp - INFO - [RESOURCES] Startup: Memory=267.7MB, Threads=24
+2026-06-20 16:40:26,328 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-20 16:40:26,342 - oi-mcp - INFO - [RESOURCES] Startup: Memory=268.9MB, Threads=24

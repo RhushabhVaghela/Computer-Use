@@ -74,7 +74,9 @@ async def _call(session: ClientSession, name: str, args: dict) -> tuple[bool, st
 
 async def main() -> int:
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    venv_py = os.path.join(root, ".venv", "Scripts", "python.exe")
+    venv_py = os.path.join(root, "computer_use_env", "Scripts", "python.exe")
+    if not os.path.exists(venv_py):
+        venv_py = os.path.join(root, ".venv", "Scripts", "python.exe")
     python = venv_py if os.path.exists(venv_py) else sys.executable
 
     server_params = StdioServerParameters(

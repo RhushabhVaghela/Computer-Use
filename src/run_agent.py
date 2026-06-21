@@ -22,6 +22,7 @@ load_dotenv(override=True)
 from mcp.client.session import ClientSession
 from mcp.client.stdio import StdioServerParameters, stdio_client
 import mcp.types as mcp_types
+from mcp_utils import get_mcp_params, to_openai_tools
 
 # ===========================================================================
 # Helper: Visual & Text Context Pruning
@@ -453,7 +454,7 @@ async def call_gemini(
     messages: List[Dict[str, Any]],
     tools: List[Dict[str, Any]],
 ) -> Dict[str, Any]:
-    import requests
+    import httpx
     
     # Prune visual and text context to keep context small and fast
     pruned_messages = prune_message_history(messages)
@@ -560,13 +561,10 @@ async def call_gemini(
     if gemini_tools:
         payload["tools"] = gemini_tools
         
-    loop = asyncio.get_running_loop()
-    def _do_post():
-        r = requests.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=120)
+    async with httpx.AsyncClient() as client:
+        r = await client.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=120.0)
         r.raise_for_status()
-        return r.json()
-        
-    res_json = await loop.run_in_executor(None, _do_post)
+        res_json = r.json()
     
     # Parse Response
     candidate = res_json["candidates"][0]
@@ -659,35 +657,6 @@ def format_tool_content_for_role(res, provider: str, text_only: bool = False) ->
 # ===========================================================================
 # 3. Main Runner Loop
 # ===========================================================================
-
-def get_mcp_params(hybrid: bool) -> StdioServerParameters:
-    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    python = os.path.join(root, ".venv", "Scripts", "python.exe")
-    if not os.path.exists(python):
-        python = sys.executable
-        
-    script = "hybrid_server.py" if hybrid else "server.py"
-    print(f"[RUNNER]: Launching MCP Server: {script} via {python}")
-    
-    return StdioServerParameters(
-        command=python,
-        args=[os.path.join(root, "src", script), "--stdio"],
-        env=os.environ.copy()
-    )
-
-def to_openai_tools(mcp_tools) -> List[Dict[str, Any]]:
-    out = []
-    for t in mcp_tools:
-        params = t.inputSchema or {"type": "object", "properties": {}}
-        out.append({
-            "type": "function",
-            "function": {
-                "name": t.name,
-                "description": t.description or "",
-                "parameters": params,
-            },
-        })
-    return out
 
 async def run_agent(
     provider: str,

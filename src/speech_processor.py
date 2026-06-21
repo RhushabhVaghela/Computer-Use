@@ -90,6 +90,41 @@ async def call_bridge_with_retry(url: str, data: bytes, content_type: str,
     )
 
 
+def call_bridge_with_retry_sync(url: str, data: bytes, content_type: str,
+                                 max_retries: int = 3, base_delay: float = 1.0,
+                                 timeout: float = 30.0) -> bytes:
+    """Call a bridge endpoint synchronously with exponential backoff retry."""
+    import time
+    import urllib.request
+    import urllib.error
+    last_error = None
+    for attempt in range(max_retries):
+        try:
+            req = urllib.request.Request(url, data=data, method="POST")
+            req.add_header("Content-Type", content_type)
+            with urllib.request.urlopen(req, timeout=timeout) as response:
+                return response.read()
+        except urllib.error.HTTPError as e:
+            if 400 <= e.code < 500 and e.code != 429:
+                raise
+            last_error = e
+            logger.warning(f"Bridge call attempt {attempt + 1}/{max_retries} failed "
+                           f"(HTTP {e.code}): {e.reason}")
+        except Exception as e:
+            last_error = e
+            logger.warning(f"Bridge call attempt {attempt + 1}/{max_retries} failed: {e}")
+
+        if attempt < max_retries - 1:
+            delay = base_delay * (2 ** attempt)
+            logger.info(f"Retrying bridge call in {delay:.1f}s...")
+            time.sleep(delay)
+
+    raise ConnectionError(
+        f"Bridge call to {url} failed after {max_retries} attempts. "
+        f"Last error: {last_error}"
+    )
+
+
 # Try importing dependencies
 try:
     from faster_whisper import WhisperModel
@@ -506,7 +541,7 @@ class Qwen3ASRProcessor:
                 req = urllib.request.Request(url, data=body, method='POST')
                 req.add_header('Content-Type', f'multipart/form-data; boundary={boundary}')
                 
-                res_body = await call_bridge_with_retry(
+                res_body = call_bridge_with_retry_sync(
                     url, body, f'multipart/form-data; boundary={boundary}',
                     max_retries=3, base_delay=1.0, timeout=30.0
                 )
@@ -584,21 +619,17 @@ class Qwen3TTSProcessor:
                 if not url.endswith('/audio/speech') and not url.endswith('/speech'):
                     url = f"{url}/audio/speech"
                 
-                def _post():
-                    body = json.dumps({
-                        "model": self.model_name,
-                        "input": text,
-                        "voice": voice_name,
-                        "response_format": "wav"
-                    }).encode('utf-8')
-                    req = urllib.request.Request(url, data=body, method='POST')
-                    req.add_header('Content-Type', 'application/json')
-                    return await call_bridge_with_retry(
-                        url, body, 'application/json',
-                        max_retries=3, base_delay=1.0, timeout=30.0
-                    )
+                body = json.dumps({
+                    "model": self.model_name,
+                    "input": text,
+                    "voice": voice_name,
+                    "response_format": "wav"
+                }).encode('utf-8')
                 
-                audio_bytes = await asyncio.to_thread(_post)
+                audio_bytes = await call_bridge_with_retry(
+                    url, body, 'application/json',
+                    max_retries=3, base_delay=1.0, timeout=30.0
+                )
                 
                 # Chunk and yield
                 chunk_size = 8192

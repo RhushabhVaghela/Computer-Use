@@ -29,6 +29,7 @@ class UIElement:
     is_interactive: bool = False
     children: List['UIElement'] = field(default_factory=list)
     attributes: Dict[str, str] = field(default_factory=dict)
+    _control: Any = field(default=None, repr=False)
     
     @property 
     def center(self) -> tuple[int, int]:
@@ -75,6 +76,7 @@ class UIElementProvider:
         self._element_limit = 250
         self._max_depth = 5 # Reduced from 10 to instantly speed up OS scans
         self._browser_port = int(os.environ.get("BROWSER_CDP_PORT", "9222"))
+        self._uiautomation_error = None
     
     def reset(self):
         """Clear the detected elements cache."""
@@ -295,6 +297,40 @@ class UIElementProvider:
     def get_element(self, index: int) -> UIElement | None:
         """Get element by its index number."""
         return self._elements_map.get(index)
+        
+    def click_element(self, index: int) -> bool:
+        """Attempt to click an element natively without hijacking the physical mouse."""
+        el = self.get_element(index)
+        if not el or not el._control:
+            return False
+        
+        try:
+            # 1. Try InvokePattern (buttons, menu items, etc.)
+            try:
+                el._control.GetInvokePattern().Invoke()
+                return True
+            except Exception:
+                pass
+                
+            # 2. Try TogglePattern (checkboxes)
+            try:
+                el._control.GetTogglePattern().Toggle()
+                return True
+            except Exception:
+                pass
+                
+            # 3. Try SelectionItemPattern (list items, tree items)
+            try:
+                el._control.GetSelectionItemPattern().Select()
+                return True
+            except Exception:
+                pass
+                
+            # 4. Fallback to native control click (doesn't move hardware mouse)
+            el._control.Click(simulateMove=False)
+            return True
+        except Exception:
+            return False
     
     def format_for_llm(
         self,
@@ -319,6 +355,8 @@ class UIElementProvider:
         )
         
         if not root_elements:
+            if self._uiautomation_error:
+                return header + f"[No UI elements detected: {self._uiautomation_error}]"
             return header + "[No UI elements detected]"
             
         tree_lines = []
@@ -381,6 +419,7 @@ class UIElementProvider:
         try:
             import uiautomation as auto
         except ImportError:
+            self._uiautomation_error = "The 'uiautomation' library is not installed. Please install it using 'pip install uiautomation'."
             return []
         
         if not monitors:
@@ -549,7 +588,8 @@ class UIElementProvider:
                 monitor_idx=monitor_idx,
                 is_interactive=is_interactive,
                 children=children,
-                attributes=attrs
+                attributes=attrs,
+                _control=node
             )
             
         except Exception:

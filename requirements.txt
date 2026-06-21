@@ -23,6 +23,10 @@ huggingface-hub
 numpy
 openai
 
+# Testing
+pytest
+pytest-asyncio
+pytest-mock
 
 # IMPORTANT:
 # Keep qwen-tts and qwen-asr out of this environment.

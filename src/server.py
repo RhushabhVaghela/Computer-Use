@@ -12,6 +12,7 @@ as MCP tools. Supports all three transports:
 import argparse
 import sys
 import os
+os.environ["MPLBACKEND"] = "Agg"
 import time
 import contextvars
 import asyncio
@@ -23,6 +24,26 @@ from functools import wraps
 # Import configuration (validates OI_PATH at startup)
 from config import CONFIG, OI_PATH, COMMAND_DENYLIST
 
+if OI_PATH not in sys.path:
+    sys.path.insert(0, OI_PATH)
+
+# Pre-import heavy dependencies at startup on MainThread to avoid Windows Loader Lock deadlocks
+# when loading numpy/matplotlib C extensions after standard streams are redirected or the event loop starts.
+try:
+    import logging
+    # Set up basic logging early so we can see startup pre-imports
+    _temp_logger = logging.getLogger("oi-mcp")
+    _temp_logger.info("[STARTUP]: Pre-importing interpreter and heavy dependencies...")
+    from interpreter import interpreter as _oi
+    from interpreter.computer_use.tools import ComputerTool
+    from ui_elements import UIElementProvider
+    from overlay import MouseOverlay
+    _temp_logger.info("[STARTUP]: Pre-importing complete.")
+except Exception as e:
+    import sys
+    print(f"[FATAL]: Failed to pre-import dependencies at startup: {e}", file=sys.stderr)
+    raise
+
 # Enable DPI Awareness on Windows BEFORE importing pyautogui or mss
 # to ensure we get physical coordinates and correct screen sizes.
 if sys.platform == "win32":
@@ -30,9 +51,8 @@ if sys.platform == "win32":
     try:
         # 2 = PROCESS_PER_MONITOR_DPI_AWARE
         ctypes.windll.shcore.SetProcessDpiAwareness(2)
-        # Also try to set the newer Per-Monitor V2 if available (Windows 10 1703+)
-        # ctypes.windll.user32.SetProcessDpiAwarenessContext(-4) # DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2
-    except Exception:
+    except Exception as e:
+        # DPI awareness API might not exist on older Windows builds
         pass
 
 import pyautogui # Now safe to import
@@ -123,6 +143,12 @@ logging.getLogger("starlette").setLevel(logging.ERROR)
 _init_lock = Lock()
 _tools_initialized = False
 
+# Global variables for caching instantiated tool objects across threads/requests
+_global_computer_tool = None
+_global_ui_provider = None
+_global_overlay = None
+_global_oi_interpreter = None
+
 # Per-request context vars (async-safe, isolated per request)
 _context_tools_initialized = contextvars.ContextVar('tools_initialized', default=False)
 _context_computer_tool = contextvars.ContextVar('computer_tool', default=None)
@@ -161,47 +187,30 @@ def get_oi_interpreter():
 
 # OI_PATH already validated and imported from config module above
 
-def ensure_tools():
+def _sync_ensure_tools():
     """
-    Lazily initialize all heavy tools with thread-safe initialization.
-    
-    Uses a global lock to ensure first-time setup happens once across all threads.
-    Stores tools in context vars for per-request isolation (async-safe).
+    Synchronous heavy tool setup. Runs in an executor thread to avoid blocking the event loop.
+    Sets global variables to preserve singleton tool objects across all requests.
     """
-    global _tools_initialized
+    global _tools_initialized, _global_computer_tool, _global_ui_provider, _global_overlay, _global_oi_interpreter
     
-    # Check if already initialized in this context
-    if _context_tools_initialized.get():
-        return
-    
-    # Use global lock for thread-safe first-time initialization
     with _init_lock:
-        # Double-check after acquiring lock (another thread may have initialized)
         if _tools_initialized:
-            # Copy from module level to this context
-            _context_tools_initialized.set(True)
-            _context_computer_tool.set(None)  # Will be fetched on demand
-            _context_ui_provider.set(None)
-            _context_overlay.set(None)
-            _context_oi_interpreter.set(None)
             return
-        
+
         logger.info("Initializing heavy tools (OI, UI Provider, Overlay)...")
         
         if OI_PATH not in sys.path:
             sys.path.insert(0, OI_PATH)
 
         try:
-            from interpreter import interpreter as _oi
-            from interpreter.computer_use.tools import ComputerTool
-            from ui_elements import UIElementProvider
-            from overlay import MouseOverlay
-            
-            _oi_instance = _oi
+            logger.info("Instantiating ComputerTool...")
             _computer_tool = ComputerTool()
             _computer_tool._scaling_enabled = False
             
+            logger.info("Instantiating UIElementProvider...")
             _ui_provider = UIElementProvider()
+            logger.info("Instantiating MouseOverlay...")
             _overlay = MouseOverlay()
 
             # Add set_monitor_size to computer_tool if it doesn't have it
@@ -215,29 +224,47 @@ def ensure_tools():
                 import types
                 _computer_tool.set_monitor_size = types.MethodType(set_monitor_size, _computer_tool)
 
-            _oi_instance.auto_run = True
-            _oi_instance.display = False
+            _oi.auto_run = True
+            _oi.display = False
             
             # Patch ComputerTool's smooth_move_to
             try:
                 import interpreter.computer_use.tools.computer as ct_module
                 ct_module.smooth_move_to = smooth_move_to
-            except Exception:
-                pass
+            except Exception as e:
+                logger.warning(f"Could not patch smooth_move_to on interpreter.computer_use: {e}")
             
-            # Store in context vars (per-request isolation)
-            _context_computer_tool.set(_computer_tool)
-            _context_ui_provider.set(_ui_provider)
-            _context_overlay.set(_overlay)
-            _context_oi_interpreter.set(_oi_instance)
-            _context_tools_initialized.set(True)
+            # Cache globally
+            _global_computer_tool = _computer_tool
+            _global_ui_provider = _ui_provider
+            _global_overlay = _overlay
+            _global_oi_interpreter = _oi
             
-            # Mark global initialization as done
             _tools_initialized = True
             logger.info("Tools initialization complete.")
         except Exception as e:
             logger.exception("Failed to initialize tools")
             raise
+
+
+async def ensure_tools():
+    """
+    Lazily initialize all heavy tools with thread-safe initialization.
+    Runs on the MainThread to avoid Windows loader lock deadlocks when loading C extensions in background threads.
+    """
+    if _context_tools_initialized.get():
+        return
+        
+    if not _tools_initialized:
+        # Run synchronous setup on the MainThread
+        _sync_ensure_tools()
+        
+    # Copy globally cached tools to the context vars for the current request
+    _context_computer_tool.set(_global_computer_tool)
+    _context_ui_provider.set(_global_ui_provider)
+    _context_overlay.set(_global_overlay)
+    _context_oi_interpreter.set(_global_oi_interpreter)
+    _context_tools_initialized.set(True)
 
 # Global pyautogui config
 # pyautogui.PAUSE = 0.05
@@ -371,8 +398,8 @@ def _log_resource_state(label: str):
         proc = psutil.Process(os.getpid())
         mem = proc.memory_info()
         logger.info(f"[RESOURCES] {label}: Memory={mem.rss / 1024 / 1024:.1f}MB, Threads={proc.num_threads()}")
-    except Exception:
-        pass  # psutil not available or not critical
+    except Exception as e:
+        logger.debug(f"Failed to log resource state: {e}")
 
 
 def print_startup_info():
@@ -427,8 +454,8 @@ def print_startup_info():
         print(f"[LIBS]: pyautogui: {pyautogui.__version__}", file=sys.stderr)
         print(f"[LIBS]: mss: {getattr(mss, '__version__', 'unknown')}", file=sys.stderr)
         print(f"[LIBS]: Pillow: {getattr(PIL, '__version__', 'unknown')}", file=sys.stderr)
-    except Exception:
-        pass
+    except Exception as e:
+        logger.debug(f"Failed to log library versions: {e}")
 
     # Mouse Info
     pos = pyautogui.position()
@@ -465,8 +492,8 @@ def direct_move_to(x, y):
             # SetCursorPos works with physical pixels if DPI aware
             ctypes.windll.user32.SetCursorPos(int(x), int(y))
             return
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug(f"Direct move cursor failed: {e}")
     pyautogui.moveTo(x, y)
 
 def smooth_move_to(x, y):
@@ -666,6 +693,21 @@ async def async_capture_desktop_png_base64(desktop: dict, out_w: int, out_h: int
     return await asyncio.to_thread(_capture_desktop_png_base64, desktop, out_w, out_h)
 
 
+def _get_screen_hash(desktop: dict) -> str:
+    import mss
+    with mss.mss() as sct:
+        sct_img = sct.grab({
+            "left": int(desktop["left"]),
+            "top": int(desktop["top"]),
+            "width": int(desktop["width"]),
+            "height": int(desktop["height"]),
+        })
+        return hashlib.md5(sct_img.bgra).hexdigest()
+
+async def async_get_screen_hash(desktop: dict) -> str:
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+
+
 # ==========================================
 # Timeout Decorator for Tool Enforcement
 # ==========================================
@@ -842,7 +884,7 @@ async def computer(
         thinking: REQUIRED. A brief description of what the agent is thinking or doing (e.g., 'Searching for submit button', 'Typing search query'). This will be displayed in the overlay.
     """
     try:
-        ensure_tools()
+        await ensure_tools()
         global pyautogui
 
         # --- C3: Security controls for risky computer actions ---
@@ -914,6 +956,7 @@ async def computer(
         snap_msg = ""
         action_label = f"{action} {text if text else ''}"
         
+        native_clicked = False
         if action in ("left_click", "right_click", "double_click", "middle_click", "mouse_move") and text_str and text_str.strip().isdigit():
             idx = int(text_str.strip())
             element = _ui_provider.get_element(idx)
@@ -923,6 +966,11 @@ async def computer(
                 snap_msg = f"(Targeted element {idx}: {element.name} at {target_x},{target_y})"
                 action_label = f"{action.replace('_click', '').capitalize()} {element.name[:20]}"
                 print(f"[UI]: Target acquired index={idx} name='{element.name}' at {target_x},{target_y}", file=sys.stderr)
+                
+                if action == "left_click":
+                    if _ui_provider.click_element(idx):
+                        print(f"[UI]: Natively clicked element index={idx}", file=sys.stderr)
+                        native_clicked = True
             else:
                 msg = f"Error: UI element index {idx} not found."
                 print(f"[ERROR]: {msg}", file=sys.stderr)
@@ -932,7 +980,8 @@ async def computer(
             sx, sy = int(coordinate[0]), int(coordinate[1])
             try:
                 coord_grid = CONFIG.mcp_coordinate_grid
-            except Exception:
+            except Exception as e:
+                logger.debug(f"Failed to read mcp_coordinate_grid config: {e}")
                 coord_grid = 0
             
             if coord_grid > 0:
@@ -957,9 +1006,13 @@ async def computer(
         if _overlay:
             if target_x is not None and target_y is not None:
                 _overlay.show(mx, my, combined_label)
-                # 2. MOVE SMOOTHLY TO TARGET (150ms)
-                smooth_move_to(target_x, target_y)
-                has_moved = True
+                if not native_clicked:
+                    # 2. MOVE SMOOTHLY TO TARGET (150ms)
+                    smooth_move_to(target_x, target_y)
+                    has_moved = True
+                else:
+                    # Just snap the overlay visually
+                    _overlay.move(target_x, target_y)
             else:
                 # For non-movement actions (type, key, etc.), show overlay at current mouse position
                 _overlay.show(mx, my, combined_label)
@@ -969,11 +1022,7 @@ async def computer(
             _overlay.move(mx, my)
 
         # 3. CAPTURE PRE-ACTION STATE
-        with mss.mss() as sct:
-            pre_data = sct.grab(
-                {"left": desktop["left"], "top": desktop["top"], "width": desktop["width"], "height": desktop["height"]}
-            )
-            pre_hash = hashlib.md5(pre_data.bgra).hexdigest()
+        pre_hash = await async_get_screen_hash(desktop)
 
         # 4. PERFORM ACTION
         print(f"[ACTION]: Executing {action}...", file=sys.stderr)
@@ -982,9 +1031,10 @@ async def computer(
             _overlay.update_label(combined_label_exec)
         
         if action == "left_click":
-            if has_moved: pyautogui.click()
-            elif target_x is not None: pyautogui.click(target_x, target_y)
-            else: pyautogui.click()
+            if not native_clicked:
+                if has_moved: pyautogui.click()
+                elif target_x is not None: pyautogui.click(target_x, target_y)
+                else: pyautogui.click()
         elif action == "right_click":
             if has_moved: pyautogui.rightClick()
             elif target_x is not None: pyautogui.rightClick(target_x, target_y)
@@ -1111,7 +1161,12 @@ async def computer(
         
         return contents
     except Exception as e:
-        if _overlay: _overlay.hide()
+        try:
+            overlay_instance = get_overlay()
+            if overlay_instance:
+                overlay_instance.hide()
+        except Exception:
+            pass
         logger.exception("Error in computer tool")
         return [TextContent(type="text", text=f"Exception: {str(e)}")]
 
@@ -1120,7 +1175,7 @@ async def computer(
 async def read_screen_ui() -> list[TextContent]:
     """Scan the screen for interactive UI elements in a hierarchical tree."""
     try:
-        ensure_tools()
+        await ensure_tools()
         _ui_provider = get_ui_provider()
         _overlay = get_overlay()
         _computer_tool = get_computer_tool()
@@ -1165,8 +1220,8 @@ async def read_screen_ui() -> list[TextContent]:
                 win_name = (auto.ControlFromHandle(active_win).Name or "").lower()
                 if any(b in win_name for b in ["chrome", "edge", "brave", "firefox", "opera"]):
                     browser_hint = "\n\n[HINT]: A browser is active. For much more efficient and deep analysis of the web page, call 'browser_use_dom'."
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug(f"Failed to detect active browser window: {e}")
 
         if _overlay:
             _overlay.status("Scan Complete", "cyan")
@@ -1184,7 +1239,7 @@ async def read_screen_ui() -> list[TextContent]:
 async def bash(command: str) -> list[TextContent]:
     """Run shell code."""
     try:
-        ensure_tools()
+        await ensure_tools()
         _overlay = get_overlay()
         _oi_interpreter = get_oi_interpreter()
 
@@ -1230,7 +1285,7 @@ async def bash(command: str) -> list[TextContent]:
 async def rename_file(old_path: str, new_path: str) -> list[TextContent]:
     """Rename or move a file directly (no shell, no interactive prompts)."""
     try:
-        ensure_tools()
+        await ensure_tools()
         import shutil
 
         src = os.path.expandvars(old_path) if old_path else old_path
@@ -1263,7 +1318,7 @@ async def browser_action(url: str = None, search_query: str = None, browser: str
     Directly launches the browser. Defaults to an isolated session with onboarding bypassed.
     """
     try:
-        ensure_tools()
+        await ensure_tools()
         if search_query:
             url = f"https://www.google.com/search?q={search_query.replace(' ', '+')}"
         
@@ -1325,7 +1380,7 @@ async def browser_action(url: str = None, search_query: str = None, browser: str
 async def browser_use_dom() -> list[TextContent]:
     """Extract efficient DOM structure from the installed browser."""
     try:
-        ensure_tools()
+        await ensure_tools()
         _ui_provider = get_ui_provider()
         dom_tree = await _ui_provider.scan_browser()
         
