@@ -223,6 +223,31 @@ class ServerConfig(BaseSettings):
         description="Override screen height for voice server"
     )
     
+    # ==========================================
+    # Local ML Model Configuration
+    # ==========================================
+    use_llama_server: bool = Field(
+        default=True,
+        description="Whether to use the local llama-server for LLM processing"
+    )
+    llama_server_api_base: str = Field(
+        default="http://127.0.0.1:8080/v1",
+        description="API base URL for the local llama-server"
+    )
+    llama_server_model: str = Field(
+        default="openai/gemma-4-12B",
+        description="Model identifier to pass to open-interpreter"
+    )
+    asr_engine: str = Field(
+        default="whisper_turbo",
+        description="Engine to use for ASR (e.g., whisper_turbo, base.en)"
+    )
+    tts_engine: str = Field(
+        default="higgs",
+        description="Engine to use for TTS (e.g., higgs, qwen3)"
+    )
+    
+    
     # PersonaPlex (Moshi) Unified Voice Pipeline Settings
     personaplex_mode: str = Field(
         default="websocket",
