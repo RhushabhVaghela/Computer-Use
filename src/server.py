@@ -227,6 +227,13 @@ def _sync_ensure_tools():
             _oi.auto_run = True
             _oi.display = False
             
+            if CONFIG.use_llama_server:
+                logger.info(f"Configuring local LLM via llama-server at {CONFIG.llama_server_api_base}")
+                _oi.llm.model = CONFIG.llama_server_model
+                _oi.llm.api_base = CONFIG.llama_server_api_base
+                _oi.llm.api_key = "dummy"  # llama-server doesn't require a real key
+            
+            
             # Patch ComputerTool's smooth_move_to
             try:
                 import interpreter.computer_use.tools.computer as ct_module

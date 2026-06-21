@@ -144,7 +144,7 @@ class ASRProcessor:
     Handles local speech recognition using faster-whisper (large-v3-turbo).
     Runs on CUDA GPU for extremely fast, low-latency transcription.
     """
-    def __init__(self, model_size: str = "base.en", device: str = "cuda"):
+    def __init__(self, model_size: str = "large-v3-turbo", device: str = "cuda"):
         self.model_size = model_size
         self.device = device  # Try forcing CUDA directly for faster_whisper
         self.model = None
@@ -688,4 +688,44 @@ class Qwen3TTSProcessor:
             except Exception as e:
                 logger.error(f"Error in local Qwen3 TTS synthesis: {e}")
 
+class HiggsTTSProcessor:
+    """
+    TTS using Higgs-Audio-v3-TTS served natively via vllm-omni.
+    Uses OpenAI compatible /v1/audio/speech endpoint.
+    """
+    def __init__(self, remote_url: str = "http://127.0.0.1:8095/v1", model_name: str = "bosonai/higgs-audio-v3-tts-4b", default_voice: str = "default"):
+        self.remote_url = remote_url
+        self.model_name = model_name
+        self.default_voice = default_voice
+        logger.info(f"Initializing Higgs TTS pointing to {self.remote_url}...")
 
+    async def synthesize_stream(self, text: str, voice: str = None):
+        import asyncio
+        voice_name = voice or self.default_voice
+        
+        logger.info(f"Synthesizing text via Higgs TTS endpoint: {self.remote_url}...")
+        try:
+            url = self.remote_url.rstrip('/')
+            if not url.endswith('/audio/speech') and not url.endswith('/speech'):
+                url = f"{url}/audio/speech"
+            
+            body = json.dumps({
+                "model": self.model_name,
+                "input": text,
+                "voice": voice_name,
+                "response_format": "wav"
+            }).encode('utf-8')
+            
+            audio_bytes = await call_bridge_with_retry(
+                url, body, 'application/json',
+                max_retries=3, base_delay=1.0, timeout=30.0
+            )
+            
+            # Chunk and yield
+            chunk_size = 8192
+            for i in range(0, len(audio_bytes), chunk_size):
+                yield audio_bytes[i:i+chunk_size]
+                
+        except Exception as e:
+            logger.error(f"Error calling Higgs TTS endpoint: {e}")
+            return
