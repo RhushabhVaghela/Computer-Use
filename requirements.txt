@@ -31,3 +31,8 @@ pytest-mock
 # IMPORTANT:
 # Keep qwen-tts and qwen-asr out of this environment.
 # Install them in separate venvs because they require conflicting transformers versions.
+
+# Voice Dependencies
+websockets
+comtypes; platform_system == "Windows"
+pycaw; platform_system == "Windows"
