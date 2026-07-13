@@ -3606,3 +3606,7 @@ mss.exception.ScreenShotError: Windows graphics function failed (no error provid
 2026-07-13 15:26:24,038 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
 2026-07-13 15:26:24,052 - oi-mcp - INFO - [RESOURCES] Startup: Memory=260.6MB, Threads=24
 2026-07-13 15:26:24,125 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 15:33:44,966 - oi-mcp - INFO - [STARTUP]: Robust screenshot capture enabled (DXGI + MSS fallback)
+2026-07-13 15:33:44,966 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 15:33:44,978 - oi-mcp - INFO - [RESOURCES] Startup: Memory=260.5MB, Threads=24
+2026-07-13 15:33:45,239 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
