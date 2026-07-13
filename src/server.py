@@ -136,6 +136,25 @@ logging.getLogger("mcp").setLevel(logging.ERROR)
 logging.getLogger("starlette").setLevel(logging.ERROR)
 
 # ==========================================
+# Robust Screenshot Capture (DXGI + MSS + Retry)
+# ==========================================
+
+# Import robust screenshot capture with automatic backend selection
+try:
+    from screen_capture import (
+        RobustScreenshotCapture,
+        capture_screen,
+        ScreenshotCaptureError,
+        CaptureBackend,
+        get_screenshot_capture,
+    )
+    USE_ROBUST_CAPTURE = True
+    logger.info("[STARTUP]: Robust screenshot capture enabled (DXGI + MSS fallback)")
+except ImportError:
+    USE_ROBUST_CAPTURE = False
+    logger.warning("[STARTUP]: Robust screenshot capture not available, using legacy MSS capture")
+
+# ==========================================
 # Open Interpreter & Tools Initialization (Lazy)
 # ==========================================
 
@@ -473,7 +492,7 @@ def print_startup_info():
     # Monitor Info
     try:
         import mss
-        with mss.mss() as sct:
+        with mss.MSS() as sct:
             print(f"[MONITORS]: Detected {len(sct.monitors)-1} active monitor(s):", file=sys.stderr)
             for i, m in enumerate(sct.monitors):
                 if i == 0: 
@@ -648,9 +667,10 @@ def _capture_desktop_png_base64(desktop: dict, out_w: int, out_h: int) -> tuple[
     - png_hash: md5 of PNG bytes (for logging/debug)
     """
     import mss
-
+    
     start = time.time()
-    with mss.mss() as sct:
+    # Use new MSS API (mss.MSS instead of deprecated mss.mss)
+    with mss.MSS() as sct:
         # Grab exactly the region we are mapping coordinates against.
         sct_img = sct.grab(
             {
@@ -662,7 +682,7 @@ def _capture_desktop_png_base64(desktop: dict, out_w: int, out_h: int) -> tuple[
         )
         bgra_hash = hashlib.md5(sct_img.bgra).hexdigest()
         img = Image.frombytes("RGB", sct_img.size, sct_img.bgra, "raw", "BGRX")
-
+    
     if (out_w, out_h) != (desktop["width"], desktop["height"]):
         img = img.resize((out_w, out_h), Image.Resampling.LANCZOS)
 
@@ -702,7 +722,7 @@ async def async_capture_desktop_png_base64(desktop: dict, out_w: int, out_h: int
 
 def _get_screen_hash(desktop: dict) -> str:
     import mss
-    with mss.mss() as sct:
+    with mss.MSS() as sct:
         sct_img = sct.grab({
             "left": int(desktop["left"]),
             "top": int(desktop["top"]),
@@ -936,7 +956,7 @@ async def computer(
         
         # Sync ComputerTool with the capture region so screenshot<->desktop mapping stays consistent.
         import mss
-        with mss.mss() as sct:
+        with mss.MSS() as sct:
             desktop = _get_capture_region(sct)
             _computer_tool.set_monitor_size(desktop["width"], desktop["height"], left=desktop["left"], top=desktop["top"])
 
@@ -1150,7 +1170,7 @@ async def computer(
             try:
                 import mss
                 _ui_provider.reset()
-                with mss.mss() as sct:
+                with mss.MSS() as sct:
                     scope = CONFIG.mcp_capture_scope
                     monitors = sct.monitors[1:] if scope in ("virtual", "all", "desktop") else [sct.monitors[1]]
                 scanned_elements = _ui_provider.scan(monitors=monitors)
@@ -1194,7 +1214,7 @@ async def read_screen_ui() -> list[TextContent]:
         import mss
         
         _ui_provider.reset()
-        with mss.mss() as sct:
+        with mss.MSS() as sct:
             desktop = _get_capture_region(sct)
             out_w, out_h = _pick_scaled_size(desktop["width"], desktop["height"])
             scope = CONFIG.mcp_capture_scope
