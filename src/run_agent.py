@@ -876,9 +876,23 @@ async def run_agent(
                             return
                             
                         # Prepend Anti-Loop Warning to the tool response if triggered
+                        if loop_warning_to_inject:
+                            if isinstance(formatted_content, list):
+                                formatted_content.insert(0, {"type": "text", "text": loop_warning_to_inject})
+                            else:
+                                formatted_content = f"{loop_warning_to_inject}\n\n{formatted_content}"
+                            loop_warning_to_inject = None
+                            
+                        if provider in ("openai", "local") and isinstance(formatted_content, list):
+                            text_part = ""
+                            for item in formatted_content:
+                                if item.get("type") == "text":
+                                    text_part += item["text"] + "\n"
+                            messages.append({
+                                "role": "tool",
                                 "tool_call_id": tc_id,
                                 "name": name,
-                                "content": text_part
+                                "content": text_part.strip()
                             })
                             # And append a user message carrying the screenshot:
                             messages.append({

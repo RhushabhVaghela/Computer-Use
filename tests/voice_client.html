@@ -548,6 +548,7 @@
                     </optgroup>
                     <optgroup label="Standard TTS Engines">
                         <option value="qwen3">Qwen3 TTS</option>
+                        <option value="higgs">Higgs-Audio-v3-TTS</option>
                         <option value="supertonic">Supertonic TTS</option>
                         <option value="kittentts">KittenTTS</option>
                         <option value="kokoro">Kokoro / Edge-TTS</option>
@@ -600,6 +601,40 @@
                 <div class="log-entry">
                     <span class="log-role system">System</span>
                     <span class="log-text">Welcome! Set the Server Address and click Connect to start the loop.</span>
+                </div>
+            </div>
+
+            <div class="control-group" id="tag-injection-group" style="display: none; margin-bottom: 0.5rem;">
+                <label for="tag-select">Inject Emotion / Style Tag</label>
+                <div style="display: flex; gap: 0.5rem;">
+                    <select id="tag-select" style="flex-grow: 1;">
+                        <option value="">Select a tag...</option>
+                        <optgroup label="Emotion">
+                            <option value="<|emotion:enthusiasm|>">Enthusiasm</option>
+                            <option value="<|emotion:elation|>">Elation</option>
+                            <option value="<|emotion:amusement|>">Amusement</option>
+                            <option value="<|emotion:awe|>">Awe</option>
+                            <option value="<|emotion:contemplation|>">Contemplation</option>
+                            <option value="<|emotion:sadness|>">Sadness</option>
+                        </optgroup>
+                        <optgroup label="Style">
+                            <option value="<|style:singing|>">Singing</option>
+                            <option value="<|style:whispering|>">Whispering</option>
+                            <option value="<|style:shouting|>">Shouting</option>
+                        </optgroup>
+                        <optgroup label="Sound Effects">
+                            <option value="<|sfx:laughter|>">Laughter</option>
+                            <option value="<|sfx:sigh|>">Sigh</option>
+                            <option value="<|sfx:cough|>">Cough</option>
+                        </optgroup>
+                        <optgroup label="Prosody">
+                            <option value="<|prosody:speed_fast|>">Fast</option>
+                            <option value="<|prosody:speed_slow|>">Slow</option>
+                            <option value="<|prosody:pause|>">Pause (Short)</option>
+                            <option value="<|prosody:long_pause|>">Pause (Long)</option>
+                        </optgroup>
+                    </select>
+                    <button id="inject-tag-btn" style="width: auto;">Inject</button>
                 </div>
             </div>
 
@@ -1092,6 +1127,19 @@
                 { value: "Elias", text: "Elias (Male)" },
                 { value: "Bunny", text: "Bunny (Female)" }
             ],
+            "higgs": [
+                { value: "Ava_Sinclair", text: "Ava Sinclair (Upbeat · Clear)" },
+                { value: "Diane_Whitfield", text: "Diane Whitfield (Professional · Serious)" },
+                { value: "Eleanor_Reed", text: "Eleanor Reed (Calm · Articulate)" },
+                { value: "Ethan_Cole", text: "Ethan Cole (Thoughtful · Warm)" },
+                { value: "Greg_Mason", text: "Greg Mason (Calm · Instructive)" },
+                { value: "Jake_Rivers", text: "Jake Rivers (Energetic · Dramatic)" },
+                { value: "Marcus_Webb", text: "Marcus Webb (Enthusiastic · Confident)" },
+                { value: "Mia_Sullivan", text: "Mia Sullivan (Conversational · Energetic)" },
+                { value: "Nora_Vance", text: "Nora Vance (Calm · Narrative)" },
+                { value: "Oliver_Grant", text: "Oliver Grant (Articulate · Reflective)" },
+                { value: "Vivian_Shaw", text: "Vivian Shaw (Confident · Steady)" }
+            ],
             "supertonic": [
                 { value: "F1", text: "F1 (Female 1)" },
                 { value: "F2", text: "F2 (Female 2)" },
@@ -1163,13 +1211,33 @@
 
         // Initialize voice options at startup
         updateVoiceOptions();
+        
+        const tagGroupInit = document.getElementById("tag-injection-group");
+        if (tagGroupInit) {
+            tagGroupInit.style.display = voiceModel.value === "higgs" ? "flex" : "none";
+        }
 
         voiceModel.addEventListener("change", () => {
             updateVoiceOptions();
             sendModelUpdate();
             // Give it a tiny delay to let server switch, then sync default voice
             setTimeout(sendVoiceUpdate, 200);
+            
+            if (tagGroupInit) {
+                tagGroupInit.style.display = voiceModel.value === "higgs" ? "flex" : "none";
+            }
         });
+
+        const injectTagBtn = document.getElementById("inject-tag-btn");
+        const tagSelect = document.getElementById("tag-select");
+        if (injectTagBtn && tagSelect) {
+            injectTagBtn.addEventListener("click", () => {
+                if (tagSelect.value && !textInput.disabled) {
+                    textInput.value += tagSelect.value + " ";
+                    textInput.focus();
+                }
+            });
+        }
 
         // --- Text input support ---
         sendBtn.addEventListener("click", sendTextMessage);

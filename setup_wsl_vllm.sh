@@ -11,35 +11,29 @@ echo "[1/4] Downloading missing architecture files to model directory..."
 wget -q -nc -O "$MODEL_DIR/configuration_higgs.py" "https://huggingface.co/bosonai/higgs-audio-v3-tts-4b/resolve/main/configuration_higgs.py" || echo "configuration_higgs.py already exists."
 wget -q -nc -O "$MODEL_DIR/modeling_higgs.py" "https://huggingface.co/bosonai/higgs-audio-v3-tts-4b/resolve/main/modeling_higgs.py" || echo "modeling_higgs.py already exists."
 
-# 2. Check for python/conda
-echo "[2/4] Verifying Python environment..."
-if ! command -v conda &> /dev/null
-then
-    echo "Conda not found. Setting up a standard python venv..."
-    sudo apt update
-    sudo apt install -y python3.10-venv python3-pip git
-    python3 -m venv ~/vllm_env
-    source ~/vllm_env/bin/activate
-else
-    echo "Conda found. Creating 'vllm-omni' environment..."
-    conda create -n vllm-omni python=3.10 -y || true
-    # Conda activate in bash scripts requires sourcing the profile
-    source $(conda info --base)/etc/profile.d/conda.sh
-    conda activate vllm-omni
-fi
+# 2. Setup project-local uv environment
+echo "[2/4] Verifying Python environment (uv)..."
+
+ENV_DIR="$HOME/wsl_env"
+echo "Creating uv virtual environment at $ENV_DIR..."
+uv venv --python 3.12 "$ENV_DIR"
+
+echo "Activating virtual environment..."
+source "$ENV_DIR/bin/activate"
 
 # 3. Install nvcc / CUDA toolkit if necessary for building extensions
 echo "[3/4] Checking CUDA compiler (nvcc)..."
 if ! command -v nvcc &> /dev/null
 then
     echo "nvcc not found. Installing nvidia-cuda-toolkit..."
+    sudo apt update
     sudo apt install -y nvidia-cuda-toolkit
 fi
 
-# 4. Install vLLM-Omni
-echo "[4/4] Compiling and installing vLLM-Omni from source (This may take 15-20 minutes)..."
-pip install --upgrade pip
-pip install git+https://github.com/vllm-project/vllm-omni.git
+# 4. Install vLLM and vLLM-Omni
+echo "[4/4] Compiling and installing vLLM and vLLM-Omni using uv (This may take a while)..."
+uv pip install vllm
+uv pip install git+https://github.com/vllm-project/vllm-omni.git
 
 echo ""
 echo "===================================================="

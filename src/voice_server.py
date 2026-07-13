@@ -33,7 +33,7 @@ from mcp.client.stdio import stdio_client
 from speech_processor import (
     ASRProcessor, VADDetector, TTSProcessor, EdgeTTSProcessor, 
     KittenTTSProcessor, SupertonicTTSProcessor, Qwen3ASRProcessor, Qwen3TTSProcessor,
-    HiggsTTSProcessor
+    HiggsTTSProcessor, OmniVoiceTTSProcessor
 )
 
 # Configure logging
@@ -54,6 +54,7 @@ class LowLatencyVoiceServer:
         self.port = port
         self.api_base = os.environ.get("VLM_API_BASE", api_base or "http://127.0.0.1:8080/v1")
         self.vlm_model_name = os.environ.get("VLM_MODEL_NAME", vlm_model_name or "gpt-4o")
+        self.vlm_api_key = os.environ.get("VLM_API_KEY") or os.environ.get("GEMINI_API_KEY") or os.environ.get("OPENAI_API_KEY")
         
         # Load PersonaPlex Settings
         pp_mode = os.environ.get("PERSONAPLEX_MODE", CONFIG.personaplex_mode).lower().strip()
@@ -85,7 +86,9 @@ class LowLatencyVoiceServer:
                 qwen3_asr_endpoint = os.environ.get("QWEN3_ASR_ENDPOINT", None)
                 self.asr = Qwen3ASRProcessor(model_size_or_name=qwen3_asr_model, remote_url=qwen3_asr_endpoint)
             else:
-                self.asr = ASRProcessor(model_size="large-v3-turbo")
+                asr_model = os.environ.get("ASR_MODEL_NAME", "base")
+                asr_device = os.environ.get("ASR_DEVICE", "cuda")
+                self.asr = ASRProcessor(model_size=asr_model, device=asr_device)
                 
             self.vad = VADDetector()
             
@@ -384,7 +387,7 @@ class LowLatencyVoiceServer:
 
     async def run(self):
         server_params = get_mcp_params(hybrid=False)
-        server_params.env["MCP_COORD_GRID"] = "1000"
+        server_params.env["MCP_COORDINATE_GRID"] = "1000"
         logger.info("Connecting to MCP tool server...")
         
         self.system_prompt = (
@@ -402,6 +405,13 @@ class LowLatencyVoiceServer:
             "- If the target window becomes minimized or loses focus, click its taskbar icon or use 'alt+tab' to restore it before typing or clicking."
         )
         
+        if os.environ.get("TTS_ENGINE", CONFIG.tts_engine).lower() == "higgs":
+            self.system_prompt += (
+                "\nSPEECH EXPRESSIVITY: You can use inline tags to control your emotion, style, and prosody. "
+                "Examples: <|emotion:enthusiasm|>, <|emotion:amusement|>, <|style:whispering|>, <|sfx:laughter|>, <|prosody:speed_fast|>. "
+                "Place these tags inside your spoken text to make your voice highly expressive."
+            )
+        
         async with stdio_client(server_params) as (read, write):
             async with ClientSession(read, write) as session:
                 await session.initialize()
@@ -417,6 +427,10 @@ class LowLatencyVoiceServer:
 
     async def telemetry_loop(self, history: list, websocket: ServerConnection):
         """Monitors system changes and injects passive telemetry into the history."""
+        if not self.personaplex_mode:
+            logger.info("PersonaPlex mode disabled. Skipping passive telemetry loop.")
+            return
+
         if not pyautogui or not win32gui:
             return
             
@@ -922,7 +936,21 @@ class LowLatencyVoiceServer:
                                     sts_stdout_task = asyncio.create_task(read_sts_stdout(proc, websocket))
                         elif msg_type == "set_model":
                             model = data.get("model")
-                            if model and self.personaplex_mode == "subprocess" and model != self.personaplex_model_path:
+                            if model in ["qwen3", "higgs", "supertonic", "kittentts", "kokoro", "omnivoice"]:
+                                logger.info(f"Setting Standard TTS Engine to: '{model}'")
+                                if model == "qwen3":
+                                    self.tts = Qwen3TTSProcessor()
+                                elif model == "higgs":
+                                    self.tts = HiggsTTSProcessor(model_name="/mnt/c/Users/Rhushabh/Documents/HuggingFace/Reza2kn/Higgs-Audio-v3-TTS-4bit-NVFP4")
+                                elif model == "supertonic":
+                                    self.tts = SupertonicTTSProcessor()
+                                elif model == "kittentts":
+                                    self.tts = KittenTTSProcessor()
+                                elif model == "kokoro":
+                                    self.tts = TTSProcessor()
+                                elif model == "omnivoice":
+                                    self.tts = OmniVoiceTTSProcessor()
+                            elif model and self.personaplex_mode == "subprocess" and model != self.personaplex_model_path:
                                 logger.info(f"Setting PersonaPlex model to: '{model}'")
                                 
                                 # Terminate current process first to free VRAM for loading the new model
@@ -1059,13 +1087,14 @@ class LowLatencyVoiceServer:
         # Call VLM
         has_error_or_cancelled = True
         try:
-            await websocket.send(json.dumps({
-                "type": "status",
-                "text": "Thinking..."
-            }))
+            if not is_telemetry:
+                await websocket.send(json.dumps({
+                    "type": "status",
+                    "text": "Thinking..."
+                }))
             
             response = await call_openai_compatible(
-                api_key=None,
+                api_key=self.vlm_api_key,
                 api_base=self.api_base,
                 model=self.vlm_model_name,
                 system_prompt=self.system_prompt,
@@ -1151,32 +1180,6 @@ class LowLatencyVoiceServer:
                     name = fn["name"]
                     args = json.loads(fn["arguments"])
                     tc_id = tc["id"]
-                    
-                    # Intercept coordinates to scale them
-                    if name == "computer" and "coordinate" in args and isinstance(args["coordinate"], list) and len(args["coordinate"]) == 2:
-                        raw_x, raw_y = args["coordinate"]
-                        import pyautogui
-                        screen_w, screen_h = pyautogui.size()
-                        
-                        # server.py expects coordinates in the SCALED screenshot dimension (out_w x out_h)
-                        # We must compute out_w, out_h exactly as server.py does to prevent double scaling.
-                        ratio = screen_w / screen_h if screen_h > 0 else 1.0
-                        out_w, out_h = screen_w, screen_h
-                        for tw, th in [(1024, 768), (1280, 800), (1366, 768)]:
-                            if abs((tw / th) - ratio) < 0.02 and tw < screen_w:
-                                out_w, out_h = tw, th
-                                break
-                        else:
-                            max_w, max_h = 1366, 768
-                            scale_factor = min(max_w / screen_w, max_h / screen_h, 1.0)
-                            out_w = max(1, round(screen_w * scale_factor))
-                            out_h = max(1, round(screen_h * scale_factor))
-                        
-                        # Scale 1000x1000 normalized grid to out_w x out_h
-                        scaled_x = int((raw_x / 1000.0) * out_w)
-                        scaled_y = int((raw_y / 1000.0) * out_h)
-                        logger.info(f"Scaling coordinates [{raw_x}, {raw_y}] -> [{scaled_x}, {scaled_y}] for intermediate bounds {out_w}x{out_h} (Desktop: {screen_w}x{screen_h})")
-                        args["coordinate"] = [scaled_x, scaled_y]
                     
                     if name == "computer":
                         requires_verification = True

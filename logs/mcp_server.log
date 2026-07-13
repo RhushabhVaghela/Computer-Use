@@ -2639,3 +2639,966 @@ ModuleNotFoundError: No module named 'inquirer'
 2026-06-20 16:40:26,300 - oi-mcp - INFO - [RESOURCES] Startup: Memory=267.7MB, Threads=24
 2026-06-20 16:40:26,328 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
 2026-06-20 16:40:26,342 - oi-mcp - INFO - [RESOURCES] Startup: Memory=268.9MB, Threads=24
+2026-06-22 17:37:33,770 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 17:37:34,019 - oi-mcp - INFO - [RESOURCES] Startup: Memory=275.9MB, Threads=24
+2026-06-22 17:37:34,193 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 17:37:34,243 - oi-mcp - INFO - [RESOURCES] Startup: Memory=278.3MB, Threads=24
+2026-06-22 17:38:16,744 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-22 17:38:16,745 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-22 17:45:55,978 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 17:45:55,996 - oi-mcp - INFO - [RESOURCES] Startup: Memory=265.6MB, Threads=24
+2026-06-22 17:45:56,044 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 17:45:56,060 - oi-mcp - INFO - [RESOURCES] Startup: Memory=266.8MB, Threads=24
+2026-06-22 18:25:11,951 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-22 18:25:11,951 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-22 18:43:00,472 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 18:43:00,488 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.8MB, Threads=24
+2026-06-22 18:43:00,536 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 18:43:00,550 - oi-mcp - INFO - [RESOURCES] Startup: Memory=266.0MB, Threads=24
+2026-06-22 18:43:57,646 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-22 18:43:57,646 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-22 18:45:51,586 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 18:45:51,600 - oi-mcp - INFO - [RESOURCES] Startup: Memory=265.5MB, Threads=24
+2026-06-22 18:45:51,635 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 18:45:51,648 - oi-mcp - INFO - [RESOURCES] Startup: Memory=266.6MB, Threads=24
+2026-06-22 18:50:09,020 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 18:50:09,034 - oi-mcp - INFO - [RESOURCES] Startup: Memory=265.3MB, Threads=24
+2026-06-22 18:50:09,063 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 18:50:09,077 - oi-mcp - INFO - [RESOURCES] Startup: Memory=266.6MB, Threads=24
+2026-06-22 22:23:27,910 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 22:23:27,926 - oi-mcp - INFO - [RESOURCES] Startup: Memory=269.0MB, Threads=24
+2026-06-22 22:23:27,976 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-22 22:23:27,990 - oi-mcp - INFO - [RESOURCES] Startup: Memory=270.3MB, Threads=24
+2026-06-22 22:36:43,291 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-22 22:36:43,291 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-23 14:08:36,949 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-23 14:08:36,973 - oi-mcp - INFO - [RESOURCES] Startup: Memory=265.5MB, Threads=24
+2026-06-23 14:08:37,032 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-23 14:08:37,051 - oi-mcp - INFO - [RESOURCES] Startup: Memory=266.7MB, Threads=24
+2026-06-23 14:10:06,121 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-23 14:10:06,123 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-23 15:17:55,869 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-23 15:17:55,880 - oi-mcp - INFO - [RESOURCES] Startup: Memory=262.9MB, Threads=24
+2026-06-23 15:17:55,914 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-23 15:17:55,925 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.1MB, Threads=24
+2026-06-23 15:25:14,232 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-23 15:25:14,233 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-27 12:04:11,304 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 12:04:11,317 - oi-mcp - INFO - [RESOURCES] Startup: Memory=261.6MB, Threads=24
+2026-06-27 12:04:11,346 - oi-mcp - INFO - [SHUTDOWN]: Graceful shutdown initiated
+2026-06-27 12:04:11,346 - oi-mcp - INFO - [SHUTDOWN]: Cleaning up resources...
+2026-06-27 12:04:11,346 - oi-mcp - INFO - [SHUTDOWN]: Draining in-flight requests...
+2026-06-27 12:04:11,347 - oi-mcp - INFO - [SHUTDOWN]: All requests drained successfully
+2026-06-27 12:04:11,347 - oi-mcp - INFO - [SHUTDOWN]: Releasing UIAutomation handles...
+2026-06-27 12:04:11,357 - oi-mcp - INFO - [RESOURCES] Shutdown: Memory=262.6MB, Threads=24
+2026-06-27 12:04:11,357 - oi-mcp - INFO - [SHUTDOWN]: Resource cleanup complete
+2026-06-27 12:04:24,933 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 12:04:24,949 - oi-mcp - INFO - [RESOURCES] Startup: Memory=261.5MB, Threads=24
+2026-06-27 12:04:24,977 - oi-mcp - INFO - [SHUTDOWN]: Graceful shutdown initiated
+2026-06-27 12:04:24,977 - oi-mcp - INFO - [SHUTDOWN]: Cleaning up resources...
+2026-06-27 12:04:24,978 - oi-mcp - INFO - [SHUTDOWN]: Draining in-flight requests...
+2026-06-27 12:04:24,978 - oi-mcp - INFO - [SHUTDOWN]: All requests drained successfully
+2026-06-27 12:04:24,978 - oi-mcp - INFO - [SHUTDOWN]: Releasing UIAutomation handles...
+2026-06-27 12:04:24,988 - oi-mcp - INFO - [RESOURCES] Shutdown: Memory=262.5MB, Threads=24
+2026-06-27 12:04:24,989 - oi-mcp - INFO - [SHUTDOWN]: Resource cleanup complete
+2026-06-27 13:15:09,763 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 13:15:09,772 - oi-mcp - INFO - [RESOURCES] Startup: Memory=262.8MB, Threads=24
+2026-06-27 13:15:09,795 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 13:15:09,810 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.0MB, Threads=24
+2026-06-27 13:18:20,801 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 13:18:20,809 - oi-mcp - INFO - [RESOURCES] Startup: Memory=263.2MB, Threads=24
+2026-06-27 13:18:20,835 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 13:18:20,842 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.4MB, Threads=24
+2026-06-27 13:19:43,138 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-27 13:19:43,140 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-27 13:25:08,633 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 13:25:08,643 - oi-mcp - INFO - [RESOURCES] Startup: Memory=262.4MB, Threads=24
+2026-06-27 13:25:08,668 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 13:25:08,677 - oi-mcp - INFO - [RESOURCES] Startup: Memory=263.6MB, Threads=24
+2026-06-27 14:53:03,889 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 14:53:03,897 - oi-mcp - INFO - [RESOURCES] Startup: Memory=265.4MB, Threads=24
+2026-06-27 14:53:03,922 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 14:53:03,935 - oi-mcp - INFO - [RESOURCES] Startup: Memory=266.5MB, Threads=24
+2026-06-27 16:58:20,959 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 16:58:20,993 - oi-mcp - INFO - [RESOURCES] Startup: Memory=262.8MB, Threads=24
+2026-06-27 16:58:21,025 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 16:58:21,037 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.1MB, Threads=24
+2026-06-27 17:11:09,396 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 17:11:09,409 - oi-mcp - INFO - [RESOURCES] Startup: Memory=263.0MB, Threads=24
+2026-06-27 17:11:09,438 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 17:11:09,450 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.2MB, Threads=24
+2026-06-27 17:14:13,952 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-27 17:14:13,952 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-27 17:29:17,083 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 17:29:17,107 - oi-mcp - INFO - [RESOURCES] Startup: Memory=262.5MB, Threads=24
+2026-06-27 17:29:17,139 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-06-27 17:29:17,154 - oi-mcp - INFO - [RESOURCES] Startup: Memory=263.7MB, Threads=24
+2026-06-27 17:34:56,321 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-06-27 17:34:56,321 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:38:25,832 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:38:25,849 - oi-mcp - INFO - [RESOURCES] Startup: Memory=260.4MB, Threads=24
+2026-07-13 14:38:25,971 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:38:46,971 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:38:46,981 - oi-mcp - INFO - [RESOURCES] Startup: Memory=263.6MB, Threads=24
+2026-07-13 14:38:46,999 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:38:47,010 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.6MB, Threads=24
+2026-07-13 14:38:47,074 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-07-13 14:38:47,074 - oi-mcp - INFO - Instantiating ComputerTool...
+2026-07-13 14:38:47,074 - oi-mcp - INFO - Instantiating UIElementProvider...
+2026-07-13 14:38:47,074 - oi-mcp - INFO - Instantiating MouseOverlay...
+2026-07-13 14:38:47,076 - oi-mcp - INFO - Configuring local LLM via llama-server at http://127.0.0.1:8080/v1
+2026-07-13 14:38:47,076 - oi-mcp - INFO - Tools initialization complete.
+2026-07-13 14:38:47,149 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'D:\\Agents-and-other-repos\\Computer-Use\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-07-13 14:38:47,149 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\comtypes\gen'
+2026-07-13 14:38:47,159 - comtypes.client._generate - INFO - Could not import comtypes.gen._944DE083_8FB8_45CF_BCB7_C477ACB2F897_0_1_0: No module named 'comtypes.gen._944DE083_8FB8_45CF_BCB7_C477ACB2F897_0_1_0'
+2026-07-13 14:38:47,170 - comtypes.client._generate - INFO - # Generating comtypes.gen._944DE083_8FB8_45CF_BCB7_C477ACB2F897_0_1_0
+2026-07-13 14:38:47,209 - comtypes.client._generate - INFO - # Generating comtypes.gen.UIAutomationClient
+2026-07-13 14:38:47,211 - comtypes.client._generate - INFO - Could not import comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0: No module named 'comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0'
+2026-07-13 14:38:47,213 - comtypes.client._generate - INFO - # Generating comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0
+2026-07-13 14:38:47,225 - comtypes.client._generate - INFO - # Generating comtypes.gen.stdole
+2026-07-13 14:38:59,226 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:38:59,226 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:39:17,005 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:39:17,016 - oi-mcp - INFO - [RESOURCES] Startup: Memory=263.3MB, Threads=24
+2026-07-13 14:39:17,040 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:39:17,048 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.3MB, Threads=24
+2026-07-13 14:39:17,114 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-07-13 14:39:17,114 - oi-mcp - INFO - Instantiating ComputerTool...
+2026-07-13 14:39:17,114 - oi-mcp - INFO - Instantiating UIElementProvider...
+2026-07-13 14:39:17,114 - oi-mcp - INFO - Instantiating MouseOverlay...
+2026-07-13 14:39:17,115 - oi-mcp - INFO - Configuring local LLM via llama-server at http://127.0.0.1:8080/v1
+2026-07-13 14:39:17,115 - oi-mcp - INFO - Tools initialization complete.
+2026-07-13 14:39:20,897 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'D:\\Agents-and-other-repos\\Computer-Use\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-07-13 14:39:20,898 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\comtypes\gen'
+2026-07-13 14:39:32,408 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=left_click coordinate=[640, 400] text=None
+2026-07-13 14:39:37,187 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=type coordinate=None text=MCP full smoke test 2026-07-13 14:39:37
+line2: quick brown fox
+line3: 12345
+
+2026-07-13 14:39:37,299 - oi-mcp - INFO - Typing: MCP full smoke test 2026-07-13 14:39:37
+line2: quick brown fox
+line3: 12345
+
+2026-07-13 14:39:44,242 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=key coordinate=None text=ctrl+a
+2026-07-13 14:39:44,332 - oi-mcp - INFO - Pressing keys: ctrl+a
+2026-07-13 14:39:49,166 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=key coordinate=None text=right
+2026-07-13 14:39:49,257 - oi-mcp - INFO - Pressing keys: right
+2026-07-13 14:39:54,473 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=double_click coordinate=[640, 400] text=None
+2026-07-13 14:40:00,446 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=right_click coordinate=[640, 400] text=None
+2026-07-13 14:40:05,232 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=key coordinate=None text=escape
+2026-07-13 14:40:05,320 - oi-mcp - INFO - Pressing keys: escape
+2026-07-13 14:40:19,117 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=drag coordinate=[840, 405] text=None
+2026-07-13 14:40:25,485 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=middle_click coordinate=[640, 400] text=None
+2026-07-13 14:40:38,312 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:40:38,312 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:41:35,458 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:41:35,466 - oi-mcp - INFO - [RESOURCES] Startup: Memory=261.1MB, Threads=24
+2026-07-13 14:41:35,498 - oi-mcp - INFO - [SHUTDOWN]: Graceful shutdown initiated
+2026-07-13 14:41:35,498 - oi-mcp - INFO - [SHUTDOWN]: Cleaning up resources...
+2026-07-13 14:41:35,498 - oi-mcp - INFO - [SHUTDOWN]: Draining in-flight requests...
+2026-07-13 14:41:35,498 - oi-mcp - INFO - [SHUTDOWN]: All requests drained successfully
+2026-07-13 14:41:35,498 - oi-mcp - INFO - [SHUTDOWN]: Releasing UIAutomation handles...
+2026-07-13 14:41:35,512 - oi-mcp - INFO - [RESOURCES] Shutdown: Memory=262.4MB, Threads=24
+2026-07-13 14:41:35,512 - oi-mcp - INFO - [SHUTDOWN]: Resource cleanup complete
+2026-07-13 14:43:28,194 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:43:28,203 - oi-mcp - INFO - [RESOURCES] Startup: Memory=261.7MB, Threads=24
+2026-07-13 14:43:28,247 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:44:20,788 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:44:20,799 - oi-mcp - INFO - [RESOURCES] Startup: Memory=263.0MB, Threads=24
+2026-07-13 14:44:20,820 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:44:20,830 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.0MB, Threads=24
+2026-07-13 14:44:20,872 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-07-13 14:44:20,873 - oi-mcp - INFO - Instantiating ComputerTool...
+2026-07-13 14:44:20,873 - oi-mcp - INFO - Instantiating UIElementProvider...
+2026-07-13 14:44:20,873 - oi-mcp - INFO - Instantiating MouseOverlay...
+2026-07-13 14:44:20,874 - oi-mcp - INFO - Configuring local LLM via llama-server at http://127.0.0.1:8080/v1
+2026-07-13 14:44:20,874 - oi-mcp - INFO - Tools initialization complete.
+2026-07-13 14:44:20,947 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'D:\\Agents-and-other-repos\\Computer-Use\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-07-13 14:44:20,947 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\comtypes\gen'
+2026-07-13 14:44:25,877 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=left_click coordinate=None text=1
+2026-07-13 14:44:36,644 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:44:36,644 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:44:47,880 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:44:47,890 - oi-mcp - INFO - [RESOURCES] Startup: Memory=260.8MB, Threads=24
+2026-07-13 14:44:47,972 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:49:03,361 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:49:03,372 - oi-mcp - INFO - [RESOURCES] Startup: Memory=263.2MB, Threads=24
+2026-07-13 14:49:03,389 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:49:03,398 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.2MB, Threads=24
+2026-07-13 14:49:03,443 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-07-13 14:49:03,443 - oi-mcp - INFO - Instantiating ComputerTool...
+2026-07-13 14:49:03,443 - oi-mcp - INFO - Instantiating UIElementProvider...
+2026-07-13 14:49:03,443 - oi-mcp - INFO - Instantiating MouseOverlay...
+2026-07-13 14:49:03,444 - oi-mcp - INFO - Configuring local LLM via llama-server at http://127.0.0.1:8080/v1
+2026-07-13 14:49:03,444 - oi-mcp - INFO - Tools initialization complete.
+2026-07-13 14:49:03,518 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'D:\\Agents-and-other-repos\\Computer-Use\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-07-13 14:49:03,520 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\comtypes\gen'
+2026-07-13 14:49:13,006 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:49:13,007 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:49:24,171 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:49:24,182 - oi-mcp - INFO - [RESOURCES] Startup: Memory=263.1MB, Threads=24
+2026-07-13 14:49:24,198 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:49:24,208 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.0MB, Threads=24
+2026-07-13 14:49:24,251 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-07-13 14:49:24,252 - oi-mcp - INFO - Instantiating ComputerTool...
+2026-07-13 14:49:24,252 - oi-mcp - INFO - Instantiating UIElementProvider...
+2026-07-13 14:49:24,252 - oi-mcp - INFO - Instantiating MouseOverlay...
+2026-07-13 14:49:24,252 - oi-mcp - INFO - Configuring local LLM via llama-server at http://127.0.0.1:8080/v1
+2026-07-13 14:49:24,252 - oi-mcp - INFO - Tools initialization complete.
+2026-07-13 14:49:28,046 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'D:\\Agents-and-other-repos\\Computer-Use\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-07-13 14:49:28,048 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\comtypes\gen'
+2026-07-13 14:49:33,512 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:33,569 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=left_click coordinate=[640, 400] text=None
+2026-07-13 14:49:33,724 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:33,760 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=type coordinate=None text=MCP full smoke test 2026-07-13 14:49:33
+line2: quick brown fox
+line3: 12345
+
+2026-07-13 14:49:33,762 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:33,801 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=key coordinate=None text=ctrl+a
+2026-07-13 14:49:33,804 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:33,841 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=key coordinate=None text=right
+2026-07-13 14:49:33,851 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:33,883 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=double_click coordinate=[640, 400] text=None
+2026-07-13 14:49:34,038 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:34,072 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=right_click coordinate=[640, 400] text=None
+2026-07-13 14:49:34,226 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:34,259 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=key coordinate=None text=escape
+2026-07-13 14:49:34,262 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:34,298 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:34,328 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:34,352 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=drag coordinate=[840, 405] text=None
+2026-07-13 14:49:34,506 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:34,548 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=middle_click coordinate=[640, 400] text=None
+2026-07-13 14:49:34,701 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:34,745 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:49:37,907 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:49:37,907 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:50:02,481 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:50:02,491 - oi-mcp - INFO - [RESOURCES] Startup: Memory=263.1MB, Threads=24
+2026-07-13 14:50:02,521 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:50:02,531 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.0MB, Threads=24
+2026-07-13 14:50:02,580 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-07-13 14:50:02,580 - oi-mcp - INFO - Instantiating ComputerTool...
+2026-07-13 14:50:02,580 - oi-mcp - INFO - Instantiating UIElementProvider...
+2026-07-13 14:50:02,580 - oi-mcp - INFO - Instantiating MouseOverlay...
+2026-07-13 14:50:02,580 - oi-mcp - INFO - Configuring local LLM via llama-server at http://127.0.0.1:8080/v1
+2026-07-13 14:50:02,581 - oi-mcp - INFO - Tools initialization complete.
+2026-07-13 14:50:06,355 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'D:\\Agents-and-other-repos\\Computer-Use\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-07-13 14:50:06,356 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\comtypes\gen'
+2026-07-13 14:50:11,313 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:11,353 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=left_click coordinate=[640, 400] text=None
+2026-07-13 14:50:11,506 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:11,544 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=type coordinate=None text=MCP full smoke test 2026-07-13 14:50:11
+line2: quick brown fox
+line3: 12345
+
+2026-07-13 14:50:11,546 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:11,578 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=key coordinate=None text=ctrl+a
+2026-07-13 14:50:11,583 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:11,622 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=key coordinate=None text=right
+2026-07-13 14:50:11,625 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:11,656 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=double_click coordinate=[640, 400] text=None
+2026-07-13 14:50:11,809 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:11,848 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=right_click coordinate=[640, 400] text=None
+2026-07-13 14:50:12,002 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:12,041 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=key coordinate=None text=escape
+2026-07-13 14:50:12,044 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:12,083 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:12,118 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:12,149 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=drag coordinate=[840, 405] text=None
+2026-07-13 14:50:12,303 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:12,341 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=middle_click coordinate=[640, 400] text=None
+2026-07-13 14:50:12,495 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:12,540 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:50:15,534 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:50:15,534 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:52:00,422 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:52:00,436 - oi-mcp - INFO - [RESOURCES] Startup: Memory=263.5MB, Threads=24
+2026-07-13 14:52:00,464 - oi-mcp - INFO - [STARTUP]: Signal handlers registered (SIGTERM, SIGINT)
+2026-07-13 14:52:00,476 - oi-mcp - INFO - [RESOURCES] Startup: Memory=264.4MB, Threads=24
+2026-07-13 14:52:00,526 - oi-mcp - INFO - Initializing heavy tools (OI, UI Provider, Overlay)...
+2026-07-13 14:52:00,526 - oi-mcp - INFO - Instantiating ComputerTool...
+2026-07-13 14:52:00,526 - oi-mcp - INFO - Instantiating UIElementProvider...
+2026-07-13 14:52:00,527 - oi-mcp - INFO - Instantiating MouseOverlay...
+2026-07-13 14:52:00,527 - oi-mcp - INFO - Configuring local LLM via llama-server at http://127.0.0.1:8080/v1
+2026-07-13 14:52:00,527 - oi-mcp - INFO - Tools initialization complete.
+2026-07-13 14:52:00,594 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'D:\\Agents-and-other-repos\\Computer-Use\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-07-13 14:52:00,595 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\comtypes\gen'
+2026-07-13 14:52:05,154 - oi-mcp - WARNING - [RISKY ACTION WARNING] Executing computer action: action=left_click coordinate=None text=1
+2026-07-13 14:52:05,712 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:52:05,758 - oi-mcp - ERROR - Error in computer tool
+Traceback (most recent call last):
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 1032, in computer
+    pre_hash = await async_get_screen_hash(desktop)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 715, in async_get_screen_hash
+    return await asyncio.to_thread(_get_screen_hash, desktop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Rhushabh\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\src\server.py", line 706, in _get_screen_hash
+    sct_img = sct.grab({
+              ^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\base.py", line 312, in grab
+    img_data_and_maybe_size = self._impl.grab(monitor)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 380, in grab
+    gdi.BitBlt(memdc, 0, 0, width, height, srcdc, monitor["left"], monitor["top"], SRCCOPY | CAPTUREBLT)
+  File "D:\Agents-and-other-repos\Computer-Use\.venv\Lib\site-packages\mss\windows\gdi.py", line 127, in _errcheck
+    raise ScreenShotError(msg, details=details)
+mss.exception.ScreenShotError: Windows graphics function failed (no error provided): BitBlt
+2026-07-13 14:52:05,792 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup
+2026-07-13 14:52:05,792 - oi-mcp - WARNING - [SHUTDOWN]: Error during atexit cleanup

@@ -286,16 +286,10 @@ def create_server(host: str, port: int) -> FastMCP:
     import server as cu
     mcp_types.JSONRPCMessage.model_validate_json = _orig_validate
 
-    app = FastMCP(
-        "Hybrid Computer-Use + Browser-Use",
-        host=host,
-        port=port,
-        transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
-        stateless_http=True,
-    )
-
-    # Setup lifespan handler for graceful shutdown
-    @app.lifespan
+    # Lifespan handler for graceful shutdown.
+    # NOTE: mcp.server.fastmcp.FastMCP takes `lifespan` as a constructor arg
+    # (an async context manager callable receiving the app), NOT a decorator.
+    # The @app.lifespan decorator only exists on the standalone `fastmcp` package.
     async def lifespan(app: FastMCP):
         """FastMCP lifespan handler for startup/shutdown."""
         # Startup
@@ -309,6 +303,15 @@ def create_server(host: str, port: int) -> FastMCP:
         except Exception as e:
             logger.warning(f"[SHUTDOWN]: Error closing browser-use proxy: {e}")
         logger.info("[SHUTDOWN]: Hybrid server shutdown complete")
+
+    app = FastMCP(
+        "Hybrid Computer-Use + Browser-Use",
+        host=host,
+        port=port,
+        transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
+        stateless_http=True,
+        lifespan=lifespan,
+    )
 
     # Expose computer-use tools unchanged.
     app.tool()(cu.computer)

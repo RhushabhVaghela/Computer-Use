@@ -699,8 +699,38 @@ class HiggsTTSProcessor:
         self.default_voice = default_voice
         logger.info(f"Initializing Higgs TTS pointing to {self.remote_url}...")
 
+    async def _resolve_model_name(self) -> str:
+        """Query the /v1/models endpoint to resolve the loaded model's served name.
+        If vLLM served the model with an alias (e.g. --served-model-name), this 
+        ensures we use the registered alias instead of the absolute file path, 
+        preventing 404 errors.
+        """
+        import asyncio
+        try:
+            models_url = self.remote_url.rstrip("/") + "/models"
+            req = urllib.request.Request(models_url, method="GET")
+            
+            def _fetch():
+                with urllib.request.urlopen(req, timeout=5.0) as resp:
+                    if resp.status == 200:
+                        return json.loads(resp.read().decode('utf-8'))
+                return None
+                
+            data = await asyncio.to_thread(_fetch)
+            if data and "data" in data and isinstance(data["data"], list) and len(data["data"]) > 0:
+                resolved = data["data"][0]["id"]
+                logger.info(f"Resolved Higgs model name to: '{resolved}' from vLLM endpoint")
+                return resolved
+        except Exception as e:
+            logger.warning(f"Could not automatically resolve model name from {self.remote_url}/models: {e}. Falling back to default '{self.model_name}'")
+            
+        return self.model_name
+
     async def synthesize_stream(self, text: str, voice: str = None):
         import asyncio
+        import base64
+        import os
+        
         voice_name = voice or self.default_voice
         
         logger.info(f"Synthesizing text via Higgs TTS endpoint: {self.remote_url}...")
@@ -709,16 +739,20 @@ class HiggsTTSProcessor:
             if not url.endswith('/audio/speech') and not url.endswith('/speech'):
                 url = f"{url}/audio/speech"
             
-            body = json.dumps({
-                "model": self.model_name,
+            resolved_model = await self._resolve_model_name()
+            
+            payload = {
+                "model": resolved_model,
                 "input": text,
-                "voice": voice_name,
-                "response_format": "wav"
-            }).encode('utf-8')
+                "response_format": "wav",
+                "voice": voice_name
+            }
+            
+            body = json.dumps(payload).encode('utf-8')
             
             audio_bytes = await call_bridge_with_retry(
                 url, body, 'application/json',
-                max_retries=3, base_delay=1.0, timeout=30.0
+                max_retries=3, base_delay=1.0, timeout=300.0
             )
             
             # Chunk and yield
@@ -728,4 +762,51 @@ class HiggsTTSProcessor:
                 
         except Exception as e:
             logger.error(f"Error calling Higgs TTS endpoint: {e}")
+            return
+
+
+class OmniVoiceTTSProcessor:
+    """
+    TTS using OmniVoice served natively via omnivoice-triton-server.
+    Uses OpenAI compatible /v1/audio/speech endpoint.
+    """
+    def __init__(self, remote_url: str = "http://127.0.0.1:8889/v1", model_name: str = "omnivoice", default_voice: str = "default"):
+        self.remote_url = remote_url
+        self.model_name = model_name
+        self.default_voice = default_voice
+        logger.info(f"Initializing OmniVoice TTS pointing to {self.remote_url}...")
+
+    async def synthesize_stream(self, text: str, voice: str = None):
+        import asyncio
+        import json
+        
+        voice_name = voice or self.default_voice
+        
+        logger.info(f"Synthesizing text via OmniVoice endpoint: {self.remote_url}...")
+        try:
+            url = self.remote_url.rstrip('/')
+            if not url.endswith('/audio/speech') and not url.endswith('/speech'):
+                url = f"{url}/audio/speech"
+            
+            payload = {
+                "model": self.model_name,
+                "input": text,
+                "response_format": "wav",
+                "voice": voice_name
+            }
+            
+            body = json.dumps(payload).encode('utf-8')
+            
+            audio_bytes = await call_bridge_with_retry(
+                url, body, 'application/json',
+                max_retries=3, base_delay=1.0, timeout=300.0
+            )
+            
+            # Chunk and yield
+            chunk_size = 8192
+            for i in range(0, len(audio_bytes), chunk_size):
+                yield audio_bytes[i:i+chunk_size]
+                
+        except Exception as e:
+            logger.error(f"Error calling OmniVoice TTS endpoint: {e}")
             return
