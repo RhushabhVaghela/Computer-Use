@@ -1361,9 +1361,13 @@ async def browser_action(url: str = None, search_query: str = None, browser: str
         
         profile_flag = ""
         browser = browser.lower()
-
-        # Isolate the AI's browser session from the user's active session
-        if isolated_session and sys.platform == "win32":
+        
+        # Always use the AI's isolated temp profile so all browser_action calls
+        # connect to the same Chrome instance (via --remote-debugging-port=9222).
+        # When isolated_session=False, we still reuse the same user-data-dir so
+        # that new tabs open in the existing browser window rather than launching
+        # a separate Chrome process with the default profile.
+        if sys.platform == "win32":
             temp_dir = os.path.join(os.environ.get("TEMP", "C:\\temp"), f"mcp_agent_{browser}")
             if browser == "firefox":
                 profile_flag = f'-profile "{temp_dir}"'
@@ -1397,7 +1401,52 @@ async def browser_action(url: str = None, search_query: str = None, browser: str
                 cmd = f'open "{url}"'
 
         print(f"[BROWSER]: Launching {browser} with command: {cmd}", file=sys.stderr)
-        return await bash(cmd)
+        result = await bash(cmd)
+        
+        # C4 Enhancement: Wait for browser to load and dismiss any "Restore pages?" dialog
+        # This dialog appears when Chrome is launched with a previous session that crashed
+        await asyncio.sleep(2)
+        try:
+            _ui_provider = get_ui_provider()
+            _computer_tool = get_computer_tool()
+            import mss
+            with mss.MSS() as sct:
+                desktop = _get_capture_region(sct)
+            _ui_provider.reset()
+            with mss.MSS() as sct:
+                monitors = [sct.monitors[1]]
+            scanned = _ui_provider.scan(monitors=monitors)
+            ui_text = _ui_provider.format_for_llm(
+                monitors=monitors, computer_tool=_computer_tool, desktop=desktop,
+                display_size=(_pick_scaled_size(desktop["width"], desktop["height"]))
+            )
+            if "Restore" in ui_text or "restore" in ui_text:
+                # Dismiss the restore dialog by pressing Escape or clicking "No thanks"
+                print("[BROWSER]: Restore dialog detected, dismissing...", file=sys.stderr)
+                await asyncio.sleep(1)
+                try:
+                    # Try pressing Escape to dismiss
+                    direct_move_to(100, 100)
+                    pyautogui.press("escape")
+                except Exception:
+                    pass
+                await asyncio.sleep(1)
+                # If still there, try clicking "Leave" or "No thanks" button
+                _ui_provider.reset()
+                with mss.MSS() as sct:
+                    scanned = _ui_provider.scan(monitors=monitors)
+                ui_text2 = _ui_provider.format_for_llm(
+                    monitors=monitors, computer_tool=_computer_tool, desktop=desktop,
+                    display_size=(_pick_scaled_size(desktop["width"], desktop["height"]))
+                )
+                if "Restore" in ui_text2:
+                    # Click near the center of the dialog to dismiss
+                    direct_move_to(960, 540)
+                    pyautogui.press("escape")
+        except Exception as e:
+            print(f"[BROWSER]: Dialog check failed (non-critical): {e}", file=sys.stderr)
+        
+        return result
     except Exception as e:
         logger.exception("Error in browser_action tool")
         return [TextContent(type="text", text=f"Exception: {str(e)}")]
@@ -1405,10 +1454,48 @@ async def browser_action(url: str = None, search_query: str = None, browser: str
 
 @with_timeout(timeout_ms=10000)  # 10 seconds for browser DOM queries
 async def browser_use_dom() -> list[TextContent]:
-    """Extract efficient DOM structure from the installed browser."""
+    """Extract efficient DOM structure from the active browser window.
+    
+    Implements a clean browser state protocol:
+    1. Checks for and dismisses any modal dialogs (e.g. \"Restore pages?\")
+    2. Verifies the active browser window via read_screen_ui
+    3. Calls scan_browser() without intervening actions that could steal focus
+    """
     try:
         await ensure_tools()
         _ui_provider = get_ui_provider()
+        _computer_tool = get_computer_tool()
+        _overlay = get_overlay()
+        
+        if _overlay:
+            _overlay.status("Capturing Browser DOM...", "orange")
+        
+        # C4 Enhancement: Clean Browser State Protocol
+        # Step 1: Check for modal dialogs and dismiss them
+        try:
+            import mss
+            with mss.MSS() as sct:
+                desktop = _get_capture_region(sct)
+            out_w, out_h = _pick_scaled_size(desktop["width"], desktop["height"])
+            _ui_provider.reset()
+            monitors = [sct.monitors[1]]
+            _ui_provider.scan(monitors=monitors)
+            ui_text = _ui_provider.format_for_llm(
+                monitors=monitors, computer_tool=_computer_tool, desktop=desktop,
+                display_size=(out_w, out_h)
+            )
+            if "Restore" in ui_text or "restore" in ui_text:
+                print("[BROWSER_DOM]: Modal dialog detected, dismissing...", file=sys.stderr)
+                if _overlay:
+                    _overlay.status("Dismissing dialog...", "yellow")
+                # Dismiss dialog with Escape key
+                direct_move_to(100, 100)  # Move mouse away from dialog
+                pyautogui.press("escape")
+                await asyncio.sleep(1)
+        except Exception as e:
+            print(f"[BROWSER_DOM]: Dialog check failed (non-critical): {e}", file=sys.stderr)
+        
+        # Step 2: Scan browser DOM (no intervening actions to preserve focus)
         dom_tree = await _ui_provider.scan_browser()
         
         if "Error connecting" in dom_tree:
@@ -1419,7 +1506,10 @@ async def browser_use_dom() -> list[TextContent]:
                 "-> Option 2: Call `browser_action` to open a separate, debuggable browser instance."
             )
             return [TextContent(type="text", text=msg)]
-
+        
+        if _overlay:
+            _overlay.status("DOM Complete", "cyan")
+        
         system_instruction = (
             "\n\n[SYSTEM]: DOM Snapshot complete. You MUST now use `bu_browser_click`, "
             "`bu_browser_type`, or `bu_browser_navigate`. Do NOT use the `computer` tool for web elements."
