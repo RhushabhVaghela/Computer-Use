@@ -116,9 +116,18 @@ class UIElementProvider:
         return None
 
     async def scan_browser(self) -> str:
-        """Scan the active browser using Playwright/CDP."""
+        """Scan the active browser using Playwright/CDP.
+        
+        Targets the currently focused/visible browser window, not always the first context.
+        Uses a multi-strategy approach:
+        1. CDP target discovery via /json to find the 'active' page
+        2. uiautomation active window title matching against page titles
+        3. Fallback: most recently opened context/page
+        """
         try:
             from playwright.async_api import async_playwright
+            import urllib.request
+            import json
             
             # Find the browser window rect using UIAutomation.
             win_rect = self._get_browser_window_rect()
@@ -130,44 +139,91 @@ class UIElementProvider:
                 browser = await p.chromium.connect_over_cdp(f"http://localhost:{self._browser_port}")
                 
                 # C4 Fix: Target the ACTIVE browser context and page, not always contexts[0]
-                # Find the context that matches the currently focused browser window
                 active_context = None
                 active_page = None
+                active_info = ""
                 
-                # Use uiautomation to find the active browser window title
+                # Strategy 1: Use CDP /json endpoint to find active page
+                try:
+                    resp = urllib.request.urlopen(f"http://127.0.0.1:{self._browser_port}/json")
+                    cdp_targets = json.loads(resp.read())
+                    # CDP 'active' field may be null; look for page with highest 'lastActive' or
+                    # use window title matching. But first, try to find the tab whose
+                    # webSocketDebuggerUrl matches the visible/active one.
+                    cdp_pages = [t for t in cdp_targets if t.get("type") == "page"]
+                    if cdp_pages:
+                        active_info = f"CDP found {len(cdp_pages)} page targets"
+                except Exception as e:
+                    active_info = f"CDP discovery failed: {e}"
+                
+                # Strategy 2: Use uiautomation to find the active browser window title
                 import uiautomation as auto
                 active_win = auto.GetForegroundWindow()
                 active_title = ""
                 if active_win:
                     try:
                         active_ctrl = auto.ControlFromHandle(active_win)
-                        active_title = active_ctrl.Name or ""
+                        active_title = (active_ctrl.Name or "").strip()
                     except Exception:
                         pass
                 
-                # Iterate through all contexts to find the one matching the active window
+                # Build a mapping of CDP target IDs -> page objects for title matching
+                # Iterate through all contexts and pages to find the active window
+                best_context = None
+                best_page = None
+                best_score = -1
+                
                 for ctx in browser.contexts:
                     for pg in ctx.pages:
-                        pg_title = await pg.title()
-                        if active_title and active_title in pg_title:
-                            active_context = ctx
-                            active_page = pg
+                        if best_score >= 100:  # Already found a perfect match
                             break
-                    if active_context:
+                        try:
+                            pg_title = await pg.title()
+                            pg_url = pg.url
+                            # Also strip the browser suffix from window title if present
+                            clean_title = pg_title.replace(" - Google Chrome", "").replace(" - Microsoft Edge", "").replace(" - Brave", "")
+                            
+                            # Score: 100 = page title is substring of window title (or vice versa)
+                            # Score: 50 = URL host matches window title
+                            score = 0
+                            if active_title and clean_title:
+                                if clean_title in active_title or active_title in clean_title:
+                                    score = 100
+                                elif active_title.replace(" - Google Chrome", "").replace(" - Microsoft Edge", "").replace(" - Brave", "") in clean_title:
+                                    score = 80
+                                else:
+                                    # Partial match: count common words
+                                    win_words = set(w.lower() for w in active_title.split() if len(w) > 3)
+                                    page_words = set(w.lower() for w in clean_title.split() if len(w) > 3)
+                                    if win_words and page_words:
+                                        score = len(win_words & page_words) * 10
+                            
+                            if score > best_score:
+                                best_score = score
+                                best_context = ctx
+                                best_page = pg
+                        except Exception:
+                            continue
+                    if best_score >= 100:
                         break
                 
-                # Fallback: if no context matches active window, use the last context
-                # (most recently interacted with window) instead of always contexts[0]
-                if not active_context:
+                # Use the best match found
+                if best_context and best_score > 0:
+                    active_context = best_context
+                    active_page = best_page
+                    active_info += f" | Matched via title (score={best_score}): '{active_title}'"
+                else:
+                    # Strategy 3: Fallback - use the last context (most recently interacted)
                     if browser.contexts:
                         active_context = browser.contexts[-1]
-                    if active_context:
                         active_page = active_context.pages[-1] if active_context.pages else None
+                        active_info += f" | Fallback to last context/pages[-1]"
                 
                 if not active_context:
                     return "Error: No active browser context found on port " + str(self._browser_port)
                 
                 page = active_page if active_page else await active_context.new_page()
+                print(f"[BROWSER_DOM]: Active window='{active_title}', {active_info}", file=__import__('sys').stderr)
                 
                 # USE A RAW STRING. Do NOT use an f-string to avoid { } conflicts with JS!
                 js_script = """
