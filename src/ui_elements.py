@@ -63,18 +63,27 @@ class UIElementProvider:
     INTERACTIVE_TYPES = {
         "Button", "Edit", "ComboBox", "CheckBox", "RadioButton", 
         "Hyperlink", "ListItem", "MenuItem", "TabItem", "TreeItem",
-        "Pane", "Group" # Added for better landmarking
+        "Pane", "Group"  # Added for better landmarking
     }
     
     # Containers that can be skipped if they don't have a name and have only one child
-    COLLAPSIBLE_CONTAINERS = {"PaneControl", "GroupControl"} # Removed Pane/Group from here to allow them if they have names
-
+    COLLAPSIBLE_CONTAINERS = {"PaneControl", "GroupControl"}
+    
+    # Browser suffixes to strip from window titles for matching
+    BROWSER_SUFFIXES = [
+        " - Google Chrome",
+        " - Microsoft Edge",
+        " - Brave",
+        " - Opera",
+        " - Firefox",
+    ]
+    
     def __init__(self, monitor: dict | None = None):
         self._monitor = monitor
         self._elements_map: Dict[int, UIElement] = {}
         self._next_index = 1
         self._element_limit = 250
-        self._max_depth = 5 # Reduced from 10 to instantly speed up OS scans
+        self._max_depth = 5  # Reduced from 10 to speed up OS scans
         self._browser_port = int(os.environ.get("BROWSER_CDP_PORT", "9222"))
         self._uiautomation_error = None
     
@@ -88,16 +97,14 @@ class UIElementProvider:
         self.reset()
         if platform.system() == "Windows":
             root_elements = self._scan_windows(monitors)
-            # Flatten for easier lookup by index
             self._flatten_tree(root_elements)
             return root_elements
         return []
-
+    
     def _get_browser_window_rect(self) -> Optional[tuple[int, int, int, int]]:
         """Find the browser window rect using UIAutomation."""
         try:
             import uiautomation as auto
-            # Search top-level windows for common browsers
             for win in auto.GetRootControl().GetChildren():
                 name = (win.Name or "").lower()
                 classname = (win.ClassName or "").lower()
@@ -114,15 +121,25 @@ class UIElementProvider:
         except Exception:
             pass
         return None
-
+    
+    def _strip_browser_suffix(self, title: str) -> str:
+        """Remove browser name suffix from a window/page title."""
+        for suffix in self.BROWSER_SUFFIXES:
+            if title.endswith(suffix):
+                return title[:-len(suffix)]
+        return title
+    
     async def scan_browser(self) -> str:
         """Scan the active browser using Playwright/CDP.
         
         Targets the currently focused/visible browser window/tab, not always the first.
         Uses a multi-strategy approach for robust active-tab detection:
-        1. CDP /json endpoint — page targets are ordered by most-recently-active
-        2. uiautomation active window title matching against page titles
-        3. Fallback: last context (most recently interacted with)
+        1. uiautomation: active window title matched against page titles (PRIMARY)
+        2. CDP /json endpoint: URL-based matching as fallback
+        3. Fallback: last context's last page (most recently created)
+        
+        Also calls page.bring_to_front() before DOM extraction to ensure
+        the correct tab is fully active.
         """
         try:
             from playwright.async_api import async_playwright
@@ -138,106 +155,107 @@ class UIElementProvider:
                 # Try to connect to an existing browser instance
                 browser = await p.chromium.connect_over_cdp(f"http://localhost:{self._browser_port}")
                 
-                # C4 Fix: Target the ACTIVE browser page, not always contexts[0] / pages[0]
+                # C4 Fix: Target the ACTIVE browser page, not always contexts[0]/pages[0]
                 active_context = None
                 active_page = None
                 active_info = ""
                 
-                # Strategy 1: Use CDP /json endpoint — page targets are ordered
-                # by most-recently-active (the active tab is listed first).
-                cdp_pages = []
-                try:
-                    resp = urllib.request.urlopen(f"http://127.0.0.1:{self._browser_port}/json")
-                    cdp_targets = json.loads(resp.read())
-                    cdp_pages = [t for t in cdp_targets if t.get("type") == "page"]
-                    if cdp_pages:
-                        active_info = f"CDP found {len(cdp_pages)} page targets"
-                except Exception as e:
-                    active_info = f"CDP discovery failed: {e}"
+                # Get the active window title FIRST (most reliable signal)
+                import uiautomation as auto
+                active_win = auto.GetForegroundWindow()
+                active_title = ""
+                if active_win:
+                    try:
+                        active_ctrl = auto.ControlFromHandle(active_win)
+                        active_title = (active_ctrl.Name or "").strip()
+                    except Exception:
+                        pass
                 
-                # Find the active page: first try CDP ordering, then title matching
-                # Build a mapping from url -> Playwright page object for cross-referencing
-                pg_url_map: dict[str, Any] = {}
-                
-                for ctx in browser.contexts:
-                    for pg in ctx.pages:
-                        pg_url_map[pg.url] = (ctx, pg)
-                
-                # Strategy 1a: Use CDP target ordering (first CDP page = active tab)
-                if cdp_pages:
-                    cdp_first = cdp_pages[0]
-                    cdp_url = cdp_first.get("url", "")
-                    # Strip fragment/hash for matching
-                    cdp_url_base = cdp_url.split("#")[0]
-                    if cdp_url_base in pg_url_map:
-                        active_context, active_page = pg_url_map[cdp_url_base]
-                        active_info += f" | CDP-ordered active tab (url match)"
-                    elif cdp_url in pg_url_map:
-                        active_context, active_page = pg_url_map[cdp_url]
-                        active_info += f" | CDP-ordered active tab (exact url match)"
-                
-                # Strategy 2: If CDP didn't work, use uiautomation title matching
-                if not active_context:
-                    import uiautomation as auto
-                    active_win = auto.GetForegroundWindow()
-                    active_title = ""
-                    if active_win:
-                        try:
-                            active_ctrl = auto.ControlFromHandle(active_win)
-                            active_title = (active_ctrl.Name or "").strip()
-                        except Exception:
-                            pass
+                # Strategy 1 (PRIMARY): Match active window title against Playwright page titles
+                if active_title:
+                    clean_window = self._strip_browser_suffix(active_title)
+                    best_context = None
+                    best_page = None
+                    best_score = -1
                     
-                    if active_title:
-                        # Strip browser suffix from window title for matching
-                        clean_window = active_title.replace(" - Google Chrome", "").replace(" - Microsoft Edge", "").replace(" - Brave", "").replace(" - Opera", "")
-                        best_context = None
-                        best_page = None
-                        best_score = -1
+                    for ctx in browser.contexts:
+                        for pg in ctx.pages:
+                            try:
+                                pg_title = await pg.title()
+                                clean_pg = self._strip_browser_suffix(pg_title)
+                                
+                                score = 0
+                                # Exact substring match (either direction)
+                                if clean_pg and (clean_pg in active_title or active_title in clean_pg):
+                                    score = 100
+                                elif clean_window and clean_window in pg_title:
+                                    score = 80
+                                else:
+                                    # Partial word overlap for fuzzy matching
+                                    win_words = set(w.lower() for w in clean_window.split() if len(w) > 3)
+                                    pg_words = set(w.lower() for w in clean_pg.split() if len(w) > 3)
+                                    if win_words and pg_words:
+                                        score = len(win_words & pg_words) * 10
+                                
+                                if score > best_score:
+                                    best_score = score
+                                    best_context = ctx
+                                    best_page = pg
+                            except Exception:
+                                continue
+                    
+                    if best_context and best_score > 0:
+                        active_context = best_context
+                        active_page = best_page
+                        active_info = f"Title match (score={best_score}, window='{active_title[:40]}')"
+                
+                # Strategy 2 (FALLBACK): CDP /json URL matching
+                if not active_context:
+                    cdp_pages = []
+                    try:
+                        resp = urllib.request.urlopen(f"http://127.0.0.1:{self._browser_port}/json")
+                        cdp_targets = json.loads(resp.read())
+                        cdp_pages = [t for t in cdp_targets if t.get("type") == "page"]
                         
+                        pg_url_map: dict[str, Any] = {}
                         for ctx in browser.contexts:
                             for pg in ctx.pages:
-                                try:
-                                    pg_title = await pg.title()
-                                    clean_pg = pg_title.replace(" - Google Chrome", "").replace(" - Microsoft Edge", "").replace(" - Brave", "").replace(" - Opera", "")
-                                    
-                                    score = 0
-                                    # Exact substring match (either direction)
-                                    if clean_pg and (clean_pg in active_title or active_title in clean_pg):
-                                        score = 100
-                                    elif clean_window and clean_window in pg_title:
-                                        score = 80
-                                    else:
-                                        # Partial word overlap
-                                        win_words = set(w.lower() for w in clean_window.split() if len(w) > 3)
-                                        pg_words = set(w.lower() for w in clean_pg.split() if len(w) > 3)
-                                        if win_words and pg_words:
-                                            score = len(win_words & pg_words) * 10
-                                    
-                                    if score > best_score:
-                                        best_score = score
-                                        best_context = ctx
-                                        best_page = pg
-                                except Exception:
-                                    continue
+                                pg_url_map[pg.url] = (ctx, pg)
                         
-                        if best_context and best_score > 0:
-                            active_context = best_context
-                            active_page = best_page
-                            active_info += f" | Title match (score={best_score}, window='{active_title}')"
+                        if cdp_pages:
+                            for cdp_target in cdp_pages:
+                                cdp_url = cdp_target.get("url", "")
+                                cdp_url_base = cdp_url.split("#")[0]
+                                # Try stripped fragment first, then exact
+                                if cdp_url_base in pg_url_map:
+                                    active_context, active_page = pg_url_map[cdp_url_base]
+                                    active_info = f"CDP url match (cdp_first={cdp_url[:40]})"
+                                    break
+                                elif cdp_url in pg_url_map:
+                                    active_context, active_page = pg_url_map[cdp_url]
+                                    active_info = f"CDP exact url match"
+                                    break
+                    except Exception as e:
+                        active_info = f"CDP discovery failed: {e}"
                 
-                # Strategy 3: Fallback - use last context's last page
+                # Strategy 3 (LAST RESORT): Use last context's last page
                 if not active_context:
                     if browser.contexts:
                         active_context = browser.contexts[-1]
                         active_page = active_context.pages[-1] if active_context.pages else None
-                        active_info += f" | Fallback: last context/pages[-1]"
+                        active_info = "Fallback: last context/pages[-1]"
                 
                 if not active_context:
                     return "Error: No active browser context found on port " + str(self._browser_port)
                 
                 page = active_page if active_page else await active_context.new_page()
-                print(f"[BROWSER_DOM]: {active_info}", file=__import__('sys').stderr)
+                
+                # CRITICAL: Bring the matched page to front to ensure it's the active tab
+                try:
+                    await page.bring_to_front()
+                    await asyncio.sleep(0.5)  # Brief wait for tab switch
+                except Exception:
+                    pass
                 
                 # USE A RAW STRING. Do NOT use an f-string to avoid { } conflicts with JS!
                 js_script = """
@@ -275,7 +293,7 @@ class UIElementProvider:
                         if (INTERACTIVE_TAGS.has(tag)) return true;
                         
                         if (node.hasAttribute('onclick') || 
-                            node.getAttribute('role') === 'button' || 
+                            node.getAttribute('role') === 'button' ||
                             node.getAttribute('role') === 'link' ||
                             node.getAttribute('role') === 'checkbox' ||
                             node.getAttribute('role') === 'menuitem') return true;
@@ -390,11 +408,12 @@ class UIElementProvider:
                 """.replace("__WIN_LEFT__", str(win_left)).replace("__WIN_TOP__", str(win_top))
                 
                 result = await page.evaluate(js_script)
+                print(f"[BROWSER_DOM]: Active page identified via {active_info}", file=sys.stderr)
                 await browser.close()
                 return result
         except Exception as e:
             return f"Error connecting to browser: {str(e)}. Make sure to launch with --remote-debugging-port={self._browser_port}"
-
+    
     def get_element(self, index: int) -> UIElement | None:
         """Get element by its index number."""
         return self._elements_map.get(index)
