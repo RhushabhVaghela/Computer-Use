@@ -120,19 +120,54 @@ class UIElementProvider:
         try:
             from playwright.async_api import async_playwright
             
-            # Find the browser window rect on the desktop for coordinate mapping
+            # Find the browser window rect using UIAutomation.
             win_rect = self._get_browser_window_rect()
             win_left = win_rect[0] if win_rect else 0
             win_top = win_rect[1] if win_rect else 0
-
+            
             async with async_playwright() as p:
                 # Try to connect to an existing browser instance
                 browser = await p.chromium.connect_over_cdp(f"http://localhost:{self._browser_port}")
-                context = browser.contexts[0] if browser.contexts else None
-                if not context:
+                
+                # C4 Fix: Target the ACTIVE browser context and page, not always contexts[0]
+                # Find the context that matches the currently focused browser window
+                active_context = None
+                active_page = None
+                
+                # Use uiautomation to find the active browser window title
+                import uiautomation as auto
+                active_win = auto.GetForegroundWindow()
+                active_title = ""
+                if active_win:
+                    try:
+                        active_ctrl = auto.ControlFromHandle(active_win)
+                        active_title = active_ctrl.Name or ""
+                    except Exception:
+                        pass
+                
+                # Iterate through all contexts to find the one matching the active window
+                for ctx in browser.contexts:
+                    for pg in ctx.pages:
+                        pg_title = await pg.title()
+                        if active_title and active_title in pg_title:
+                            active_context = ctx
+                            active_page = pg
+                            break
+                    if active_context:
+                        break
+                
+                # Fallback: if no context matches active window, use the last context
+                # (most recently interacted with window) instead of always contexts[0]
+                if not active_context:
+                    if browser.contexts:
+                        active_context = browser.contexts[-1]
+                    if active_context:
+                        active_page = active_context.pages[-1] if active_context.pages else None
+                
+                if not active_context:
                     return "Error: No active browser context found on port " + str(self._browser_port)
                 
-                page = context.pages[0] if context.pages else await context.new_page()
+                page = active_page if active_page else await active_context.new_page()
                 
                 # USE A RAW STRING. Do NOT use an f-string to avoid { } conflicts with JS!
                 js_script = """
