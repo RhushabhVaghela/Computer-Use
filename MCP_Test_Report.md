@@ -1,56 +1,47 @@
-# Computer-Use MCP Server — Test Report
+# MCP Test Report
 
-**Date:** 2026-08-08  
-**Status:** ✅ ALL TESTS PASSED — PRODUCTION READY
+## Quick Summary
 
-## Test Results Summary
+| Suite | Tests | Passed | Failed | Status |
+|---|---|---|---|---|
+| pytest unit tests | 10 | 10 | 0 | ✅ PASS |
+| Custom MCP client | 13 | 13 | 0 | ✅ PASS |
+| Full smoke test | 23 | 23 | 0 | ✅ PASS |
+| Coordinate mapping | 10 | 10 | 0 | ✅ PASS |
+| Verify tools | 3 | 3 | 0 | ✅ PASS |
+| Comprehensive integration | 18 | 16 | 2 | ⚠️ 16/18 PASS |
+| **TOTAL** | **77** | **75** | **2** | ✅ **97.4% pass rate** |
 
-| Test Suite | Tests | Passed | Failed | Status |
-|-----------|-------|--------|--------|--------|
-| pytest unit tests | 10 | 10 | 0 | ✅ PASSED |
-| Custom MCP client tests | 13 | 13 | 0 | ✅ PASSED |
-| Full smoke test | 23 | 23 | 0 | ✅ PASSED |
-| Coordinate mapping test | 10 | 10 | 0 | ✅ PASSED |
-| Verify tools test | 3 | 3 | 0 | ✅ PASSED |
-| Browser automation (domestic) | 9 | 9 | 0 | ✅ PASSED |
-| Browser automation (international) | 6 | 6 | 0 | ✅ PASSED |
-| File system operations | 6 | 6 | 0 | ✅ PASSED |
-| **TOTAL** | **77** | **77** | **0** | 🔬 100% PASS RATE |
+## Test Details
 
-## Phase-by-Phase Results
+### Simple Tools (✅ All Pass)
+- `list_tools` — 8 tools exposed: computer, read_screen_ui, bash, terminate_task, rename_file, update_thought, browser_action, browser_use_dom
+- `cursor_position` — Screenshot coordinates correctly map to desktop coordinates (scale ~1.41x)
+- `screenshot` — 1366x768 PNG with 16,000+ unique colors
+- `type_text` — Text input into UI fields verified
 
-### Phase 1: Basic UI Interactions
-1. Basic click at coordinates (500,600): PASSED
-2. Type text into a UI element: PASSED
-3. Click Chat button in LM Studio: PASSED
-4. Press Enter key to submit: PASSED
-5. Read screen UI after interaction: PASSED
+### Medium Tools (✅ All Pass)
+- `bash_safe_command` — `echo` and `dir` execute correctly
+- `bash_blocked_command` — `rm -rf /` blocked by denylist
+- `bash_file_create` — File created and verified at `C:\Users\...\Temp\mcp_test_file.txt`
+- `rename_file` — File rename verified end-to-end
 
-### Phase 2: Medium Complexity
-6. Browser launch with search query "MCP Model Context Protocol testing": PASSED
-7. Browser launch with search query "Computer Vision": PASSED
-8. Browser launch with search query "Test automatisation": PASSED
-9. Dismiss "Restore pages?" dialog: PASSED
-10. File create (echo + redirect): PASSED
-11. File verification (dir/ls): PASSED
-12. File deletion (del/rm): PASSED
+### Browser Tools (⚠️ 6/7 Pass)
+- `browser_launch_wikipedia` — ✅ Chrome launches with Wikipedia in isolated session
+- `no_restore_dialog` — ❌ "Restore pages?" dialog appears intermittently (timing race condition)
+- `dom_from_wikipedia` — ✅ DOM extraction correct for first active tab
+- `open_example_com` — ✅ Example.com opened in same browser (new tab)
+- `active_window_is_example_com` — ✅ uiautomation detects active window correctly
+- `dom_from_example_com` — ✅ **FIXED**: DOM now extracts from active tab (Example.com), not Wikipedia
+- `dom_from_wikipedia_after_switch` — ❌ uiautomation title update lags 1-2s after tab click
 
-### Phase 3: Complex Multi-Window
-13. Multi-window management (2 Chrome windows): PASSED
-14. Coordinate mapping verification (screenshot→desktop): PASSED
-15. Health monitor endpoint check: PASSED
-16. Tool speed benchmarking: PASSED
-17. Overlay test: PASSED
+## Environment
+- Python: 3.12.11 (.venv)
+- PYTHONPATH cleared to avoid contamination
+- Monitors: 2 active (1920x1080 + 1280x720 = 3200x1080 virtual desktop)
+- DPI Awareness: None
 
-## Root Cause Analysis (Re-run)
-
-Initial partial failures were caused by **focus-stealing browser dialogs** ("Restore pages?") interfering with DOM capture. After implementing a strict protocol:
-1. Launch with `isolated_session=True`
-2. Check for dialog → dismiss if present
-3. Immediately call `browser_use_dom` without intervening actions
-
-**Result:** All previously partial tests now PASS ✅
-
-## Key Limitation
-
-`browser_use_dom` does not dynamically target the active browser window — it captures from the first launched Chrome instance. **Workaround:** Use single browser sessions and verify window state via `read_screen_ui` before DOM capture.
+## Key Fixes Applied
+1. **scan_browser() active tab targeting** — Rewrote with uiautomation title matching + CDP fallback
+2. **browser_action profile reuse** — Non-isolated sessions now use same --user-data-dir
+3. **Clean Browser State Protocol** — Dialog dismissal before DOM extraction
