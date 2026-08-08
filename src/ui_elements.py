@@ -253,7 +253,7 @@ class UIElementProvider:
                 # CRITICAL: Bring the matched page to front to ensure it's the active tab
                 try:
                     await page.bring_to_front()
-                    await asyncio.sleep(0.5)  # Brief wait for tab switch
+                    await asyncio.sleep(1.5)  # Wait for tab switch + uiautomation propagation
                 except Exception:
                     pass
                 

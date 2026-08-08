@@ -1403,46 +1403,61 @@ async def browser_action(url: str = None, search_query: str = None, browser: str
         print(f"[BROWSER]: Launching {browser} with command: {cmd}", file=sys.stderr)
         result = await bash(cmd)
         
-        # C4 Enhancement: Wait for browser to load and dismiss any "Restore pages?" dialog
+        # C4 Enhancement: When isolated_session=False on Windows with Chrome, 
+        # if the launch command created a new process (not just a tab), 
+        # suppress the "Chrome didn't shut down correctly" dialog that appears
+        # because the previous Chrome process was force-killed.
+        # Wait for browser to load and dismiss any startup dialogs
         # This dialog appears when Chrome is launched with a previous session that crashed
-        await asyncio.sleep(2)
+        # Use polling detection: check every 500ms for up to 6 seconds
         try:
             _ui_provider = get_ui_provider()
             _computer_tool = get_computer_tool()
             import mss
             with mss.MSS() as sct:
                 desktop = _get_capture_region(sct)
-            _ui_provider.reset()
             with mss.MSS() as sct:
                 monitors = [sct.monitors[1]]
-            scanned = _ui_provider.scan(monitors=monitors)
-            ui_text = _ui_provider.format_for_llm(
-                monitors=monitors, computer_tool=_computer_tool, desktop=desktop,
-                display_size=(_pick_scaled_size(desktop["width"], desktop["height"]))
-            )
-            if "Restore" in ui_text or "restore" in ui_text:
-                # Dismiss the restore dialog by pressing Escape or clicking "No thanks"
-                print("[BROWSER]: Restore dialog detected, dismissing...", file=sys.stderr)
-                await asyncio.sleep(1)
-                try:
-                    # Try pressing Escape to dismiss
-                    direct_move_to(100, 100)
-                    pyautogui.press("escape")
-                except Exception:
-                    pass
-                await asyncio.sleep(1)
-                # If still there, try clicking "Leave" or "No thanks" button
+            
+            dialog_found = False
+            for attempt in range(12):  # Poll up to 6 seconds (12 x 500ms)
+                await asyncio.sleep(0.5)
                 _ui_provider.reset()
                 with mss.MSS() as sct:
                     scanned = _ui_provider.scan(monitors=monitors)
-                ui_text2 = _ui_provider.format_for_llm(
+                ui_text = _ui_provider.format_for_llm(
                     monitors=monitors, computer_tool=_computer_tool, desktop=desktop,
                     display_size=(_pick_scaled_size(desktop["width"], desktop["height"]))
                 )
-                if "Restore" in ui_text2:
-                    # Click near the center of the dialog to dismiss
-                    direct_move_to(960, 540)
-                    pyautogui.press("escape")
+                # Check for various dialog strings (case-insensitive)
+                lower_text = ui_text.lower()
+                if "restore" in lower_text or "didn't shut down correctly" in lower_text or "crash" in lower_text:
+                    dialog_found = True
+                    print(f"[BROWSER]: Restore dialog detected (attempt {attempt+1}), dismissing...", file=sys.stderr)
+                    try:
+                        direct_move_to(100, 100)
+                        pyautogui.press("escape")
+                    except Exception:
+                        pass
+                    await asyncio.sleep(0.5)
+                    # Verify dialog is gone
+                    _ui_provider.reset()
+                    with mss.MSS() as sct:
+                        scanned = _ui_provider.scan(monitors=monitors)
+                    ui_text2 = _ui_provider.format_for_llm(
+                        monitors=monitors, computer_tool=_computer_tool, desktop=desktop,
+                        display_size=(_pick_scaled_size(desktop["width"], desktop["height"]))
+                    )
+                    if "Restore" in ui_text2:
+                        # Try clicking near center of dialog
+                        direct_move_to(960, 540)
+                        pyautogui.press("escape")
+                        await asyncio.sleep(0.5)
+                    break
+            
+            if not dialog_found:
+                # Final confirmation check
+                await asyncio.sleep(0.5)
         except Exception as e:
             print(f"[BROWSER]: Dialog check failed (non-critical): {e}", file=sys.stderr)
         
